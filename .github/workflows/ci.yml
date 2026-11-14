@@ -40,6 +40,8 @@ jobs:
           echo '87493b72916f12054176c2a8bbf9547fe63cb5754bdddfe300219d9b57e626af  /tmp/flutter.tar.xz' | sha256sum -c
           tar -xf /tmp/flutter.tar.xz -C /opt
           echo '/opt/flutter/bin' >> "$GITHUB_PATH"
+      - name: Build full categorized offline library and matching SVG animations
+        run: python scripts/build_complete_library.py --with-media
       - run: flutter pub get
         working-directory: mobile
       - run: flutter analyze --no-pub

@@ -1,7 +1,7 @@
 name: liftlog
 description: Registro de entrenamiento y comunidad autoalojada.
 publish_to: none
-version: 1.1.0+2
+version: 1.4.0+5
 environment:
   sdk: '>=3.9.0 <4.0.0'
 dependencies:
@@ -31,3 +31,5 @@ flutter:
     - assets/catalog.json
     - assets/levels.json
     - assets/maps/
+    - assets/motion_index.json
+    - assets/flow_frames/

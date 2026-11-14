@@ -14,8 +14,11 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'core.dart';
 part 'training.dart';
+
 part 'community.dart';
 part 'account.dart';
+
+Map<String, Map<String, dynamic>> exerciseMotions = {};
 
 const lime = Color(0xFFB5FF39),
     muted = Color(0xFFA6ADB4),
@@ -50,6 +53,12 @@ final routes = GoRouter(
 );
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  try {
+    final data = jsonDecode(await rootBundle.loadString('assets/motion_index.json')) as Map;
+    exerciseMotions = data.map((key, value) => MapEntry(key.toString(), Map<String, dynamic>.from(value as Map)));
+  } catch (_) {
+    exerciseMotions = {};
+  }
   final a = LogState(await Store.open(), Api());
   await a.init();
   runApp(

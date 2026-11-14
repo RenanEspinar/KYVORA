@@ -86,6 +86,59 @@ String setLabel(Json st, Json ex, bool imperial) {
       : ''}";
 }
 
+// Las animaciones se cargan de assets generados durante la compilación.
+// Un ejercicio sin frames verificados conserva su ilustración estática.
+class ExerciseMotion extends StatefulWidget {
+  final Json exercise;
+  final double width;
+  final double height;
+  const ExerciseMotion(this.exercise, {super.key, this.width = 100, this.height = 72});
+  @override
+  State<ExerciseMotion> createState() => _ExerciseMotionState();
+}
+
+class _ExerciseMotionState extends State<ExerciseMotion> {
+  Timer? _ticker;
+  int _frame = 0;
+  @override
+  void initState() { super.initState(); _start(); }
+  void _start() {
+    _ticker?.cancel();
+    final motion = exerciseMotions[widget.exercise['id']?.toString()];
+    if (motion == null) return;
+    final seq = motion['sequence'] as List<dynamic>? ?? [];
+    if (seq.isEmpty) return;
+    _ticker = Timer.periodic(Duration(milliseconds: (motion['duration_ms'] as int?) ?? 250), (_) {
+      if (mounted) setState(() => _frame = (_frame + 1) % seq.length);
+    });
+  }
+  @override
+  void didUpdateWidget(covariant ExerciseMotion oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.exercise['id'] != widget.exercise['id']) { _frame = 0; _start(); }
+  }
+  @override
+  void dispose() { _ticker?.cancel(); super.dispose(); }
+  @override
+  Widget build(BuildContext context) {
+    final motion = exerciseMotions[widget.exercise['id']?.toString()];
+    final frames = motion?['frames'] as List<dynamic>?;
+    final sequence = motion?['sequence'] as List<dynamic>?;
+    Widget visual;
+    if (frames != null && sequence != null && frames.isNotEmpty && sequence.isNotEmpty) {
+      final index = sequence[_frame % sequence.length] as int;
+      visual = SvgPicture.asset(frames[index] as String,
+        width: widget.width, height: widget.height, fit: BoxFit.contain,
+        semanticsLabel: 'Secuencia ilustrativa: ${widget.exercise['name']}');
+    } else {
+      visual = SvgPicture.asset((widget.exercise['image'] ?? 'assets/maps/arms.svg').toString(),
+        width: widget.width, height: widget.height, fit: BoxFit.contain,
+        semanticsLabel: 'Esquema estático del ejercicio');
+    }
+    return ClipRRect(borderRadius: BorderRadius.circular(12), child: visual);
+  }
+}
+
 Future<void> technique(BuildContext c, Json e) => showModalBottomSheet(
   context: c,
   isScrollControlled: true,
@@ -97,7 +150,9 @@ Future<void> technique(BuildContext c, Json e) => showModalBottomSheet(
       controller: scroll,
       padding: const EdgeInsets.all(20),
       children: [
-        SizedBox(height: 110, child: SvgPicture.asset(e['image'])),
+        Center(child: ExerciseMotion(e, width: 280, height: 180)),
+        const SizedBox(height: 5),
+        const Text('Demostración visual de referencia · consulta la técnica específica', style: TextStyle(color: muted, fontSize: 11)),
         Text(e['name'], style: Theme.of(d).textTheme.headlineMedium),
         Note('${e['name_en']} · ${e['muscle']} · ${e['equipment']}'),
         Text(e['description']),
@@ -124,15 +179,18 @@ class Picker extends StatefulWidget {
 
 class _Picker extends State<Picker> {
   String filter = '';
+  String muscleFilter = 'Todos';
+  String equipmentFilter = 'Todos';
   @override
   Widget build(BuildContext c) {
-    final items = widget.exercises
-        .where(
-          (e) => "${e['name']} ${e['name_en']} ${e['muscle']} ${e['equipment']}"
-              .toLowerCase()
-              .contains(filter.toLowerCase()),
-        )
-        .toList();
+    final muscles = ['Todos', ...(widget.exercises.map((e) => e['muscle']?.toString() ?? 'otros').toSet().toList()..sort())];
+    final equipment = ['Todos', ...(widget.exercises.map((e) => e['equipment']?.toString() ?? 'otro').toSet().toList()..sort())];
+    final query = filter.trim().toLowerCase();
+    final items = widget.exercises.where((e) =>
+       (muscleFilter == 'Todos' || e['muscle'] == muscleFilter) &&
+       (equipmentFilter == 'Todos' || e['equipment'] == equipmentFilter) &&
+       "${e['name']} ${e['name_en']} ${e['muscle']} ${e['equipment']} ${e['target'] ?? ''}"
+         .toLowerCase().contains(query)).toList();
     return SizedBox(
       height: MediaQuery.sizeOf(c).height * .85,
       child: Padding(
@@ -152,6 +210,19 @@ class _Picker extends State<Picker> {
               ),
               onChanged: (v) => setState(() => filter = v),
             ),
+            const SizedBox(height: 8),
+            SizedBox(height: 45, child: ListView(scrollDirection: Axis.horizontal, children: muscles.map((group) =>
+              Padding(padding: const EdgeInsets.only(right: 6), child: ChoiceChip(
+                label: Text(group), selected: muscleFilter == group,
+                onSelected: (_) => setState(() => muscleFilter = group),
+              ))).toList())),
+            SizedBox(height: 45, child: ListView(scrollDirection: Axis.horizontal, children: equipment.map((eq) =>
+              Padding(padding: const EdgeInsets.only(right: 6), child: ChoiceChip(
+                label: Text(eq), selected: equipmentFilter == eq,
+                onSelected: (_) => setState(() => equipmentFilter = eq),
+              ))).toList())),
+            Align(alignment: Alignment.centerLeft, child: Text('${items.length} resultados',
+              style: const TextStyle(color: muted, fontSize: 12))),
             Expanded(
               child: ListView.builder(
                 itemCount: items.length,
@@ -159,8 +230,8 @@ class _Picker extends State<Picker> {
                   final e = items[i];
                   return ListTile(
                     leading: SizedBox(
-                      width: 34,
-                      child: SvgPicture.asset(e['image']),
+                      width: 72,
+                      child: ExerciseMotion(e, width: 68, height: 54),
                     ),
                     title: Text(e['name']),
                     subtitle: Text("${e['muscle']} · ${e['equipment']}"),
@@ -402,6 +473,13 @@ class _Session extends ConsumerState<SessionPage> {
                             icon: const Icon(Icons.info_outline),
                           ),
                         ],
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: InkWell(
+                          onTap: () => technique(c, ex),
+                          child: ExerciseMotion(ex, width: 140, height: 94),
+                        ),
                       ),
                       Text(
                         "${ex['muscle']} · ${ex['equipment']}",
