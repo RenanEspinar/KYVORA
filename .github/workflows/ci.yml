@@ -44,6 +44,8 @@ jobs:
         run: python scripts/build_complete_library.py --with-media
       - name: Prefer exercise-specific GIFs, audit remaining motions
         run: python scripts/complete_gif_coverage.py
+      - name: Reconcile original exercises with existing Flow animations
+        run: python scripts/reconcile_original_motions.py
       - name: Verify motion coverage audit
         run: |
           python - <<'PY2'
