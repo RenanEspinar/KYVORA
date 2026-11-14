@@ -557,6 +557,7 @@ class _Session extends ConsumerState<SessionPage> {
             ? Json.from(list.last as Map)
             : previousSet(a.workouts, ex['id'], except: widget.id));
     final storedMethod = await a.db.read(a.owner, 'load_profile', ex['id']);
+    if (!mounted) return;
     final value = repeat && source != null
         ? clone(source)
         : await showModalBottomSheet<Json>(

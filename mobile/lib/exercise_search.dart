@@ -131,7 +131,9 @@ bool exerciseMatchesFilters(Map<String,dynamic> e,{
   if(muscle!=null && muscleGroupOf(e)!=muscle) {
     final secondary=e['secondary'];
     if(!includeSecondary || secondary is! List ||
-       !secondary.any((g)=>muscleGroupOf({'muscle':g})==muscle)) return false;
+       !secondary.any((g)=>muscleGroupOf({'muscle':g})==muscle)) {
+      return false;
+    }
   }
   if(equipment!=null && equipmentGroupOf(e)!=equipment) return false;
   if(laterality!=null && lateralityOf(e)!=laterality) return false;

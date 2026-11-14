@@ -208,9 +208,11 @@ class ProfilePage extends ConsumerWidget {
                   if (!c.mounted) return;
                   if (permitted) {
                     final precise = await restAlerts.requestPreciseAlarms();
-                    if (c.mounted) snack(c, precise
-                        ? 'Avisos puntuales habilitados.'
-                        : 'Avisos habilitados; Android podría retrasarlos.');
+                    if (c.mounted) {
+                      snack(c, precise
+                          ? 'Avisos puntuales habilitados.'
+                          : 'Avisos habilitados; Android podría retrasarlos.');
+                    }
                   } else {
                     snack(c, 'Permite las notificaciones desde los ajustes de Android.');
                   }
