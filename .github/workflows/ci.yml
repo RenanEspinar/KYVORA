@@ -42,6 +42,27 @@ jobs:
           echo '/opt/flutter/bin' >> "$GITHUB_PATH"
       - name: Build full categorized offline library and matching SVG animations
         run: python scripts/build_complete_library.py --with-media
+      - name: Prefer exercise-specific GIFs, audit remaining motions
+        run: python scripts/complete_gif_coverage.py
+      - name: Verify motion coverage audit
+        run: |
+          python - <<'PY2'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('reports/motion_coverage.json').read_text())
+          print('Catalog:',r['total'],'Animated:',r['animated'],'Static:',r['static'])
+          assert r['total'] == r['animated'] + r['static']
+          PY2
+      - name: Upload animation coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: liftlog-motion-coverage
+          path: |
+            reports/motion_coverage.*
+            reports/motion_priority_report.csv
+            reports/motion_priority_summary.json
+            reports/needs_original_animation.json
+          if-no-files-found: error
       - run: flutter pub get
         working-directory: mobile
       - run: flutter analyze --no-pub
