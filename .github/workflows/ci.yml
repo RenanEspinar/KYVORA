@@ -49,9 +49,10 @@ jobs:
           python - <<'PY2'
           import json
           from pathlib import Path
-          r=json.loads(Path('reports/motion_coverage.json').read_text())
-          print('Catalog:',r['total'],'Animated:',r['animated'],'Static:',r['static'])
-          assert r['total'] == r['animated'] + r['static']
+          r=json.loads(Path('reports/motion_priority_summary.json').read_text())
+          animated=r['authorized_gifs']+r['flow_svg']
+          print('Catalog:',r['total'],'Animated:',animated,'Static:',r['need_original'])
+          assert r['total'] == animated + r['need_original']
           PY2
       - name: Upload animation coverage report
         uses: actions/upload-artifact@v4
