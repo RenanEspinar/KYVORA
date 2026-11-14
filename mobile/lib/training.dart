@@ -562,10 +562,9 @@ class _SetForm extends State<SetForm> {
     final old = widget.old ?? {};
     kind = old['kind'] ?? 'normal';
     values = {
-      'load_kg': displayMass(
-        numOf(old['load_kg']),
-        widget.imperial,
-      ).toStringAsFixed(2),
+      'load_kg': numOf(old['load_kg']) == 0
+          ? ''
+          : displayMass(numOf(old['load_kg']), widget.imperial).toStringAsFixed(2),
       'reps': '${old['reps'] ?? 10}',
       'seconds': '${old['seconds'] ?? 60}',
       'distance_m': '${old['distance_m'] ?? 1000}',
@@ -573,6 +572,49 @@ class _SetForm extends State<SetForm> {
       'rir': '${old['rir'] ?? ''}',
       'rest_seconds': '${old['rest_seconds'] ?? 90}',
     };
+  }
+
+  Widget repetitionsWheel() {
+    final initial = (int.tryParse(values['reps'] ?? '') ?? 10).clamp(1, 1000);
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('Repeticiones', style: TextStyle(color: muted)),
+          const SizedBox(height: 8),
+          SizedBox(
+            height: 142,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  height: 46,
+                  decoration: BoxDecoration(
+                    color: lime.withValues(alpha: .12),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: lime.withValues(alpha: .5)),
+                  ),
+                ),
+                ListWheelScrollView.useDelegate(
+                  controller: FixedExtentScrollController(initialItem: initial - 1),
+                  physics: const FixedExtentScrollPhysics(),
+                  itemExtent: 46,
+                  onSelectedItemChanged: (index) => values['reps'] = '${index + 1}',
+                  childDelegate: ListWheelChildBuilderDelegate(
+                    childCount: 1000,
+                    builder: (context, index) => Center(
+                      child: Text('${index + 1}',
+                        style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w600)),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget field(
@@ -587,11 +629,11 @@ class _SetForm extends State<SetForm> {
     child: TextFormField(
       initialValue: values[k],
       keyboardType: TextInputType.numberWithOptions(decimal: !integer),
-      decoration: InputDecoration(labelText: label),
+      decoration: InputDecoration(labelText: label, hintText: k == 'load_kg' ? '0' : null),
       onChanged: (v) => values[k] = v.replaceAll(',', '.'),
       validator: (_) {
         final v = values[k] ?? '';
-        if (optional && v.isEmpty) return null;
+        if ((optional || k == 'load_kg') && v.isEmpty) return null;
         final n = double.tryParse(v);
         return n == null ||
                 !n.isFinite ||
@@ -639,7 +681,7 @@ class _SetForm extends State<SetForm> {
                   0,
                   displayMass(1000, widget.imperial),
                 ),
-              if (!timed) field('reps', 'Repeticiones', 1, 1000, integer: true),
+              if (!timed) repetitionsWheel(),
               if (timed) field('seconds', 'Duración (s)', 1, 86400),
               if (mode == 'distance_time')
                 field('distance_m', 'Distancia (m)', 1, 1000000),
@@ -692,7 +734,7 @@ class _SetForm extends State<SetForm> {
                       'id': ids.v4(),
                       'kind': kind,
                       'load_kg': weighted
-                          ? normalizedMass(val('load_kg')!, widget.imperial)
+                          ? normalizedMass(val('load_kg') ?? 0, widget.imperial)
                           : 0.0,
                       'reps': timed ? null : val('reps')!.toInt(),
                       'seconds': timed ? val('seconds') : null,
