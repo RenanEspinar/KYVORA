@@ -13,7 +13,7 @@ from .auth import me
 async def lifecycle(app):
     with engine.connect() as c:training.seed(c)
     yield
-app=FastAPI(title='LIFTLOG',version='1.0.0-preview.1',docs_url='/api/v1/docs',openapi_url='/api/v1/openapi.json',redoc_url=None,lifespan=lifecycle)
+app=FastAPI(title='KYVORA',version='1.0.0-preview.1',docs_url='/api/v1/docs',openapi_url='/api/v1/openapi.json',redoc_url=None,lifespan=lifecycle)
 api=APIRouter(prefix='/api/v1')
 history=deque(maxlen=100000)
 @api.get('/health')

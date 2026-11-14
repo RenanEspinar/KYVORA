@@ -8,22 +8,29 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'rest_alerts.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'core.dart';
+import 'exercise_search.dart';
 part 'training.dart';
+part 'advanced_sets.dart';
+part 'load_entry.dart';
 
 part 'community.dart';
 part 'account.dart';
+part 'wellness.dart';
 
 Map<String, Map<String, dynamic>> exerciseMotions = {};
 
-const lime = Color(0xFFB5FF39),
-    muted = Color(0xFFA6ADB4),
-    surface = Color(0xFF1C2024),
-    canvas = Color(0xFF101214);
+// Color token kept as `lime` temporarily to avoid changing legacy widgets.
+const lime = Color(0xFF3B82F6),
+    muted = Color(0xFF93A4B8),
+    surface = Color(0xFF162339),
+    canvas = Color(0xFF0B1424);
 const destinations = [
   '/inicio',
   '/entrenar',
@@ -42,6 +49,7 @@ final routes = GoRouter(
         GoRoute(path: '/comunidad', builder: (_, _) => const Feed()),
         GoRoute(path: '/rankings', builder: (_, _) => const Rankings()),
         GoRoute(path: '/perfil', builder: (_, _) => const ProfilePage()),
+        GoRoute(path: '/recomposicion', builder: (_, _) => const RecompPage()),
       ],
     ),
     GoRoute(
@@ -59,6 +67,7 @@ Future<void> main() async {
   } catch (_) {
     exerciseMotions = {};
   }
+  await restAlerts.init();
   final a = LogState(await Store.open(), Api());
   await a.init();
   runApp(
@@ -73,7 +82,7 @@ class Liftlog extends StatelessWidget {
   const Liftlog({super.key});
   @override
   Widget build(BuildContext c) => MaterialApp.router(
-    title: 'LIFTLOG',
+    title: 'KYVORA',
     debugShowCheckedModeBanner: false,
     routerConfig: routes,
     locale: const Locale('es'),
@@ -107,7 +116,7 @@ class Liftlog extends StatelessWidget {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: const Color(0xFF282D32),
+        fillColor: const Color(0xFF1C2C43),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide.none,
@@ -177,7 +186,7 @@ class _Shell extends ConsumerState<Shell> with WidgetsBindingObserver {
                     horizontal: 20,
                     vertical: 8,
                   ),
-                  color: const Color(0xFF273321),
+                  color: const Color(0xFF193452),
                   child: Text(
                     '$pending guardados · pendientes de sincronizar',
                     style: const TextStyle(color: lime, fontSize: 12),
@@ -330,7 +339,7 @@ class NeedAccount extends StatelessWidget {
   Widget build(BuildContext c) => ListView(
     padding: const EdgeInsets.all(20),
     children: [
-      TitleBlock('LIFTLOG', title),
+      TitleBlock('KYVORA', title),
       const Note(
         'Para conectar con otros atletas, inicia sesión en el servidor. Puedes seguir registrando entrenamientos en modo local.',
       ),
@@ -370,7 +379,7 @@ class Home extends ConsumerWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         children: [
           TitleBlock(
-            'LIFTLOG  /  entrenamiento',
+            'KYVORA  /  entrenamiento',
             a.onlineAccount ? 'Tu entrenamiento' : 'Tu espacio',
             action: IconButton(
               tooltip: 'Sincronizar ahora',
@@ -385,7 +394,7 @@ class Home extends ConsumerWidget {
               gradient: const LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [Color(0xFF26331F), surface],
+                colors: [Color(0xFF17355A), surface],
               ),
             ),
             child: Column(
@@ -416,6 +425,8 @@ class Home extends ConsumerWidget {
               ],
             ),
           ),
+          const SizedBox(height: 20),
+          const WarmupAndTips(),
           const SizedBox(height: 20),
           Text('Últimos 7 días', style: Theme.of(c).textTheme.titleLarge),
           Card(

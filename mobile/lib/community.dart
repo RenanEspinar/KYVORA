@@ -700,110 +700,100 @@ class Rankings extends ConsumerStatefulWidget {
 }
 
 class _Rankings extends ConsumerState<Rankings> {
-  String? exercise, owner;
+  String group = 'pecho';
   String status = 'self_declared';
+  String? owner;
   Future<dynamic>? job;
+
+  static const groups = <String, String>{
+    'pecho': 'Pecho',
+    'espalda': 'Espalda',
+    'cuádriceps': 'Cuádriceps',
+    'cadena posterior': 'Cadena posterior',
+    'hombros': 'Hombros',
+    'bíceps': 'Bíceps',
+    'tríceps': 'Tríceps',
+    'abdomen': 'Abdomen',
+    'glúteos': 'Glúteos',
+  };
+
   void update(LogState a) {
-    job = a.api.get('/rankings', {'exercise_id': exercise, 'status': status});
+    job = a.api.get('/rankings/groups', {'group': group, 'status': status});
   }
 
   @override
   Widget build(BuildContext c) {
     final a = ref.watch(stateProvider);
-    if (!a.onlineAccount) return const NeedAccount('Rankings');
-    final exercises = Json.from(a.rules['exercises']);
-    final labels = (a.rules['labels'] as List).cast<String>();
-    exercise ??= exercises.keys.first;
+    if (!a.onlineAccount) return const NeedAccount('Competencias');
     if (owner != a.owner || job == null) {
       owner = a.owner;
       update(a);
     }
-    return ListView(
-      padding: const EdgeInsets.all(18),
-      children: [
-        TitleBlock(
-          'Competición · ${a.rules['version']}',
-          'Clasificación',
-          action: IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: () => setState(() => update(a)),
-          ),
-        ),
-        DropdownButtonFormField(
-          initialValue: exercise,
-          isExpanded: true,
-          items: exercises.entries
-              .map(
-                (e) => DropdownMenuItem(
-                  value: e.key,
-                  child: Text(e.value['name']),
-                ),
-              )
-              .toList(),
-          onChanged: (v) => setState(() {
-            exercise = v;
-            update(a);
-          }),
-        ),
-        DropdownButtonFormField(
-          initialValue: status,
-          items: statuses.entries
-              .map((e) => DropdownMenuItem(value: e.key, child: Text(e.value)))
-              .toList(),
-          onChanged: (v) => setState(() {
-            status = v!;
-            update(a);
-          }),
-        ),
-        const Note(
-          'Mejor carga levantada dividida por el peso corporal registrado en la sesión. Una posición por atleta que haya aceptado participar.',
-        ),
-        FutureBuilder(
-          future: job,
-          builder: (_, s) {
-            if (s.connectionState != ConnectionState.done) {
-              return const LinearProgressIndicator();
-            }
-            if (s.hasError) return Note(a.api.explain(s.error!));
-            final rows = s.data['items'] as List;
-            if (rows.isEmpty) {
-              return Note(
-                status == 'verified'
-                    ? 'La revisión oficial de evidencia aún no está habilitada.'
-                    : 'Todavía no hay marcas en esta clasificación.',
-              );
-            }
-            return Column(
-              children: [
-                for (final r in rows)
-                  Card(
-                    child: ListTile(
-                      leading: Medal(labels.indexOf(r['level'])),
-                      title: Text(
-                        '${r['rank']}. ${r['athlete']['display_name']}',
-                      ),
-                      subtitle: Text(
-                        '${r['level']} · ${recordLabel(a, r['record'])}',
-                      ),
-                      trailing: Text('${r['ratio']}×'),
-                    ),
-                  ),
-              ],
-            );
-          },
-        ),
-        ExpansionTile(
-          title: const Text('Los seis niveles LIFTLOG'),
-          children: [
-            for (var i = 0; i < labels.length; i++)
-              ListTile(
-                leading: Medal(i),
-                title: Text(labels[i]),
-                trailing: Text('≥ ${exercises[exercise]['thresholds'][i]}×'),
-              ),
-          ],
-        ),
-      ],
-    );
+    return ListView(padding: const EdgeInsets.all(18), children: [
+      TitleBlock('KYVORA  /  comunidad', 'Competencias',
+        action: IconButton(icon: const Icon(Icons.refresh),
+          onPressed: () => setState(() => update(a)))),
+      Card(child: ListTile(
+        leading: const Icon(Icons.monitor_weight_outlined, color: lime),
+        title: const Text('Body Recomp'),
+        subtitle: const Text('Seguimiento privado de grasa estimada, cintura y fuerza; pensado también para mujeres.'),
+        trailing: const Icon(Icons.chevron_right),
+        onTap: () => c.go('/recomposicion'),
+      )),
+      const SizedBox(height: 14),
+      Text('Clasificación por grupo muscular', style: Theme.of(c).textTheme.titleLarge),
+      const SizedBox(height: 12),
+      DropdownButtonFormField<String>(
+        initialValue: group,
+        isExpanded: true,
+        decoration: const InputDecoration(labelText: 'Grupo muscular'),
+        items: groups.entries.map((e) => DropdownMenuItem(
+          value: e.key, child: Text(e.value))).toList(),
+        onChanged: (v) {
+          if (v == null) return;
+          setState(() {group = v; update(a);});
+        },
+      ),
+      const SizedBox(height: 10),
+      DropdownButtonFormField<String>(
+        initialValue: status,
+        decoration: const InputDecoration(labelText: 'Validación'),
+        items: statuses.entries.map((e) => DropdownMenuItem(
+          value: e.key, child: Text(e.value))).toList(),
+        onChanged: (v) {
+          if (v == null) return;
+          setState(() {status = v; update(a);});
+        },
+      ),
+      const Note('Se comparan marcas de fuerza relativas al peso corporal y normalizadas frente a una prueba de referencia por movimiento. Solo participan atletas que aceptaron entrar en rankings.'),
+      FutureBuilder<dynamic>(
+        future: job,
+        builder: (_, snap) {
+          if (snap.connectionState != ConnectionState.done) {
+            return const LinearProgressIndicator();
+          }
+          if (snap.hasError) {
+            return const Note('La clasificación por grupos necesita KYVORA API 2.0 en el servidor. Las sesiones de entrenamiento siguen disponibles.');
+          }
+          final response = snap.data as Map;
+          final tests = (response['tests'] as List?) ?? [];
+          final rows = (response['items'] as List?) ?? [];
+          if (tests.isEmpty) {
+            return const Note('Este grupo todavía no tiene una prueba de fuerza estandarizada. No se asignarán puntos arbitrarios.');
+          }
+          return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Note('Prueba(s) comparable(s): ${tests.join(', ')}'),
+            if (rows.isEmpty) const Note('Aún no hay marcas registradas para esta categoría.'),
+            for (final r in rows) Card(child: ListTile(
+              leading: CircleAvatar(backgroundColor: lime.withValues(alpha: .12),
+                child: Text('${r['rank']}',style: const TextStyle(color: lime))),
+              title: Text(r['athlete']['display_name'] as String),
+              subtitle: Text(recordLabel(a, r['record'] as Map)),
+              trailing: Text('${r['score']} pt'),
+            )),
+          ]);
+        },
+      ),
+    ]);
   }
 }

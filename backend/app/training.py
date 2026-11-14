@@ -24,7 +24,7 @@ def view_workout(c,w):
     result={k:w[k] for k in ['id','name','notes','bodyweight_kg','started_at','ended_at','version','created_at','updated_at']}
     result['exercises']=[]
     for m in rows(c,s.select(moves).where(moves.c.workout_id==w['id']).order_by(moves.c.position)):
-        fields=['id','load_kg','kind','reps','seconds','distance_m','rpe','rir','rest_seconds']
+        fields=['id','load_kg','kind','method','block_id','phase','reps','seconds','distance_m','rpe','rir','rest_seconds']
         result['exercises'].append({'id':m['id'],'exercise_id':m['exercise_id'],'superset':m['superset'],'sets':rows(c,s.select(*(sets.c[k] for k in fields)).where(sets.c.move_id==m['id']).order_by(sets.c.position))})
     return jsonable_encoder(result)
 def public_record(r):
@@ -37,7 +37,8 @@ def validate_mode(mode,v):
         raise HTTPException(422,'Esta modalidad requiere repeticiones')
     if mode=='bodyweight_reps' and v.load_kg:raise HTTPException(422,'Usa la variante lastrada para añadir masa')
 def candidates(mode,st):
-    if st.kind=='warmup' or not st.reps:return []
+    # Do not turn short drop/rest-pause mini-sets into standalone PRs.
+    if st.kind=='warmup' or st.method!='straight' or not st.reps:return []
     if mode=='bodyweight_reps':return [('bodyweight_reps',st.reps)]
     if mode not in ('weight_reps','weighted_reps') or not st.load_kg:return []
     result=[('max_weight',st.load_kg),('reps_at_weight',st.reps)]

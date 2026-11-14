@@ -1,0 +1,18 @@
+{
+  "total": 157,
+  "methods": {
+    "barbell": 21,
+    "dumbbell_pair": 18,
+    "machine": 22,
+    "cable_pair": 4,
+    "bodyweight": 20,
+    "added": 2,
+    "assisted": 2,
+    "cable_single": 40,
+    "dumbbell_single": 13,
+    "plate_machine": 4,
+    "none": 11
+  },
+  "needs_review": 9,
+  "unassigned": 0
+}

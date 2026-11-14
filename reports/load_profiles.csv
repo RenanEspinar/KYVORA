@@ -1,0 +1,158 @@
+id,exercise,equipment,recording,entry_method,confidence,unilateral
+d05644a2-ad75-509c-a75c-c2180c5ff85f,Press de banca,barra,weight_reps,barbell,rule,False
+7f0b1aa3-d319-562e-bfc8-5967f85937d5,Press inclinado con barra,barra,weight_reps,barbell,rule,False
+c8785d9b-6369-5240-8ce9-77f9b40f4986,Press con mancuernas,mancuernas,weight_reps,dumbbell_pair,rule,False
+21257be7-c60c-58e8-8b5a-324dd902ae13,Press inclinado con mancuernas,mancuernas,weight_reps,dumbbell_pair,rule,False
+fc505978-acaf-55a0-a1b8-22cf81f829a7,Press en el suelo,mancuernas,weight_reps,dumbbell_pair,rule,False
+ce2a1d7d-afa6-5f04-a68c-034037ffa806,Press de pecho en máquina,máquina,weight_reps,machine,rule,False
+3cb8f0cd-5512-57da-ba3c-946aa1f017f9,Aperturas con mancuernas,mancuernas,weight_reps,dumbbell_pair,rule,False
+4c4f7f33-13da-5b5a-afe7-e6c54f32f8dd,Aperturas en poleas,poleas,weight_reps,cable_pair,rule,False
+62da7df8-d5a9-52c6-bbe3-3eb01242513b,Cruce de poleas alto,poleas,weight_reps,cable_pair,rule,False
+3d09d855-be15-56f6-96cc-34298371af0c,Pec deck,máquina,weight_reps,machine,rule,False
+d92808b9-2aa3-55d8-baff-b74c25499dc9,Flexiones,peso corporal,bodyweight_reps,bodyweight,rule,False
+1343d859-746c-509b-b02d-4e6c84b573aa,Flexiones inclinadas,banco,bodyweight_reps,bodyweight,rule,False
+4d9415ca-d22a-56ea-bf62-b397441bbb32,Flexiones declinadas,banco,bodyweight_reps,bodyweight,rule,False
+1d90aaba-d8df-5de4-ab7b-d580fa4be3fd,Flexiones cerradas,peso corporal,bodyweight_reps,bodyweight,rule,False
+92fe6e47-1390-525e-9212-fe84f3038907,Dominadas pronas,barra fija,bodyweight_reps,bodyweight,rule,False
+b087c1a6-abfe-5a0c-a97a-ac2d782163cf,Dominadas supinas,barra fija,bodyweight_reps,bodyweight,rule,False
+e4d385f1-c24c-5c76-b2c4-ffb65d7726ab,Dominadas neutras,agarres paralelos,bodyweight_reps,bodyweight,rule,False
+711aa956-8cf0-55d4-865c-3ff7a6de6690,Dominadas lastradas,cinturón de lastre,weighted_reps,added,rule,False
+0ad5e46d-f58a-5ed7-bcab-9efa1fd50b78,Dominadas asistidas,máquina,assisted_reps,assisted,rule,False
+5da7a57c-1e98-5778-a46b-766bbf93a10c,Jalón al pecho,polea,weight_reps,cable_single,rule,False
+b429c103-24f9-5f4a-8230-0130687d7d8c,Jalón con agarre neutro,polea,weight_reps,cable_single,rule,False
+2930f8e4-c5ee-54f1-8cfa-2f89a3542878,Jalón unilateral,polea,weight_reps,cable_single,rule,True
+28000493-b154-52e7-b3cf-8b533c2ed6d8,Remo con barra,barra,weight_reps,barbell,rule,False
+a67e1c30-a5ad-5294-a6c4-a163deecc24c,Remo con mancuerna,mancuerna,weight_reps,dumbbell_single,rule,True
+2f259ba1-0d1a-5c09-8e8b-6c686faa469b,Remo sentado en polea,polea,weight_reps,cable_single,rule,False
+348f2e1c-4b4c-50d0-8f3d-907aa926cc55,Remo con pecho apoyado,mancuernas,weight_reps,dumbbell_pair,rule,False
+09fb8c01-142b-56d9-acd3-a2fc87cbb8a5,Remo en máquina,máquina,weight_reps,machine,rule,False
+cf502f23-c4b4-5a9b-ad99-4bcedfd24db9,Remo en barra T,barra T,weight_reps,barbell,needs_review,False
+96021f9a-a078-5fbc-9ad4-e5b4d951a4f9,Remo invertido,barra fija,bodyweight_reps,bodyweight,rule,False
+b078c5f4-b217-5fc0-8676-5dfe071a8314,Pullover en polea,polea,weight_reps,cable_single,rule,False
+ebfdbe8f-9e04-5d2b-8a76-6d6d93cfc133,Pullover con mancuerna,mancuerna,weight_reps,dumbbell_single,rule,False
+c6f0dba1-80ab-594a-b493-892c7c26df13,Press militar con barra,barra,weight_reps,barbell,rule,False
+6ed8926f-abe9-5500-8b15-bd68e9f8398b,Press sentado con mancuernas,mancuernas,weight_reps,dumbbell_pair,rule,False
+921123a8-01ff-5ef0-9068-3b6c1ab85631,Press de hombros en máquina,máquina,weight_reps,machine,rule,False
+962d132a-43aa-5464-9391-2ce3c756df00,Press de hombro unilateral,mancuerna,weight_reps,dumbbell_single,rule,True
+f587da24-c7bb-5fcb-b271-f5cac097ef42,Elevaciones laterales,mancuernas,weight_reps,dumbbell_pair,rule,False
+c433a3b7-623f-5725-9515-0ebfb4e458c0,Elevación lateral en polea,polea,weight_reps,cable_single,rule,False
+d6e6258a-5e19-5239-9107-df60fdeb7132,Elevaciones frontales,mancuernas,weight_reps,dumbbell_pair,rule,False
+27ee88c7-665d-5a69-b060-4f0ce537b809,Pájaros con mancuernas,mancuernas,weight_reps,dumbbell_pair,rule,False
+40837aa2-af1d-5f81-abfe-613d442971f9,Pec deck inverso,máquina,weight_reps,machine,rule,False
+16dd73dd-6a40-5510-90b8-278933e763f6,Face pull,polea,weight_reps,cable_single,rule,False
+65ea878d-fe1e-5020-9453-e5c4b2ed923b,Encogimientos con barra,barra,weight_reps,barbell,rule,False
+53a9be7f-88ca-56d0-b13c-0a7901ded0fe,Encogimientos con mancuernas,mancuernas,weight_reps,dumbbell_pair,rule,False
+60224f2f-6046-561a-b662-e30517f0e9cf,Curl con barra,barra,weight_reps,barbell,rule,False
+7633eb51-111e-5a06-977d-19370b1bcf12,Curl con barra Z,barra Z,weight_reps,barbell,needs_review,False
+6ea92109-fc81-5193-a90b-91a1dedcd430,Curl alternado,mancuernas,weight_reps,dumbbell_pair,rule,False
+39aa14e4-6b42-5473-a3be-9c795071b3d4,Curl martillo,mancuernas,weight_reps,dumbbell_pair,rule,False
+b7d0df84-f968-5ae6-abca-d7b91f5ad9ff,Curl inclinado,mancuernas,weight_reps,dumbbell_pair,rule,False
+18808183-5300-5428-870e-2928d4ffb640,Curl predicador,barra Z,weight_reps,barbell,needs_review,False
+51c22ec1-1c7c-5512-b760-8cbe7c56f4b4,Curl en polea,polea,weight_reps,cable_single,rule,False
+b9b1d386-c635-50e7-bf98-bf71e794ec52,Curl concentrado,mancuerna,weight_reps,dumbbell_single,rule,False
+ac331c64-33c6-58bb-a2e1-8f8439d41682,Curl inverso,barra,weight_reps,barbell,rule,False
+ce328ef5-79a6-5b3e-90e3-eed0dc7a7038,Flexión de muñeca,mancuerna,weight_reps,dumbbell_single,rule,False
+0bfc1be8-4446-5cf5-9321-23fb15345ffb,Extensión de muñeca,mancuerna,weight_reps,dumbbell_single,rule,False
+50f2ec16-1161-599d-916d-10209d529070,Extensión en polea,polea,weight_reps,cable_single,rule,False
+5285b15b-0a17-50ad-af25-b5326310ba03,Extensión con cuerda,polea,weight_reps,cable_single,rule,False
+b5cb09c7-f86d-564f-a2d5-7827dcf01b96,Extensión sobre cabeza,mancuerna,weight_reps,dumbbell_single,rule,False
+280a589c-8d2e-5303-9efb-4966bd9c493b,Extensión sobre cabeza en polea,polea,weight_reps,cable_single,rule,False
+e72f0312-dec1-5ea9-be71-75196e00f0a0,Press francés,barra Z,weight_reps,barbell,needs_review,False
+c078d959-16dd-5aaa-8234-d34500f3af93,Patada de tríceps,mancuerna,weight_reps,dumbbell_single,rule,False
+219a93a1-fcba-5ada-94b9-0c06372d82ef,Fondos en paralelas,paralelas,bodyweight_reps,bodyweight,rule,False
+280c086f-ec80-5347-aacc-054b7a1e64f6,Fondos lastrados,cinturón de lastre,weighted_reps,added,rule,False
+aa4e7b29-f0b0-5458-a8b9-84637638d5d8,Fondos asistidos,máquina,assisted_reps,assisted,rule,False
+a4af4bd2-1bdc-551b-84cf-dbbc9e91eb01,Sentadilla trasera,barra,weight_reps,barbell,rule,False
+88527f0d-c1ff-5b48-86ad-1dfc105d7ad9,Sentadilla frontal,barra,weight_reps,barbell,rule,False
+ccdbb012-53f8-56bb-99a3-83496ad21956,Sentadilla goblet,mancuerna,weight_reps,dumbbell_single,rule,False
+33e627ba-d81c-5516-80ae-5af0b52d8cfb,Sentadilla a cajón,barra,weight_reps,barbell,rule,False
+8348585c-3381-567e-aeb4-d9b3f38cf732,Hack squat,máquina,weight_reps,plate_machine,needs_review,False
+4a01b24f-602e-5ca7-9c07-045ddd05deb4,Prensa de piernas,máquina,weight_reps,plate_machine,needs_review,False
+8e7bfe81-182c-54e9-b067-66777f72c7d4,Sentadilla búlgara,mancuernas,weight_reps,dumbbell_pair,rule,False
+a8b4ca26-137e-5561-a09b-8bf3e8afeb5a,Zancada con mancuernas,mancuernas,weight_reps,dumbbell_pair,rule,False
+f6cc3e99-a041-556f-b59e-e35acd0dfc03,Zancada inversa,mancuernas,weight_reps,dumbbell_pair,rule,False
+f1a2d164-28d3-5b5f-a5db-7a7c96e3dfd8,Step-up,mancuernas,weight_reps,dumbbell_pair,rule,False
+eb9760c8-a42b-5150-a820-15364c5d0670,Sentadilla sin carga,peso corporal,bodyweight_reps,bodyweight,rule,False
+31bc54ad-8bbd-5768-8bcf-e29c2d8e307a,Zancada sin carga,peso corporal,bodyweight_reps,bodyweight,rule,False
+05b38ed1-ecdf-5a87-9308-32fc655a319e,Extensión de rodilla,máquina,weight_reps,machine,rule,False
+f18cd408-0ea8-573f-8fa2-54e889e74d65,Peso muerto convencional,barra,weight_reps,barbell,rule,False
+c4fbaf5d-b8a7-5a97-819c-6d8e5db2ab68,Peso muerto sumo,barra,weight_reps,barbell,rule,False
+8dae05c9-7410-5910-b63b-5f09fa50c54b,Peso muerto con trap bar,barra hexagonal,weight_reps,barbell,needs_review,False
+7194eb7a-4cae-5c6a-bd67-dff717bd74f8,Peso muerto rumano,barra,weight_reps,barbell,rule,False
+a6ee2c59-d500-5fcd-acee-cabd1dd71e7a,Peso muerto rumano con mancuernas,mancuernas,weight_reps,dumbbell_pair,rule,False
+b39702d9-b6ac-597c-95c1-cda76011d943,Buenos días,barra,weight_reps,barbell,rule,False
+d49af20c-c8d4-58a2-852b-bfb1e2229a1a,Curl femoral tumbado,máquina,weight_reps,machine,rule,False
+94dbaa71-2937-5ea6-929e-cc459ceb6161,Curl femoral sentado,máquina,weight_reps,machine,rule,False
+e14d510e-e7ce-5ae6-8068-9fef3f840ae2,Curl femoral de pie,máquina,weight_reps,machine,rule,False
+22ca3a7b-d08d-51e2-882a-cf3bbd91b54b,Hip thrust con barra,barra,weight_reps,barbell,rule,False
+f98e54a3-44d8-531e-b5f1-0c42fad33a60,Patada de glúteo en polea,polea,weight_reps,cable_single,rule,False
+5911eeba-c209-5b18-a066-18f2e9a2ee06,Pull-through,polea,weight_reps,cable_single,rule,False
+04d11c36-433c-525c-abff-5dfddb09d4f8,Puente de glúteos,peso corporal,bodyweight_reps,bodyweight,rule,False
+f4b59483-1a23-52fd-a971-81a12d382c11,Puente unilateral,peso corporal,bodyweight_reps,bodyweight,rule,True
+b8856c8c-552a-5b33-ab31-75fd1dcb56cc,Abducción en máquina,máquina,weight_reps,machine,rule,False
+32738f86-c3c0-5fa9-a811-9a432e6e826a,Aducción en máquina,máquina,weight_reps,machine,rule,False
+cee83511-894c-5d1e-b3cd-4963ff9a6b93,Gemelos de pie,máquina,weight_reps,machine,rule,False
+cb0b5845-cf28-508c-87fc-fb1b449c7b01,Gemelos sentado,máquina,weight_reps,machine,rule,False
+845ab427-5b2c-5728-969a-c078d9789e6a,Gemelos en prensa,máquina,weight_reps,plate_machine,needs_review,False
+343104bb-ce32-5684-bc3c-e65c1cbe89c6,Plancha frontal,peso corporal,time,none,rule,False
+bd07a389-5bc9-5962-9f71-e9efebd23025,Plancha lateral,peso corporal,time,none,rule,False
+14651af9-abd2-550b-b1b5-460ffbf8efda,Hollow hold,peso corporal,time,none,rule,False
+ff275e6c-079e-5ebf-9116-9b27662aa8f1,Crunch,peso corporal,bodyweight_reps,bodyweight,rule,False
+e0d3298c-94ab-571a-8f8a-3758942c4fee,Elevación de rodillas colgado,barra fija,bodyweight_reps,bodyweight,rule,False
+f5dfe00b-f9d1-5e13-9670-0f9d9e24b39b,Elevación de piernas tumbado,peso corporal,bodyweight_reps,bodyweight,rule,False
+62796442-e013-56d1-a624-7eb9f485d192,Dead bug,peso corporal,bodyweight_reps,bodyweight,rule,False
+d1dec280-eaeb-501c-aca7-3f9227c682e6,Bird dog,peso corporal,bodyweight_reps,bodyweight,rule,False
+41b451cb-8572-525e-9eed-672361fe46c0,Rueda abdominal,rueda,bodyweight_reps,bodyweight,rule,False
+e54adc84-f85b-5cbd-bb6f-de22dbd2f39c,Crunch en polea,polea,weight_reps,cable_single,rule,False
+c44bc1f7-f840-5899-a70f-d0954c4962fb,Pallof press,polea,weight_reps,cable_single,rule,False
+401edd6b-1900-5fb1-9bca-e094a4a6b0b9,Caminata,ninguno,distance_time,none,rule,False
+b14b66b2-e1c7-5080-807a-7c332d19befd,Carrera continua,ninguno,distance_time,none,rule,False
+5d5b2980-5840-5ce9-b470-dca79695b027,Cinta de correr,cinta,distance_time,none,rule,False
+67783f3d-bcbb-5b5c-9516-32d003931ac9,Bicicleta estática,bicicleta,distance_time,none,rule,False
+7e5ba6df-c793-5c52-86b9-83863e5ae774,Remo ergómetro,ergómetro,distance_time,none,rule,False
+5f6ab1b4-2478-57e1-979a-c77e856376ea,Elíptica,elíptica,time,none,rule,False
+ff7083e6-1808-5b60-a319-fd3a335ee373,Escaladora,escaladora,time,none,rule,False
+e1e1a977-9b87-5a87-84d3-0a840c1631eb,Salto de cuerda,cuerda,time,none,rule,False
+e205cc43-3e43-5c23-9ab5-c0ac323bf7f5,Apertura unilateral en polea de pie,polea,weight_reps,cable_single,rule,True
+b70a2c85-3762-56be-9840-d8b92979bd65,Apertura unilateral en polea de abajo arriba,polea,weight_reps,cable_single,rule,True
+5be3bfc7-1afd-5314-bb4a-80abd1249339,Apertura unilateral en polea de arriba abajo,polea,weight_reps,cable_single,rule,True
+f7a05df1-54a9-5643-b9ee-67befc341b12,Aperturas en polea de abajo arriba,poleas,weight_reps,cable_pair,rule,False
+24a1e99e-3711-58b7-8bf1-ea8bb8f0f6aa,Apertura unilateral en polea con banco,polea,weight_reps,cable_single,rule,True
+39092cb7-94d3-5e63-940f-6322a5a9bb74,Aperturas declinadas unilaterales en banco con polea,polea,weight_reps,cable_single,rule,True
+a1351236-2503-5d57-8602-5fe4adfd8375,Aperturas inclinadas con polea y banco,poleas,weight_reps,cable_pair,rule,False
+ece40b1b-0e7a-5a52-9993-9abbf0d6ab6a,Press de pecho unilateral en polea,polea,weight_reps,cable_single,rule,True
+bdb7b7a7-5583-53fe-9241-37a63a9289a7,Press inclinado unilateral en polea,polea,weight_reps,cable_single,rule,True
+16ca427e-48a6-5f45-9e3d-2f0bf85aa634,Pec deck unilateral,máquina,weight_reps,machine,rule,True
+27d3418e-e1e5-54cf-94f0-7fd6d2c65c28,Press convergente unilateral en máquina,máquina,weight_reps,machine,rule,True
+6da43f24-9a5b-558a-9e08-22184a8cf2a5,Elevación lateral unilateral en polea,polea,weight_reps,cable_single,rule,True
+b1e868c9-aa15-525c-80ac-ce537bdc67c3,Elevación lateral unilateral con mancuerna inclinada,mancuerna,weight_reps,dumbbell_single,rule,True
+da30e8d6-4d7e-52df-9c30-92cff058f753,Elevación frontal unilateral en polea,polea,weight_reps,cable_single,rule,True
+c3f916c5-d7ad-5c94-872c-c5f08b93bc95,Pájaro unilateral en polea,polea,weight_reps,cable_single,rule,True
+34e747da-2c6e-52ca-97e0-a0d02365b962,Pec deck inverso unilateral,máquina,weight_reps,machine,rule,True
+d679d277-38aa-5e19-99ca-af611fbae5ac,Face pull unilateral,polea,weight_reps,cable_single,rule,True
+e4886da0-fc35-52c7-bc50-ae0c5e61b1d8,Jalón unilateral de rodillas en polea,polea,weight_reps,cable_single,rule,True
+8d65b8fd-b348-59c1-8dc6-483232281af8,Remo unilateral en polea baja,polea,weight_reps,cable_single,rule,True
+c91891d3-6cbe-5e53-822a-b2b613a2d83a,Remo unilateral en máquina,máquina,weight_reps,machine,rule,True
+87482dbf-9e29-5468-97b5-3fec05ea0cf0,Remo alto unilateral en polea,polea,weight_reps,cable_single,rule,True
+d2634f19-0d8e-5db6-a167-ed0ac51dcd00,Remo unilateral landmine,barra,weight_reps,barbell,rule,True
+de9b6d87-b4d2-5757-9e4b-723795c06973,Curl unilateral en polea baja,polea,weight_reps,cable_single,rule,True
+28257cc5-5132-53d9-a223-cb5d51b6a182,Curl predicador unilateral con mancuerna,mancuerna,weight_reps,dumbbell_single,rule,True
+ef94ca38-9c1e-5004-a569-0f11ad557af7,Curl martillo unilateral en polea,polea,weight_reps,cable_single,rule,True
+c58ff1d2-e111-59db-aa53-7f0651ae536e,Extensión unilateral de tríceps en polea,polea,weight_reps,cable_single,rule,True
+d3aa6e63-8388-570a-af77-993f4f25df69,Extensión unilateral de tríceps por encima de la cabeza en polea,polea,weight_reps,cable_single,rule,True
+361838bc-e52d-5ad5-bac8-4485a037e0ab,Patada de tríceps unilateral en polea,polea,weight_reps,cable_single,rule,True
+b21cb7d7-03c2-5f5b-9e83-50a09c324a8f,Prensa de piernas unilateral,máquina,weight_reps,plate_machine,needs_review,True
+387d0e7c-d788-5bd5-8813-23c8c5a9d61f,Extensión de rodilla unilateral,máquina,weight_reps,machine,rule,True
+158c1d9f-b1aa-5a15-990d-bb8306c1dee7,Curl femoral sentado unilateral,máquina,weight_reps,machine,rule,True
+9003b481-03ff-52f0-9abe-d50263a2039e,Curl femoral tumbado unilateral,máquina,weight_reps,machine,rule,True
+c5402ff8-3ada-5109-b42d-09fa69b7f50b,Peso muerto rumano unilateral con mancuerna,mancuerna,weight_reps,dumbbell_single,rule,True
+e2db21f6-7aea-55cd-ab51-6fcb555284a9,Elevación de talón unilateral de pie,peso corporal,bodyweight_reps,bodyweight,rule,True
+6053337f-0725-5a99-a3ea-0e4fbdf53c3d,Elevación de talón unilateral en máquina,máquina,weight_reps,machine,rule,True
+6ecf9abb-bdb3-5c83-843e-52a7ab292f05,Abducción de cadera unilateral en polea,polea,weight_reps,cable_single,rule,True
+439cf657-177e-5fd8-9fc0-d181033a2e17,Aducción de cadera unilateral en polea,polea,weight_reps,cable_single,rule,True
+6bfe84a3-8c83-50e3-8037-3e8d95741c56,Sentadilla dividida en Smith,máquina Smith,weight_reps,machine,rule,False
+3ea21d44-36c0-557b-b813-823fc9061940,Zancada inversa unilateral en polea,polea,weight_reps,cable_single,rule,True
+d186212a-2107-5a19-a8f2-b92cd4d86e7f,Pull through unilateral,polea,weight_reps,cable_single,rule,True
+08db40d5-b42f-5dba-ae13-82c0e8fdbccb,Pallof press unilateral de rodillas,polea,weight_reps,cable_single,rule,True
+3314e8a9-5058-527e-8f1f-dfa3c640b702,Crunch unilateral en polea,polea,weight_reps,cable_single,rule,True
+64983660-7315-5008-a434-c80f9fe1b2b5,Farmer carry unilateral,mancuerna,weight_reps,dumbbell_single,rule,True

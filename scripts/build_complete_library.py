@@ -9,6 +9,8 @@ Downloads source ZIP, preserves the original 114 LIFTLOG IDs, and generates
 UUIDv5 IDs for new entries. Run on server with --catalog-only, then rebuild API.
 """
 import argparse
+import csv
+import shutil
 import difflib
 import io
 import json
@@ -23,6 +25,9 @@ MOBILE = ROOT / 'mobile/assets/catalog.json'
 BACKEND = ROOT / 'backend/app/data/catalog.json'
 MOTION_DATA = ROOT / 'mobile/assets/motion_index.json'
 MOTION_DIR = ROOT / 'mobile/assets/flow_frames'
+EXTRA_GIFS = ROOT / 'media/exercise_gifs'
+GIF_DIR = ROOT / 'mobile/assets/exercise_gifs'
+REPORT_DIR = ROOT / 'reports'
 SOURCE = 'https://github.com/ozansozuozgit/flow-exercise-dataset/archive/refs/heads/main.zip'
 NAMESPACE = uuid.UUID('d178177f-1294-4587-b0f8-7a32ffda722c')
 MUSCLES = {
@@ -147,14 +152,56 @@ def main():
             seq=anim.get('sequence') or [0,1,2,1]
             if not all(isinstance(i,int) and 0<=i<len(paths) for i in seq):continue
             motion[uid]={'frames':paths,'sequence':seq,'duration_ms':max(140,int(anim.get('frameDurationMs') or 250))}
+    # Optional individually licensed exercise-specific GIFs only. Names may be
+    # source IDs (0001.gif) or exact catalog UUIDs. Never assign by category.
+    # The media directory must be supplied by the maintainer (not scraped).
+    if opts.with_media and EXTRA_GIFS.exists():
+        for e in merged:
+            candidates = [EXTRA_GIFS / (str(e.get('source_id', '')) + '.gif'),
+                          EXTRA_GIFS / (str(e['id']) + '.gif')]
+            for candidate in candidates:
+                if candidate.name == '.gif' or not candidate.is_file():
+                    continue
+                header = candidate.read_bytes()[:6]
+                if header not in (b'GIF87a', b'GIF89a'):
+                    raise ValueError(f'Invalid GIF media: {candidate.name}')
+                GIF_DIR.mkdir(parents=True, exist_ok=True)
+                dest = GIF_DIR / (str(e['id']) + '.gif')
+                shutil.copyfile(candidate, dest)
+                motion[e['id']] = {'gif': 'assets/exercise_gifs/' + dest.name,
+                                   'source': 'provided-licensed-gif'}
+                break
+    from enrich_exercise_catalog import enrich
+    from assign_load_profiles import annotate, audit
+    enriched = enrich(merged)
+    print("KYVORA variants:", enriched)
     for e in merged:
         e.setdefault('category',e.get('muscle','otros'))
+    annotate(merged)
+    print('Load profiles:', audit(merged))
+    REPORT_DIR.mkdir(parents=True, exist_ok=True)
+    missing = [e for e in merged if e['id'] not in motion]
+    with (REPORT_DIR / 'motion_coverage.csv').open('w',encoding='utf-8',newline='') as f:
+        writer=csv.writer(f)
+        writer.writerow(['id','exercise','category','equipment','source','source_id','status'])
+        for e in merged:
+            writer.writerow([e['id'],e.get('name',''),e.get('category',''),
+                             e.get('equipment',''),e.get('source_dataset','original'),
+                             e.get('source_id',''),
+                             'animated' if e['id'] in motion else 'static'])
+    report={'total':len(merged),'animated':len(motion),'static':len(missing),
+            'coverage_percent':round(100*len(motion)/max(1,len(merged)),2),
+            'unanimated': [{'id':e['id'],'name':e.get('name',''),
+                            'source_id':e.get('source_id'),
+                            'category':e.get('category')} for e in missing]}
+    (REPORT_DIR / 'motion_coverage.json').write_text(
+        json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     for filename in (MOBILE,BACKEND):
         filename.parent.mkdir(parents=True,exist_ok=True)
         filename.write_text(json.dumps(merged,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     if opts.with_media:
         MOTION_DATA.write_text(json.dumps(motion,ensure_ascii=False,separators=(',',':')),encoding='utf-8')
-    print(f'LIFTLOG catalog: {len(merged)} exercises ({len(source)} source, {retained} matched existing); {len(motion)} animations indexed.')
+    print(f'LIFTLOG catalog: {len(merged)} exercises ({len(source)} source, {retained} matched existing); {len(motion)} animations indexed; {len(missing)} need licensed media.')
     print('WARNING: English names for imported entries; upstream animations are illustrative, not verified coaching.')
 
 if __name__ == '__main__':main()

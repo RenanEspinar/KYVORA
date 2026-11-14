@@ -191,6 +191,57 @@ def ranking(exercise_id:UUID,status:Literal['self_declared','confirmed','verifie
         rec=by_id(c,records,r['id']);ratio=float(r['ratio']);level=max(i for i,v in enumerate(rule['thresholds']) if ratio>=v)
         result['items'].append({'rank':index,'athlete':profile(c,rec['owner_id']),'record':public_record(rec),'ratio':round(ratio,3),'level':rules['labels'][level]})
     return result
+# Group ranking uses only standardized strength tests in the published rules.
+# Different exercises are compared against their own reference threshold.
+# This is not a body-composition or appearance-based ranking.
+@router.get('/rankings/groups')
+def group_ranking(
+    group:str=Query(min_length=2,max_length=40),
+    status:Literal['self_declared','confirmed','verified']='self_declared',
+    season:int|None=Query(None,ge=2000,le=2199),
+    owner=Depends(me),c=Depends(db),
+):
+    from .training import catalog
+    supported={
+        str(e['id']): e.get('muscle','')
+        for e in catalog if str(e['id']) in rules['exercises']
+    }
+    chosen=[eid for eid,muscle in supported.items() if muscle==group]
+    result={'group':group,'items':[],'rules_version':rules['version'],
+            'tests':[rules['exercises'][eid]['name'] for eid in chosen],
+            'method':'best_relative_strength_normalized_by_reference'}
+    if not chosen or status=='verified':return result
+
+    ratio=records.c.load_kg/records.c.bodyweight_kg
+    benchmarks={eid: max(float(rules['exercises'][eid]['thresholds'][3]),0.01)
+                for eid in chosen}
+    cases=[(records.c.exercise_id==eid,ratio/benchmark)
+           for eid,benchmark in benchmarks.items()]
+    score=s.case(*cases,else_=0.0)
+    allowed=~s.exists().where(s.or_(
+        s.and_(blocks.c.blocker==owner,blocks.c.target==records.c.owner_id),
+        s.and_(blocks.c.target==owner,blocks.c.blocker==records.c.owner_id),
+    ))
+    query=s.select(records.c.id,score.label('score'),
+        s.func.row_number().over(partition_by=records.c.owner_id,
+              order_by=[score.desc(),records.c.achieved_at,records.c.id]).label('rn')
+    ).join(profiles,profiles.c.user_id==records.c.owner_id).where(
+        records.c.kind=='max_weight',records.c.exercise_id.in_(chosen),
+        records.c.bodyweight_kg>0,profiles.c.rankings_opt_in.is_(True),allowed)
+    if status=='confirmed':query=query.where(records.c.status=='confirmed')
+    if season:query=query.where(records.c.achieved_at>=datetime(season,1,1,tzinfo=timezone.utc),
+        records.c.achieved_at<datetime(season+1,1,1,tzinfo=timezone.utc))
+    best=query.subquery()
+    candidates=rows(c,s.select(best.c.id,best.c.score).where(best.c.rn==1)
+                    .order_by(best.c.score.desc(),best.c.id).limit(100))
+    for index,row in enumerate(candidates,1):
+        rec=by_id(c,records,row['id'])
+        result['items'].append({'rank':index,
+            'athlete':profile(c,rec['owner_id']),
+            'record':public_record(rec),
+            'score':round(float(row['score']),3)})
+    return result
+
 @router.post('/media',status_code=201)
 def upload(file:UploadFile=File(),owner=Depends(me),c=Depends(db)):
     throttle(c,'media:'+owner,20,3600)

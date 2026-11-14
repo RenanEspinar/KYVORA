@@ -35,6 +35,9 @@ class Profile(Strict):
 class Set(Strict):
     id:UUID
     kind:Literal['normal','warmup','failure']='normal'
+    method:Literal['straight','drop_set','rest_pause','myo_reps','cluster','pyramid']='straight'
+    block_id:UUID|None=None
+    phase:int=Field(0,ge=0,le=4)
     load_kg:float=Field(0,ge=0,le=1000)
     reps:int|None=Field(None,ge=1,le=1000)
     seconds:float|None=Field(None,gt=0,le=86400)
@@ -60,6 +63,29 @@ class Workout(Strict):
     def validate_workout(self):
         if not self.started_at.tzinfo or not self.ended_at.tzinfo or self.ended_at<self.started_at or self.ended_at>datetime.now(timezone.utc)+timedelta(minutes=10):
             raise ValueError('Intervalo de entrenamiento inválido')
+        # Advanced training methods must survive sync as complete, ordered blocks.
+        for m in self.exercises:
+            grouped={}
+            for position,st in enumerate(m.sets):
+                if st.method == 'straight':
+                    if st.block_id is not None or st.phase != 0:
+                        raise ValueError('Una serie normal no admite bloque avanzado')
+                    continue
+                if st.block_id is None:
+                    raise ValueError('Falta el identificador del bloque avanzado')
+                grouped.setdefault(st.block_id, []).append((position,st))
+            for group in grouped.values():
+                if not 2<=len(group)<=5:
+                    raise ValueError('Un bloque avanzado requiere 2 a 5 etapas')
+                first=group[0][1]
+                if any(v.method!=first.method or v.phase!=i for i,(_,v) in enumerate(group)):
+                    raise ValueError('Etapas del bloque no consecutivas o desordenadas')
+                if any(group[i][0]+1!=group[i+1][0] for i in range(len(group)-1)):
+                    raise ValueError('Las etapas de un bloque deben estar juntas')
+                if first.method=='drop_set':
+                    loads=[v.load_kg for _,v in group]
+                    if loads[0]>0 and any(loads[i]>=loads[i-1] for i in range(1,len(loads))):
+                        raise ValueError('Un drop set debe disminuir la carga en cada etapa')
         ids=[m.id for m in self.exercises]+[s.id for m in self.exercises for s in m.sets]
         if len(ids)!=len(set(ids)) or not any(m.sets for m in self.exercises):
             raise ValueError('Revisa los identificadores y las series')

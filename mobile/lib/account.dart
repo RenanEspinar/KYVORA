@@ -75,7 +75,7 @@ class _Access extends ConsumerState<Access> {
 
   @override
   Widget build(BuildContext c) => Scaffold(
-    appBar: AppBar(title: const Text('Cuenta LIFTLOG')),
+    appBar: AppBar(title: const Text('Cuenta KYVORA')),
     body: ListView(
       padding: const EdgeInsets.all(20),
       children: [
@@ -198,6 +198,23 @@ class ProfilePage extends ConsumerWidget {
                   a,
                   () => a.updateProfile({'units': v ? 'imperial' : 'metric'}),
                 ),
+              ),
+              ListTile(
+                leading: const Icon(Icons.notifications_active_outlined),
+                title: const Text('Activar avisos de descanso'),
+                subtitle: const Text('Permite notificaciones y, opcionalmente, alarmas puntuales.'),
+                onTap: () async {
+                  final permitted = await restAlerts.requestNotifications();
+                  if (!c.mounted) return;
+                  if (permitted) {
+                    final precise = await restAlerts.requestPreciseAlarms();
+                    if (c.mounted) snack(c, precise
+                        ? 'Avisos puntuales habilitados.'
+                        : 'Avisos habilitados; Android podría retrasarlos.');
+                  } else {
+                    snack(c, 'Permite las notificaciones desde los ajustes de Android.');
+                  }
+                },
               ),
               ListTile(
                 title: const Text('Peso corporal privado'),
@@ -324,7 +341,7 @@ class ProfilePage extends ConsumerWidget {
                   await SharePlus.instance.share(
                     ShareParams(
                       files: [XFile(f.path)],
-                      title: 'Mis datos de LIFTLOG',
+                      title: 'Mis datos de KYVORA',
                     ),
                   );
                 } finally {

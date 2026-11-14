@@ -42,6 +42,14 @@ jobs:
           echo '/opt/flutter/bin' >> "$GITHUB_PATH"
       - name: Build full categorized offline library and matching SVG animations
         run: python scripts/build_complete_library.py --with-media
+      - name: Validate curated variants and bilingual search metadata
+        run: |
+          python scripts/enrich_exercise_catalog.py --check
+          python -m unittest discover -s scripts -p 'test_enrich_exercise_catalog.py'
+      - name: Validate load-entry method for every exercise
+        run: |
+          python scripts/assign_load_profiles.py --check
+          python -m unittest discover -s scripts -p 'test_load_profiles.py'
       - name: Prefer exercise-specific GIFs, audit remaining motions
         run: python scripts/complete_gif_coverage.py
       - name: Reconcile original exercises with existing Flow animations
@@ -52,7 +60,7 @@ jobs:
           import json
           from pathlib import Path
           r=json.loads(Path('reports/motion_priority_summary.json').read_text())
-          animated=r['authorized_gifs']+r['flow_svg']
+          animated=r['authorized_gifs'] + r['flow_svg']
           print('Catalog:',r['total'],'Animated:',animated,'Static:',r['need_original'])
           assert r['total'] == animated + r['need_original']
           PY2
@@ -62,6 +70,7 @@ jobs:
           name: liftlog-motion-coverage
           path: |
             reports/motion_coverage.*
+            reports/load_profiles.*
             reports/motion_priority_report.csv
             reports/motion_priority_summary.json
             reports/needs_original_animation.json

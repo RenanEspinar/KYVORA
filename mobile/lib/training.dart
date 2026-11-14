@@ -125,7 +125,12 @@ class _ExerciseMotionState extends State<ExerciseMotion> {
     final frames = motion?['frames'] as List<dynamic>?;
     final sequence = motion?['sequence'] as List<dynamic>?;
     Widget visual;
-    if (frames != null && sequence != null && frames.isNotEmpty && sequence.isNotEmpty) {
+    if (motion?['gif'] is String) {
+      visual = Image.asset(motion!['gif'] as String,
+        width: widget.width, height: widget.height, fit: BoxFit.contain,
+        gaplessPlayback: true,
+        semanticLabel: 'Demostración animada: ${widget.exercise['name']}');
+    } else if (frames != null && sequence != null && frames.isNotEmpty && sequence.isNotEmpty) {
       final index = sequence[_frame % sequence.length] as int;
       visual = SvgPicture.asset(frames[index] as String,
         width: widget.width, height: widget.height, fit: BoxFit.contain,
@@ -152,7 +157,10 @@ Future<void> technique(BuildContext c, Json e) => showModalBottomSheet(
       children: [
         Center(child: ExerciseMotion(e, width: 280, height: 180)),
         const SizedBox(height: 5),
-        const Text('Demostración visual de referencia · consulta la técnica específica', style: TextStyle(color: muted, fontSize: 11)),
+        Text(exerciseMotions.containsKey(e['id']?.toString())
+            ? 'Animación ilustrativa · consulta la técnica específica'
+            : 'Sin animación verificada · esquema muscular estático',
+            style: const TextStyle(color: muted, fontSize: 11)),
         Text(e['name'], style: Theme.of(d).textTheme.headlineMedium),
         Note('${e['name_en']} · ${e['muscle']} · ${e['equipment']}'),
         Text(e['description']),
@@ -162,9 +170,35 @@ Future<void> technique(BuildContext c, Json e) => showModalBottomSheet(
         const SizedBox(height: 14),
         const Text('Errores frecuentes', style: TextStyle(color: lime)),
         Text(e['errors']),
-        const Note(
-          'El esquema indica la región de trabajo. Con mancuernas simultáneas se registra la carga externa total. Para variantes unilaterales registra carga y repeticiones por lado.',
+        Note(
+          loadHelp(e),
         ),
+        if (e['visual_reference_url'] is String) ...[
+          const SizedBox(height: 10),
+          OutlinedButton.icon(
+            icon: const Icon(Icons.open_in_new),
+            label: const Text('Ver demostración de referencia'),
+            onPressed: () async {
+              final uri = Uri.tryParse(e['visual_reference_url'] as String);
+              if (uri == null || uri.scheme != 'https') return;
+              try {
+                final ok = await launchUrl(uri, mode: LaunchMode.externalApplication);
+                if (!ok && c.mounted) {
+                  ScaffoldMessenger.of(c).showSnackBar(
+                    const SnackBar(content: Text('No se pudo abrir la referencia.')),
+                  );
+                }
+              } catch (_) {
+                if (c.mounted) {
+                  ScaffoldMessenger.of(c).showSnackBar(
+                    const SnackBar(content: Text('No se pudo abrir el enlace.')),
+                  );
+                }
+              }
+            },
+          ),
+          const Note('Referencia externa: puede utilizar imágenes con derechos reservados. No se copia su material a KYVORA.'),
+        ],
       ],
     ),
   ),
@@ -172,81 +206,289 @@ Future<void> technique(BuildContext c, Json e) => showModalBottomSheet(
 
 class Picker extends StatefulWidget {
   final List<Json> exercises;
-  const Picker(this.exercises, {super.key});
+  final Store? store;
+  final String? owner;
+  const Picker(this.exercises, {super.key, this.store, this.owner});
   @override
   State<Picker> createState() => _Picker();
 }
 
 class _Picker extends State<Picker> {
-  String filter = '';
-  String muscleFilter = 'Todos';
-  String equipmentFilter = 'Todos';
+  final _search = TextEditingController();
+  String query = '';
+  String? muscleFilter;
+  String? equipmentFilter;
+  String? lateralityFilter;
+  String? typeFilter;
+  bool animatedOnly = false;
+  bool secondaryMuscles = false;
+  bool advancedOpen = false;
+  Json? savedPreset;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPreset();
+  }
+
+  Future<void> _loadPreset() async {
+    if(widget.store==null || widget.owner==null) return;
+    try {
+      final data=await widget.store!.read(widget.owner!,'settings','exercise_filter_preset');
+      if(mounted && data is Map) setState(()=>savedPreset=Json.from(data));
+    } catch (_) { /* Non-critical: catalog search remains usable. */ }
+  }
+
+  Future<void> _savePreset() async {
+    if(widget.store==null || widget.owner==null) return;
+    final preset=<String,dynamic>{
+      'muscle':muscleFilter,'equipment':equipmentFilter,
+      'laterality':lateralityFilter,'type':typeFilter,
+      'animated':animatedOnly,'secondary':secondaryMuscles,
+    };
+    try {
+      await widget.store!.put(widget.owner!,'settings','exercise_filter_preset',preset);
+      if(!mounted) return;
+      setState(()=>savedPreset=preset);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content:Text('Filtros favoritos guardados en este dispositivo.')),
+      );
+    } catch (_) {
+      if(!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content:Text('No se pudieron guardar los filtros.')),
+      );
+    }
+  }
+
+  void _restorePreset() {
+    final v=savedPreset;
+    if(v==null) return;
+    setState(() {
+      muscleFilter=v['muscle'] as String?;
+      equipmentFilter=v['equipment'] as String?;
+      lateralityFilter=v['laterality'] as String?;
+      typeFilter=v['type'] as String?;
+      animatedOnly=v['animated']==true;
+      secondaryMuscles=v['secondary']==true;
+    });
+  }
+
+  static const groups = <String>[
+    'Pecho', 'Espalda', 'Hombros', 'Bíceps', 'Tríceps',
+    'Piernas', 'Glúteos', 'Core', 'Cardio', 'Brazos', 'Otros',
+  ];
+  static const gears = <String>[
+    'Mancuernas', 'Poleas', 'Máquinas', 'Barras',
+    'Corporal', 'Kettlebell', 'Bandas', 'Otros',
+  ];
+
+  @override
+  void dispose() {
+    _search.dispose();
+    super.dispose();
+  }
+
+  void reset() => setState(() {
+    query=''; _search.clear();
+    muscleFilter=null; equipmentFilter=null; lateralityFilter=null;
+    typeFilter=null; animatedOnly=false; secondaryMuscles=false;
+  });
+
+  bool _accept(Json e,{String? muscleOverride, String? equipmentOverride}) {
+    return exerciseMatchesFilters(e,
+      muscle:muscleOverride ?? muscleFilter,
+      equipment:equipmentOverride ?? equipmentFilter,
+      laterality:lateralityFilter, exerciseType:typeFilter,
+      includeSecondary:secondaryMuscles, animatedOnly:animatedOnly,
+      motions:exerciseMotions);
+  }
+
   @override
   Widget build(BuildContext c) {
-    final muscles = ['Todos', ...(widget.exercises.map((e) => e['muscle']?.toString() ?? 'otros').toSet().toList()..sort())];
-    final equipment = ['Todos', ...(widget.exercises.map((e) => e['equipment']?.toString() ?? 'otro').toSet().toList()..sort())];
-    final query = filter.trim().toLowerCase();
-    final items = widget.exercises.where((e) =>
-       (muscleFilter == 'Todos' || e['muscle'] == muscleFilter) &&
-       (equipmentFilter == 'Todos' || e['equipment'] == equipmentFilter) &&
-       "${e['name']} ${e['name_en']} ${e['muscle']} ${e['equipment']} ${e['target'] ?? ''}"
-         .toLowerCase().contains(query)).toList();
+    final ranked = <(int,Json)>[];
+    final scores=<String,int>{};
+    for (final e in widget.exercises) {
+      final score=exerciseSearchRank(e,query);
+      scores[e['id']?.toString()??'']=score;
+      if(_accept(e) && score>=0) ranked.add((score,e));
+    }
+    ranked.sort((a,b) {
+      final diff=b.$1.compareTo(a.$1);
+      if(diff!=0) return diff;
+      return (a.$2['name']??'').toString().compareTo((b.$2['name']??'').toString());
+    });
+
+    // Counts update with the search. Selecting a group never requires scrolling
+    // a horizontal carousel: the complete group grid remains visible.
+    final muscleCounts=<String,int>{};
+    final equipmentCounts=<String,int>{};
+    for(final e in widget.exercises) {
+      if((scores[e['id']?.toString()??'']??-1)<0) continue;
+      if(exerciseMatchesFilters(e, equipment:equipmentFilter,
+          laterality:lateralityFilter, exerciseType:typeFilter,
+          animatedOnly:animatedOnly, motions:exerciseMotions)) {
+        final g=muscleGroupOf(e);
+        muscleCounts[g]=(muscleCounts[g]??0)+1;
+        if(secondaryMuscles && e['secondary'] is List) {
+          for(final s in (e['secondary'] as List)) {
+            final g2=muscleGroupOf({'muscle':s});
+            if(g2!=g) muscleCounts[g2]=(muscleCounts[g2]??0)+1;
+          }
+        }
+      }
+      if(exerciseMatchesFilters(e, muscle:muscleFilter,
+          includeSecondary:secondaryMuscles,
+          laterality:lateralityFilter, exerciseType:typeFilter,
+          animatedOnly:animatedOnly, motions:exerciseMotions)) {
+        final eq=equipmentGroupOf(e);
+        equipmentCounts[eq]=(equipmentCounts[eq]??0)+1;
+      }
+    }
+
+    Widget groupChip(String g) => Padding(
+      padding:const EdgeInsets.only(right:6,bottom:6),
+      child: FilterChip(
+        materialTapTargetSize:MaterialTapTargetSize.shrinkWrap,
+        label:Text('$g · ${muscleCounts[g]??0}'),
+        selected:muscleFilter==g,
+        onSelected:(_)=>setState(()=>muscleFilter=muscleFilter==g?null:g),
+      ),
+    );
+    Widget equipmentChip(String g) => Padding(
+      padding:const EdgeInsets.only(right:6,bottom:6),
+      child: FilterChip(
+        materialTapTargetSize:MaterialTapTargetSize.shrinkWrap,
+        label:Text('$g · ${equipmentCounts[g]??0}'),
+        selected:equipmentFilter==g,
+        onSelected:(_)=>setState(()=>equipmentFilter=equipmentFilter==g?null:g),
+      ),
+    );
+    final visibleGroups=groups.where((g)=>(muscleCounts[g]??0)>0 || muscleFilter==g).toList();
+    final visibleGears=gears.where((g)=>(equipmentCounts[g]??0)>0 || equipmentFilter==g).toList();
+    final activeFilters=[muscleFilter,equipmentFilter,lateralityFilter,typeFilter].whereType<String>().length+
+      (animatedOnly?1:0)+(secondaryMuscles?1:0);
+
     return SizedBox(
-      height: MediaQuery.sizeOf(c).height * .85,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Text(
-              'Biblioteca · ${widget.exercises.length}',
-              style: Theme.of(c).textTheme.titleLarge,
-            ),
-            const SizedBox(height: 10),
-            TextField(
-              autofocus: true,
-              decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.search),
-                hintText: 'Ejercicio, músculo o equipo',
-              ),
-              onChanged: (v) => setState(() => filter = v),
-            ),
-            const SizedBox(height: 8),
-            SizedBox(height: 45, child: ListView(scrollDirection: Axis.horizontal, children: muscles.map((group) =>
-              Padding(padding: const EdgeInsets.only(right: 6), child: ChoiceChip(
-                label: Text(group), selected: muscleFilter == group,
-                onSelected: (_) => setState(() => muscleFilter = group),
-              ))).toList())),
-            SizedBox(height: 45, child: ListView(scrollDirection: Axis.horizontal, children: equipment.map((eq) =>
-              Padding(padding: const EdgeInsets.only(right: 6), child: ChoiceChip(
-                label: Text(eq), selected: equipmentFilter == eq,
-                onSelected: (_) => setState(() => equipmentFilter = eq),
-              ))).toList())),
-            Align(alignment: Alignment.centerLeft, child: Text('${items.length} resultados',
-              style: const TextStyle(color: muted, fontSize: 12))),
-            Expanded(
-              child: ListView.builder(
-                itemCount: items.length,
-                itemBuilder: (d, i) {
-                  final e = items[i];
-                  return ListTile(
-                    leading: SizedBox(
-                      width: 72,
-                      child: ExerciseMotion(e, width: 68, height: 54),
-                    ),
-                    title: Text(e['name']),
-                    subtitle: Text("${e['muscle']} · ${e['equipment']}"),
-                    trailing: IconButton(
-                      tooltip: 'Técnica',
-                      icon: const Icon(Icons.info_outline),
-                      onPressed: () => technique(c, e),
-                    ),
-                    onTap: () => Navigator.pop(c, e),
-                  );
-                },
+      height:MediaQuery.sizeOf(c).height*.88,
+      child:Padding(
+        padding:const EdgeInsets.fromLTRB(16,12,16,6),
+        child:Column(children:[
+          Row(children:[
+            Expanded(child:Text('Biblioteca de ejercicios',style:Theme.of(c).textTheme.titleLarge)),
+            IconButton(tooltip:'Cerrar',icon:const Icon(Icons.close),onPressed:()=>Navigator.pop(c)),
+          ]),
+          const SizedBox(height:6),
+          TextField(
+            controller:_search, autofocus:true, textInputAction:TextInputAction.search,
+            decoration:InputDecoration(
+              prefixIcon:const Icon(Icons.search),
+              hintText:'Pec deck, contractora, single arm fly…',
+              suffixIcon:query.isEmpty?null:IconButton(
+                tooltip:'Borrar búsqueda',icon:const Icon(Icons.clear),
+                onPressed:()=>setState(() {query='';_search.clear();}),
               ),
             ),
-          ],
-        ),
+            onChanged:(value)=>setState(()=>query=value),
+          ),
+          const SizedBox(height:6),
+          Expanded(child:CustomScrollView(slivers:[
+            SliverToBoxAdapter(child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
+              Row(children:[
+                Expanded(child:Text('${ranked.length} resultados · ${widget.exercises.length} ejercicios',
+                  style:const TextStyle(color:muted,fontSize:12))),
+                TextButton.icon(
+                  icon:Icon(advancedOpen?Icons.tune:Icons.filter_list,size:18),
+                  label:Text('Filtros${activeFilters>0?' ($activeFilters)':''}'),
+                  onPressed:()=>setState(()=>advancedOpen=!advancedOpen),
+                ),
+                if(activeFilters>0) TextButton(onPressed:reset,child:const Text('Limpiar')),
+              ]),
+              const SizedBox(height:3),
+              const Text('GRUPO MUSCULAR',style:TextStyle(color:muted,fontSize:11,fontWeight:FontWeight.bold)),
+              const SizedBox(height:6),
+              Wrap(children:visibleGroups.map(groupChip).toList()),
+              const SizedBox(height:4),
+              const Text('EQUIPAMIENTO',style:TextStyle(color:muted,fontSize:11,fontWeight:FontWeight.bold)),
+              const SizedBox(height:6),
+              Wrap(children:visibleGears.map(equipmentChip).toList()),
+              if(advancedOpen) ...[
+                const Divider(),
+                Wrap(spacing:6,runSpacing:5,children:[
+                  OutlinedButton.icon(
+                    icon:const Icon(Icons.bookmark_add_outlined,size:18),
+                    label:const Text('Guardar favoritos'),
+                    onPressed:widget.store==null?null:_savePreset,
+                  ),
+                  OutlinedButton.icon(
+                    icon:const Icon(Icons.bookmarks_outlined,size:18),
+                    label:const Text('Mis filtros'),
+                    onPressed:savedPreset==null?null:_restorePreset,
+                  ),
+                ]),
+                const Text('VARIANTE',style:TextStyle(color:muted,fontSize:11,fontWeight:FontWeight.bold)),
+                Wrap(spacing:6,children:[
+                  for(final t in <String>['unilateral','bilateral','alternado'])
+                    FilterChip(label:Text(t=='unilateral'?'Unilateral':t=='bilateral'?'Bilateral':'Alternado'),
+                      selected:lateralityFilter==t,
+                      onSelected:(_)=>setState(()=>lateralityFilter=lateralityFilter==t?null:t)),
+                ]),
+                const Text('TIPO',style:TextStyle(color:muted,fontSize:11,fontWeight:FontWeight.bold)),
+                Wrap(spacing:6,children:[
+                  for(final t in <String>['aislamiento','compuesto'])
+                    FilterChip(label:Text(t=='aislamiento'?'Aislamiento':'Compuesto'),
+                      selected:typeFilter==t,
+                      onSelected:(_)=>setState(()=>typeFilter=typeFilter==t?null:t)),
+                ]),
+                SwitchListTile.adaptive(
+                  title:const Text('Solo con animación'),
+                  value:animatedOnly,onChanged:(v)=>setState(()=>animatedOnly=v),
+                  contentPadding:EdgeInsets.zero,
+                ),
+                SwitchListTile.adaptive(
+                  title:const Text('Incluir músculos secundarios'),
+                  value:secondaryMuscles,onChanged:(v)=>setState(()=>secondaryMuscles=v),
+                  contentPadding:EdgeInsets.zero,
+                ),
+              ],
+              if(query.trim().isNotEmpty && ranked.isNotEmpty) ...[
+                const SizedBox(height:4),
+                Text('Coincidencias sugeridas',style:Theme.of(c).textTheme.labelMedium),
+                Wrap(spacing:6,children:[
+                  for(final e in ranked.take(3).map((r)=>r.$2))
+                    ActionChip(label:Text('${e['name']}',maxLines:1,overflow:TextOverflow.ellipsis),
+                      onPressed:()=>setState(() {
+                        query=(e['name']??'').toString();
+                        _search.text=query;
+                        _search.selection=TextSelection.collapsed(offset:query.length);
+                      })),
+                ]),
+              ],
+              const Divider(height:22),
+            ])),
+            if(ranked.isEmpty) const SliverToBoxAdapter(child:Padding(
+              padding:EdgeInsets.all(18),
+              child:Note('Sin resultados. Prueba otro nombre, cambia el equipo o limpia los filtros.'),
+            )),
+            SliverList(delegate:SliverChildBuilderDelegate((context,i) {
+              final e=ranked[i].$2;
+              final variant=lateralityOf(e);
+              final subtitle='${muscleGroupOf(e)} · ${equipmentGroupOf(e)}${variant=='unilateral'?' · Unilateral':''}';
+              return ListTile(
+                contentPadding:const EdgeInsets.symmetric(horizontal:3,vertical:3),
+                leading:SizedBox(width:68,child:ExerciseMotion(e,width:64,height:58)),
+                title:Text('${e['name']}',maxLines:2,overflow:TextOverflow.ellipsis),
+                subtitle:Text(subtitle,maxLines:2,overflow:TextOverflow.ellipsis),
+                trailing:IconButton(
+                  tooltip:'Ver técnica y referencias',icon:const Icon(Icons.info_outline),
+                  onPressed:()=>technique(c,e),
+                ),
+                onTap:()=>Navigator.pop(c,e),
+              );
+            },childCount:ranked.length)),
+            const SliverToBoxAdapter(child:SizedBox(height:22)),
+          ])),
+        ]),
       ),
     );
   }
@@ -296,6 +538,16 @@ class _Session extends ConsumerState<SessionPage> {
     }
   }
 
+  int restForGroup(Json move, int requested) {
+    final group = move['superset'];
+    if (group == null) return requested;
+    final linked = (w['exercises'] as List).where((item) => item['superset'] == group).toList();
+    // Follow the exercise order shown on screen. Only the last member starts
+    // the inter-round rest timer; earlier members flow directly to the next.
+    if (linked.length < 2 || linked.last['id'] == move['id']) return requested;
+    return 0;
+  }
+
   Future<void> add(Json m, {Json? edit, bool repeat = false}) async {
     final a = ref.read(stateProvider), ex = a.catalog[m['exercise_id']]!;
     final list = m['sets'] as List;
@@ -304,16 +556,32 @@ class _Session extends ConsumerState<SessionPage> {
         (list.isNotEmpty
             ? Json.from(list.last as Map)
             : previousSet(a.workouts, ex['id'], except: widget.id));
+    final storedMethod = await a.db.read(a.owner, 'load_profile', ex['id']);
     final value = repeat && source != null
         ? clone(source)
         : await showModalBottomSheet<Json>(
             context: context,
             useSafeArea: true,
             isScrollControlled: true,
-            builder: (c) => SetForm(ex: ex, old: source, imperial: a.imperial),
+            builder: (c) => SetForm(
+              ex: ex,
+              old: source,
+              imperial: a.imperial,
+              initialLoadMethod: storedMethod is String ? storedMethod : null,
+            ),
           );
     if (value == null || !mounted) return;
+    // Entry preferences stay on the device. The public API only accepts
+    // normalized load_kg; sending a new field would break synchronization.
+    final chosenMethod = value.remove('_load_entry_method');
+    // Repeating a single stage must never duplicate an advanced block ID.
+    value.remove('method');
+    value.remove('block_id');
+    value.remove('phase');
     await change(() async {
+      if (chosenMethod is String) {
+        await a.db.put(a.owner, 'load_profile', ex['id'], chosenMethod);
+      }
       value['id'] = edit?['id'] ?? ids.v4();
       if (edit == null) {
         list.add(value);
@@ -321,8 +589,103 @@ class _Session extends ConsumerState<SessionPage> {
         list[list.indexWhere((s) => s['id'] == edit['id'])] = value;
       }
       await a.save(w);
-      rest = DateTime.now().add(Duration(seconds: value['rest_seconds']));
-      await a.db.put(a.owner, 'timer', widget.id, rest!.toIso8601String());
+      final restSeconds = restForGroup(m, (value['rest_seconds'] as num?)?.toInt() ?? 0);
+      rest = restSeconds > 0
+          ? DateTime.now().add(Duration(seconds: restSeconds))
+          : null;
+      await a.db.put(a.owner, 'timer', widget.id, rest?.toIso8601String());
+      // Native scheduled notification also works when the screen is locked.
+      await restAlerts.schedule(widget.id, restSeconds);
+    });
+  }
+
+  Future<void> addAdvanced(Json m) async {
+    final a = ref.read(stateProvider), ex = a.catalog[m['exercise_id']]!;
+    final recording = ex['recording'];
+    if (recording == 'time' || recording == 'distance_time') {
+      if (mounted) snack(context, 'Estos métodos registran repeticiones, no intervalos de cardio.');
+      return;
+    }
+    final method = await pickMethod(context);
+    if (method == null || !mounted) return;
+    if (method == 'drop_set' && (recording == 'bodyweight_reps' || recording == 'assisted_reps')) {
+      snack(context, 'Usa un ejercicio con carga ajustable para el drop set. La asistencia de máquina no equivale a carga externa.');
+      return;
+    }
+    final list = m['sets'] as List;
+    final source = list.isNotEmpty
+        ? Json.from(list.last as Map)
+        : previousSet(a.workouts, ex['id'], except: widget.id);
+    final preferred = await a.db.read(a.owner, 'load_profile', ex['id']);
+    if (!mounted) return;
+    final base = await showModalBottomSheet<Json>(
+      context: context, useSafeArea: true, isScrollControlled: true,
+      builder: (_) => SetForm(ex: ex, old: source, imperial: a.imperial,
+        initialLoadMethod: preferred is String ? preferred : null),
+    );
+    if (base == null || !mounted) return;
+    final rows = await showModalBottomSheet<List<Json>>(
+      context: context, useSafeArea: true, isScrollControlled: true,
+      builder: (_) => TechniqueSequenceForm(
+        exercise: ex, base: base, method: method, imperial: a.imperial),
+    );
+    if (rows == null || !mounted) return;
+    final preference = base['_load_entry_method'];
+    await change(() async {
+      if (preference is String) await a.db.put(a.owner, 'load_profile', ex['id'], preference);
+      list.addAll(rows);
+      await a.save(w);
+      final seconds = restForGroup(m, (rows.last['rest_seconds'] as num?)?.toInt() ?? 0);
+      rest = seconds > 0 ? DateTime.now().add(Duration(seconds: seconds)) : null;
+      await a.db.put(a.owner, 'timer', widget.id, rest?.toIso8601String());
+      await restAlerts.schedule(widget.id, seconds);
+    });
+  }
+
+  Future<void> editAdvanced(Json m, Json st) async {
+    final a = ref.read(stateProvider), ex = a.catalog[m['exercise_id']]!;
+    final block = st['block_id'];
+    if (block == null) return;
+    final list = m['sets'] as List;
+    final group = list.where((v) => v['block_id'] == block)
+        .map((v) => Json.from(v as Map)).toList()
+      ..sort((a, b) => (a['phase'] as num).compareTo(b['phase'] as num));
+    if (group.isEmpty) return;
+    final storedMethod = await a.db.read(a.owner, 'load_profile', ex['id']);
+    if (!mounted) return;
+    final rows = await showModalBottomSheet<List<Json>>(
+      context: context, useSafeArea: true, isScrollControlled: true,
+      builder: (_) => TechniqueSequenceForm(
+        exercise: ex, base: group.first,
+        initialLoadMethod: storedMethod is String ? storedMethod : null,
+        method: group.first['method']?.toString() ?? 'drop_set',
+        imperial: a.imperial, existing: group),
+    );
+    if (rows == null || !mounted) return;
+    await change(() async {
+      final index = list.indexWhere((v) => v['block_id'] == block);
+      list.removeWhere((v) => v['block_id'] == block);
+      list.insertAll(index, rows);
+      await a.save(w);
+    });
+  }
+
+  Future<void> deleteAdvanced(Json m, Json st) async {
+    final block = st['block_id'];
+    if (block == null) return;
+    final confirm = await showDialog<bool>(context: context, builder: (c) => AlertDialog(
+      title: const Text('Eliminar bloque completo'),
+      content: const Text('Esta acción eliminará todas las etapas del método avanzado.'),
+      actions: [
+        TextButton(onPressed: () => Navigator.pop(c, false), child: const Text('Cancelar')),
+        FilledButton(onPressed: () => Navigator.pop(c, true), child: const Text('Eliminar')),
+      ],
+    ));
+    if (confirm != true || !mounted) return;
+    final a = ref.read(stateProvider);
+    await change(() async {
+      (m['sets'] as List).removeWhere((v) => v['block_id'] == block);
+      await a.save(w);
     });
   }
 
@@ -442,6 +805,7 @@ class _Session extends ConsumerState<SessionPage> {
                     tooltip: 'Terminar descanso',
                     onPressed: () {
                       setState(() => rest = null);
+                      restAlerts.cancel(widget.id);
                       a.db.put(a.owner, 'timer', widget.id, null);
                     },
                     icon: const Icon(Icons.close),
@@ -485,12 +849,23 @@ class _Session extends ConsumerState<SessionPage> {
                         "${ex['muscle']} · ${ex['equipment']}",
                         style: const TextStyle(color: muted, fontSize: 12),
                       ),
+                      if (loadEntryNames.containsKey(loadEntryKind(ex)))
+                        Text(
+                          'Registro de carga: ${loadEntryNames[loadEntryKind(ex)]}',
+                          style: const TextStyle(color: muted, fontSize: 11),
+                        ),
                       if (last != null)
                         Note(
                           'Última sesión · ${setLabel(last, ex, a.imperial)}',
                         ),
                       if (m['superset'] != null)
-                        Note("Superserie ${m['superset']}"),
+                        Note(() {
+                          final members = (w['exercises'] as List)
+                              .where((v) => v['superset'] == m['superset']).length;
+                          final title = members >= 3 ? 'Serie gigante' :
+                              members == 2 ? 'Superserie' : 'Grupo pendiente';
+                          return '$title ${m['superset']} · $members ejercicio(s)';
+                        }()),
                       ...(m['sets'] as List).asMap().entries.map((entry) {
                         final st = entry.value as Json;
                         return ListTile(
@@ -499,22 +874,20 @@ class _Session extends ConsumerState<SessionPage> {
                           leading: Text('${entry.key + 1}'),
                           title: Text(setLabel(st, ex, a.imperial)),
                           subtitle: Text(
-                            "${{'normal': 'Normal', 'warmup': 'Calentamiento', 'failure': 'Al fallo'}[st['kind']]} · RPE ${st['rpe'] ?? '—'} · RIR ${st['rir'] ?? '—'}",
+                            '${st['block_id'] != null ? '${techniqueName(st['method']?.toString())} · etapa ${((st['phase'] as num?)?.toInt() ?? 0) + 1} · ' : ''}'
+                            "${{'normal': 'Normal', 'warmup': 'Calentamiento', 'failure': 'Al fallo'}[st['kind']]} · pausa ${st['rest_seconds'] ?? 0} s · RPE ${st['rpe'] ?? '—'} · RIR ${st['rir'] ?? '—'}",
                           ),
-                          onTap: finished || busy
-                              ? null
-                              : () => add(m, edit: st),
-                          trailing: finished
-                              ? null
+                          onTap: finished || busy ? null : () => st['block_id'] != null
+                              ? editAdvanced(m, st) : add(m, edit: st),
+                          trailing: finished || busy ? null : st['block_id'] != null && st['phase'] != 0
+                              ? const SizedBox(width: 1)
                               : IconButton(
-                                  tooltip: 'Quitar serie',
+                                  tooltip: st['block_id'] != null ? 'Quitar bloque' : 'Quitar serie',
                                   icon: const Icon(Icons.close, size: 17),
-                                  onPressed: busy
-                                      ? null
-                                      : () => change(() async {
-                                          (m['sets'] as List).removeAt(
-                                            entry.key,
-                                          );
+                                  onPressed: () => st['block_id'] != null
+                                      ? deleteAdvanced(m, st)
+                                      : change(() async {
+                                          (m['sets'] as List).removeAt(entry.key);
                                           await a.save(w);
                                         }),
                                 ),
@@ -536,25 +909,23 @@ class _Session extends ConsumerState<SessionPage> {
                                     : () => add(m, repeat: true),
                                 child: const Text('Repetir valores'),
                               ),
+                            OutlinedButton.icon(
+                              icon: const Icon(Icons.layers_outlined, size: 18),
+                              label: const Text('Método'),
+                              onPressed: busy ? null : () => addAdvanced(m),
+                            ),
                             IconButton(
-                              tooltip: 'Grupo de superserie',
+                              tooltip: 'Superserie / serie gigante',
                               icon: const Icon(Icons.link),
-                              onPressed: busy
-                                  ? null
-                                  : () async {
-                                      final v = await ask(
-                                        c,
-                                        'Grupo de superserie',
-                                        initial: m['superset'] ?? '',
-                                        limit: 24,
-                                      );
-                                      if (v != null) {
-                                        await change(() async {
-                                          m['superset'] = v.isEmpty ? null : v;
-                                          await a.save(w);
-                                        });
-                                      }
-                                    },
+                              onPressed: busy ? null : () async {
+                                final v = await chooseExerciseGroup(c, w, m);
+                                if (v != null) {
+                                  await change(() async {
+                                    m['superset'] = v.isEmpty ? null : v;
+                                    await a.save(w);
+                                  });
+                                }
+                              },
                             ),
                           ],
                         ),
@@ -573,7 +944,7 @@ class _Session extends ConsumerState<SessionPage> {
                           context: c,
                           isScrollControlled: true,
                           useSafeArea: true,
-                          builder: (_) => Picker(a.catalog.values.toList()),
+                          builder: (_) => Picker(a.catalog.values.toList(),store:a.db,owner:a.owner),
                         );
                         if (e != null) {
                           await change(() async {
@@ -602,6 +973,7 @@ class _Session extends ConsumerState<SessionPage> {
                           return;
                         }
                         await a.finish(w);
+                        await restAlerts.cancel(widget.id);
                         if (c.mounted) c.pop();
                       }),
                 icon: const Icon(Icons.check),
@@ -620,11 +992,13 @@ class SetForm extends StatefulWidget {
   final Json ex;
   final Json? old;
   final bool imperial;
+  final String? initialLoadMethod;
   const SetForm({
     super.key,
     required this.ex,
     this.old,
     required this.imperial,
+    this.initialLoadMethod,
   });
   @override
   State<SetForm> createState() => _SetForm();
@@ -634,15 +1008,41 @@ class _SetForm extends State<SetForm> {
   final form = GlobalKey<FormState>();
   late Map<String, String> values;
   late String kind;
+  late String entryMethod;
+  bool platesBySide = false;
+
+  String get unit => widget.imperial ? 'lb' : 'kg';
+
+  double parsed(String key) => double.tryParse(values[key] ?? '') ?? 0;
+
+  double get displayedLoad {
+    if ((entryMethod == 'barbell' || entryMethod == 'plate_machine') && platesBySide) {
+      return parsed('bar_kg') + 2 * parsed('plates_side');
+    }
+    final single = parsed('load_kg');
+    return loadIsPair(entryMethod) ? 2 * single : single;
+  }
+
+  double get standardizedLoadKg => normalizedMass(displayedLoad, widget.imperial);
+
   @override
   void initState() {
     super.initState();
-    final old = widget.old ?? {};
+    final old = widget.old ?? <String, dynamic>{};
     kind = old['kind'] ?? 'normal';
+    final suggested = loadEntryKind(widget.ex);
+    entryMethod = loadEntryNames.containsKey(widget.initialLoadMethod)
+        ? widget.initialLoadMethod!
+        : suggested;
+    platesBySide = entryMethod == 'plate_machine';
+    final oldLoad = displayMass(numOf(old['load_kg']), widget.imperial);
+    final barKg = numOf((widget.ex['load_profile'] is Map)
+        ? widget.ex['load_profile']['default_bar_kg']
+        : 20);
     values = {
-      'load_kg': numOf(old['load_kg']) == 0
-          ? ''
-          : displayMass(numOf(old['load_kg']), widget.imperial).toStringAsFixed(2),
+      'load_kg': oldLoad == 0 ? '' : _formatLoad(oldLoad / (loadIsPair(entryMethod) ? 2 : 1)),
+      'bar_kg': entryMethod == 'plate_machine' ? '0' : _formatLoad(displayMass(barKg, widget.imperial)),
+      'plates_side': entryMethod == 'plate_machine' ? _formatLoad(oldLoad / 2) : '',
       'reps': '${old['reps'] ?? 10}',
       'seconds': '${old['seconds'] ?? 60}',
       'distance_m': '${old['distance_m'] ?? 1000}',
@@ -652,6 +1052,25 @@ class _SetForm extends State<SetForm> {
     };
   }
 
+  String _formatLoad(double x) {
+    if (x == 0) return '';
+    final value = x.toStringAsFixed(2);
+    return value.replaceFirst(RegExp(r'\.?0+$'), '');
+  }
+
+  void changeEntryMethod(String next) {
+    final oldTotal = displayedLoad;
+    setState(() {
+      entryMethod = next;
+      platesBySide = next == 'plate_machine';
+      if (platesBySide) {
+        values['bar_kg'] = '0';
+        values['plates_side'] = _formatLoad(oldTotal / 2);
+      }
+      values['load_kg'] = _formatLoad(oldTotal / (loadIsPair(next) ? 2 : 1));
+    });
+  }
+
   Widget repetitionsWheel() {
     final initial = (int.tryParse(values['reps'] ?? '') ?? 10).clamp(1, 1000);
     return Padding(
@@ -659,7 +1078,13 @@ class _SetForm extends State<SetForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Repeticiones', style: TextStyle(color: muted)),
+          Text(
+            widget.ex['load_profile'] is Map &&
+                    widget.ex['load_profile']['unilateral'] == true
+                ? 'Repeticiones (por lado)'
+                : 'Repeticiones',
+            style: const TextStyle(color: muted),
+          ),
           const SizedBox(height: 8),
           SizedBox(
             height: 142,
@@ -705,40 +1130,114 @@ class _SetForm extends State<SetForm> {
   }) => Padding(
     padding: const EdgeInsets.only(bottom: 10),
     child: TextFormField(
+      // Reset only when switching the entry scheme, not when typing numbers.
+      key: ValueKey('$k/$entryMethod/$platesBySide'),
       initialValue: values[k],
       keyboardType: TextInputType.numberWithOptions(decimal: !integer),
-      decoration: InputDecoration(labelText: label, hintText: k == 'load_kg' ? '0' : null),
-      onChanged: (v) => values[k] = v.replaceAll(',', '.'),
+      decoration: InputDecoration(
+        labelText: label,
+        hintText: k == 'load_kg' || k == 'plates_side' ? '0' : null,
+      ),
+      onChanged: (v) {
+        values[k] = v.replaceAll(',', '.');
+        if (['load_kg', 'bar_kg', 'plates_side'].contains(k)) setState(() {});
+      },
       validator: (_) {
         final v = values[k] ?? '';
-        if ((optional || k == 'load_kg') && v.isEmpty) return null;
+        if ((optional || ['load_kg', 'plates_side'].contains(k)) && v.isEmpty) return null;
         final n = double.tryParse(v);
-        return n == null ||
-                !n.isFinite ||
-                n < min ||
-                n > max ||
+        return n == null || !n.isFinite || n < min || n > max ||
                 (integer && n != n.roundToDouble())
             ? 'Revisa el valor ($min–$max)'
             : null;
       },
     ),
   );
+
+  Widget loadInputs() {
+    final profile = widget.ex['load_profile'];
+    final unilateral = profile is Map && profile['unilateral'] == true;
+    final mode = widget.ex['recording'];
+    if (mode == 'weighted_reps' || mode == 'assisted_reps') {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          field('load_kg', '${mode == 'weighted_reps' ? 'Lastre añadido' : 'Asistencia indicada'} ($unit)', 0, displayMass(1000, widget.imperial)),
+          Note(loadEntryHint(mode == 'weighted_reps' ? 'added' : 'assisted')),
+        ],
+      );
+    }
+    final captions = <String, String>{
+      'barbell': 'Peso TOTAL de barra y discos ($unit)',
+      'dumbbell_pair': 'Peso de CADA mancuerna ($unit)',
+      'dumbbell_single': 'Peso de UNA mancuerna ($unit)',
+      'cable_pair': 'Peso indicado en CADA torre ($unit)',
+      'cable_single': 'Peso indicado en la polea ($unit)',
+      'machine': 'Peso indicado en la máquina ($unit)',
+      'plate_machine': 'Carga total externa ($unit)',
+      'single': 'Carga del implemento ($unit)',
+    };
+    final profileReview = profile is Map && profile['confidence'] == 'needs_review';
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        DropdownButtonFormField<String>(
+          key: ValueKey('load-method/$entryMethod'),
+          initialValue: entryMethod,
+          isExpanded: true,
+          decoration: const InputDecoration(labelText: 'Cómo registrar la carga'),
+          items: loadEntryNames.entries.map((e) => DropdownMenuItem<String>(
+            value: e.key,
+            child: Text(e.value, overflow: TextOverflow.ellipsis),
+          )).toList(),
+          onChanged: (value) { if (value != null) changeEntryMethod(value); },
+        ),
+        const SizedBox(height: 10),
+        if (profileReview) const Note('Método sugerido automáticamente. Verifica si coincide con tu equipo; puedes cambiarlo aquí y KYVORA lo recordará para este ejercicio.'),
+        if (entryMethod == 'barbell' || entryMethod == 'plate_machine') ...[
+          SwitchListTile.adaptive(
+            contentPadding: EdgeInsets.zero,
+            title: Text(entryMethod == 'plate_machine' ? 'Sumar discos por lado' : 'Calcular con discos por lado'),
+            subtitle: Text(entryMethod == 'plate_machine' ? 'Carro/base (si se conoce) + discos de ambos lados' : 'Barra + discos izquierdos + discos derechos'),
+            value: platesBySide,
+            onChanged: (value) {
+              final total = displayedLoad;
+              setState(() {
+                platesBySide = value;
+                if (value) {
+                  values['plates_side'] = _formatLoad(
+                    ((total - parsed('bar_kg')) / 2).clamp(0.0, 1000.0).toDouble(),
+                  );
+                } else {
+                  values['load_kg'] = _formatLoad(total);
+                }
+              });
+            },
+          ),
+          if (platesBySide) ...[
+            field('bar_kg', entryMethod == 'plate_machine' ? 'Peso del carro/base conocido ($unit)' : 'Peso real de la barra ($unit)', 0, displayMass(1000, widget.imperial)),
+            field('plates_side', 'Discos por CADA lado ($unit)', 0, displayMass(500, widget.imperial)),
+          ] else field('load_kg', captions[entryMethod]!, 0, displayMass(1000, widget.imperial)),
+        ] else field('load_kg', captions[entryMethod]!, 0,
+            displayMass(loadIsPair(entryMethod) ? 500 : 1000, widget.imperial)),
+        Note(loadEntryHint(entryMethod, unilateral: unilateral)),
+        if (displayedLoad > 0) ...[
+          const SizedBox(height: 4),
+          Text('Carga registrada: ${_formatLoad(displayedLoad)} $unit${loadIsPair(entryMethod) || (entryMethod == 'barbell' || entryMethod == 'plate_machine') ? ' en total' : ''}',
+              style: const TextStyle(color: lime, fontWeight: FontWeight.w600)),
+          const SizedBox(height: 12),
+        ],
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext c) {
     final mode = widget.ex['recording'];
-    final timed = ['time', 'distance_time'].contains(mode),
-        weighted = [
-          'weight_reps',
-          'weighted_reps',
-          'assisted_reps',
-        ].contains(mode);
+    final timed = ['time', 'distance_time'].contains(mode);
+    final weighted = ['weight_reps', 'weighted_reps', 'assisted_reps'].contains(mode);
     return Padding(
-      padding: EdgeInsets.fromLTRB(
-        18,
-        16,
-        18,
-        MediaQuery.viewInsetsOf(c).bottom + 16,
-      ),
+      padding: EdgeInsets.fromLTRB(18, 16, 18, MediaQuery.viewInsetsOf(c).bottom + 16),
       child: SingleChildScrollView(
         child: Form(
           key: form,
@@ -748,30 +1247,23 @@ class _SetForm extends State<SetForm> {
             children: [
               Text(widget.ex['name'], style: Theme.of(c).textTheme.titleLarge),
               const SizedBox(height: 14),
-              if (weighted)
-                field(
-                  'load_kg',
-                  "${mode == 'assisted_reps'
-                      ? 'Asistencia'
-                      : mode == 'weighted_reps'
-                      ? 'Lastre'
-                      : 'Carga'} (${widget.imperial ? 'lb' : 'kg'})",
-                  0,
-                  displayMass(1000, widget.imperial),
-                ),
+              if (weighted) loadInputs(),
+              if (!weighted && !timed) Note(loadEntryHint('bodyweight')),
               if (!timed) repetitionsWheel(),
               if (timed) field('seconds', 'Duración (s)', 1, 86400),
-              if (mode == 'distance_time')
-                field('distance_m', 'Distancia (m)', 1, 1000000),
+              if (mode == 'distance_time') field('distance_m', 'Distancia (m)', 1, 1000000),
+              Row(children: [
+                const Expanded(child: Text('Tipo de serie')),
+                IconButton(icon: const Icon(Icons.info_outline),
+                    tooltip: 'Qué significan los tipos de serie',
+                    onPressed: () => explainSetKinds(c)),
+              ]),
               DropdownButtonFormField<String>(
                 initialValue: kind,
-                decoration: const InputDecoration(labelText: 'Tipo de serie'),
+                decoration: const InputDecoration(labelText: 'Tipo'),
                 items: const [
                   DropdownMenuItem(value: 'normal', child: Text('Normal')),
-                  DropdownMenuItem(
-                    value: 'warmup',
-                    child: Text('Calentamiento'),
-                  ),
+                  DropdownMenuItem(value: 'warmup', child: Text('Calentamiento')),
                   DropdownMenuItem(value: 'failure', child: Text('Al fallo')),
                 ],
                 onChanged: (v) => kind = v!,
@@ -779,26 +1271,9 @@ class _SetForm extends State<SetForm> {
               const SizedBox(height: 10),
               Row(
                 children: [
-                  Expanded(
-                    child: field(
-                      'rpe',
-                      'RPE (opcional)',
-                      1,
-                      10,
-                      optional: true,
-                    ),
-                  ),
+                  Expanded(child: field('rpe', 'RPE (opcional)', 1, 10, optional: true)),
                   const SizedBox(width: 8),
-                  Expanded(
-                    child: field(
-                      'rir',
-                      'RIR (opcional)',
-                      0,
-                      20,
-                      integer: true,
-                      optional: true,
-                    ),
-                  ),
+                  Expanded(child: field('rir', 'RIR (opcional)', 0, 20, integer: true, optional: true)),
                 ],
               ),
               field('rest_seconds', 'Descanso (s)', 0, 3600, integer: true),
@@ -807,21 +1282,22 @@ class _SetForm extends State<SetForm> {
                 child: FilledButton(
                   onPressed: () {
                     if (!form.currentState!.validate()) return;
+                    if (weighted && (standardizedLoadKg < 0 || standardizedLoadKg > 1000)) {
+                      snack(c, 'La carga total debe estar entre 0 y 1000 kg');
+                      return;
+                    }
                     double? val(String k) => double.tryParse(values[k] ?? '');
                     Navigator.pop(c, {
                       'id': ids.v4(),
                       'kind': kind,
-                      'load_kg': weighted
-                          ? normalizedMass(val('load_kg') ?? 0, widget.imperial)
-                          : 0.0,
+                      'load_kg': weighted ? standardizedLoadKg : 0.0,
                       'reps': timed ? null : val('reps')!.toInt(),
                       'seconds': timed ? val('seconds') : null,
-                      'distance_m': mode == 'distance_time'
-                          ? val('distance_m')
-                          : null,
+                      'distance_m': mode == 'distance_time' ? val('distance_m') : null,
                       'rpe': val('rpe'),
                       'rir': val('rir')?.toInt(),
                       'rest_seconds': val('rest_seconds')!.toInt(),
+                      if (mode == 'weight_reps') '_load_entry_method': entryMethod,
                     });
                   },
                   child: const Text('Guardar serie'),
