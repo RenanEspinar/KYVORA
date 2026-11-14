@@ -1,0 +1,147 @@
+#pecho|tríceps,deltoides anterior|weight_reps|press|Estabiliza los pies y la espalda. Mantén las muñecas alineadas con los antebrazos, baja hacia el pecho con control y empuja sin perder el apoyo.|Rebotar abajo o despegar la pelvis para completar la repetición.
+Press de banca|Barbell bench press|barra|Apoya la barra sobre el pecho sin rebote y usa seguros o un compañero cuando corresponda.
+Press inclinado con barra|Incline barbell bench press|barra|Ajusta la inclinación del banco y dirige el descenso hacia la zona superior del pecho.
+Press con mancuernas|Dumbbell bench press|mancuernas|Mueve las dos mancuernas con trayectorias simétricas sin golpearlas arriba.
+Press inclinado con mancuernas|Incline dumbbell press|mancuernas|Apoya la espalda en el banco inclinado y conserva la misma inclinación entre sesiones.
+Press en el suelo|Dumbbell floor press|mancuernas|Detén el descenso al contactar suavemente los brazos con el suelo.
+Press de pecho en máquina|Machine chest press|máquina|Ajusta el asiento para que las empuñaduras queden a la altura del pecho.
+#pecho|deltoides anterior|weight_reps|press|Con una flexión suave y constante de codos, abre los brazos dentro de un rango cómodo. Acerca las manos siguiendo un arco controlado.|Cambiar continuamente el ángulo del codo o forzar la extensión del hombro.
+Aperturas con mancuernas|Dumbbell fly|mancuernas|Apoya la espalda en un banco plano y controla la posición más abierta.
+Aperturas en poleas|Cable fly|poleas|Adopta una posición escalonada y mantén ambos cables a igual altura.
+Cruce de poleas alto|High cable crossover|poleas|Con poleas altas, orienta el cierre hacia delante y abajo.
+Pec deck|Pec deck fly|máquina|Alinea los hombros con los apoyos antes de comenzar la serie.
+#pecho|tríceps,abdomen|bodyweight_reps|plank|Mantén cabeza, tronco y pelvis alineados mientras flexionas los codos. Empuja la superficie hasta volver al inicio.|Hundir la pelvis o adelantar la cabeza para acortar el recorrido.
+Flexiones|Push-up|peso corporal|Coloca las manos en el suelo con una separación cómoda.
+Flexiones inclinadas|Incline push-up|banco|Apoya las manos sobre una superficie elevada y estable.
+Flexiones declinadas|Decline push-up|banco|Eleva los pies sobre un apoyo fijo y mantén el tronco firme.
+Flexiones cerradas|Close-grip push-up|peso corporal|Usa una separación menor que en tus flexiones habituales sin forzar las muñecas.
+#espalda|bíceps,deltoides posterior|bodyweight_reps|pull|Desde la suspensión, inicia una tracción controlada sin impulso de piernas. Desciende manteniendo el control escapular.|Balancearse o estirar el cuello para alcanzar la barra.
+Dominadas pronas|Pull-up|barra fija|Orienta las palmas hacia delante y fija una referencia de recorrido reproducible.
+Dominadas supinas|Chin-up|barra fija|Orienta las palmas hacia ti y elige un ancho cómodo para muñecas y codos.
+Dominadas neutras|Neutral grip pull-up|agarres paralelos|Usa dos agarres paralelos y conserva el tronco centrado.
+#espalda|bíceps|weighted_reps|pull|Asegura el lastre, estabiliza el tronco y realiza la tracción sin balanceo. Registra solamente la masa añadida.|Sumar la masa corporal al campo de lastre.
+Dominadas lastradas|Weighted pull-up|cinturón de lastre|Evita que el disco oscile entre repeticiones.
+#espalda|bíceps|assisted_reps|pull|Ajusta la asistencia antes de subir al apoyo. Completa cada tracción sin impulso y controla la bajada.|Interpretar más kilos de asistencia como más fuerza levantada.
+Dominadas asistidas|Assisted pull-up|máquina|Registra la ayuda indicada por la misma máquina.
+#espalda|bíceps|weight_reps|pull|Sujeta el agarre, fija los muslos y lleva los codos hacia abajo sin balancear el torso. Devuelve la carga con control.|Tirar detrás de la nuca o inclinarse demasiado hacia atrás.
+Jalón al pecho|Lat pulldown|polea|Dirige la barra al pecho superior por delante de la cabeza.
+Jalón con agarre neutro|Neutral grip pulldown|polea|Utiliza el accesorio paralelo y mantén las muñecas neutras.
+Jalón unilateral|Single-arm pulldown|polea|Usa un solo agarre y evita inclinar el tronco hacia ese lado.
+#espalda|bíceps,deltoides posterior|weight_reps|row|Estabiliza la pelvis y lleva los codos hacia atrás. Acerca la carga al tronco y controla la fase de retorno.|Usar extensión lumbar o impulso de hombros para iniciar cada repetición.
+Remo con barra|Bent-over barbell row|barra|Inclina el tronco desde la cadera y conserva el ángulo durante la serie.
+Remo con mancuerna|One-arm dumbbell row|mancuerna|Apoya la mano contraria en el banco y evita rotar la pelvis.
+Remo sentado en polea|Seated cable row|polea|Fija los pies y lleva el agarre hacia el abdomen.
+Remo con pecho apoyado|Chest-supported row|mancuernas|Mantén el esternón en contacto con el banco inclinado.
+Remo en máquina|Machine row|máquina|Ajusta el asiento y el apoyo de pecho antes de tirar.
+Remo en barra T|T-bar row|barra T|Centra el cuerpo sobre la palanca y evita elevar el torso con cada tracción.
+#espalda|bíceps,abdomen|bodyweight_reps|row|Bajo una barra fija, lleva el pecho hacia la barra manteniendo alineadas cadera y rodillas. Baja sin dejar caer la pelvis.|Montar la barra sobre un soporte que pueda soltarse.
+Remo invertido|Inverted row|barra fija|Ajusta la dificultad cambiando el ángulo del cuerpo.
+#espalda|tríceps|weight_reps|pull|Mantén el codo ligeramente flexionado. Desplaza los brazos desde el hombro sin compensar con la zona lumbar.|Convertir el gesto en una extensión de codo o arquear el tronco.
+Pullover en polea|Straight-arm pulldown|polea|Lleva la barra desde la polea alta hacia los muslos.
+Pullover con mancuerna|Dumbbell pullover|mancuerna|Apoya el tronco en un banco y limita el recorrido detrás de la cabeza.
+#hombros|tríceps|weight_reps|press|Estabiliza abdomen y pelvis, coloca las muñecas sobre los codos y eleva la carga con control. Regresa a una posición cómoda.|Extender excesivamente la zona lumbar para terminar el movimiento.
+Press militar con barra|Standing overhead press|barra|Sin impulso de piernas, eleva la barra cerca del rostro y termina sobre el cuerpo.
+Press sentado con mancuernas|Seated dumbbell shoulder press|mancuernas|Usa un respaldo estable y controla ambas mancuernas por separado.
+Press de hombros en máquina|Machine shoulder press|máquina|Ajusta el asiento para iniciar en un rango cómodo del hombro.
+Press de hombro unilateral|Single-arm overhead press|mancuerna|Evita inclinar el torso hacia el lado opuesto al brazo que empuja.
+#hombros|trapecio|weight_reps|arms|Mantén los codos ligeramente flexionados y eleva los brazos sin impulso del tronco. Baja con control.|Elevar los hombros hacia las orejas o balancear la cadera.
+Elevaciones laterales|Dumbbell lateral raise|mancuernas|Separa los brazos a los lados en un plano ligeramente adelantado.
+Elevación lateral en polea|Cable lateral raise|polea|Colócate de costado a una polea baja sin girar el torso.
+Elevaciones frontales|Front raise|mancuernas|Eleva las manos por delante del cuerpo dentro de tu rango controlado.
+Pájaros con mancuernas|Reverse dumbbell fly|mancuernas|Inclina el tronco y abre los brazos hacia los lados.
+Pec deck inverso|Reverse pec deck|máquina|Apoya el pecho y separa los agarres sin perder contacto con el respaldo.
+Face pull|Face pull|polea|Lleva los extremos de una cuerda hacia el rostro separando las manos al final.
+#trapecio|antebrazos|weight_reps|arms|Deja los brazos extendidos y eleva los hombros verticalmente con la cabeza en posición neutra.|Rotar los hombros en círculos o flexionar el cuello.
+Encogimientos con barra|Barbell shrug|barra|Sostén la barra delante de los muslos.
+Encogimientos con mancuernas|Dumbbell shrug|mancuernas|Mantén cada mancuerna al costado del cuerpo.
+#bíceps|antebrazos|weight_reps|arms|Flexiona el codo manteniendo el brazo estable. Controla el descenso de la carga y conserva la muñeca alineada.|Usar balanceo de cadera o adelantar el hombro para completar la repetición.
+Curl con barra|Barbell curl|barra|Usa un agarre supino cómodo para tus muñecas.
+Curl con barra Z|EZ-bar curl|barra Z|Agarra las zonas oblicuas sin forzar la supinación.
+Curl alternado|Alternating dumbbell curl|mancuernas|Alterna los brazos y registra repeticiones por lado.
+Curl martillo|Hammer curl|mancuernas|Conserva las palmas enfrentadas durante todo el recorrido.
+Curl inclinado|Incline dumbbell curl|mancuernas|Apoya la espalda en el banco inclinado y evita mover los hombros.
+Curl predicador|Preacher curl|barra Z|Mantén la parte posterior del brazo en el apoyo y evita rebotes.
+Curl en polea|Cable curl|polea|Mantén tensión continua desde la polea baja.
+Curl concentrado|Concentration curl|mancuerna|Apoya el brazo en la cara interna del muslo y flexiona el codo.
+#antebrazos|braquial|weight_reps|arms|Apoya o estabiliza el segmento proximal y mueve únicamente la articulación indicada. Controla el retorno sin rebote.|Aumentar el recorrido desplazando todo el brazo.
+Curl inverso|Reverse curl|barra|Flexiona los codos con agarre prono y muñecas alineadas.
+Flexión de muñeca|Wrist curl|mancuerna|Apoya el antebrazo con la palma hacia arriba y flexiona la muñeca.
+Extensión de muñeca|Reverse wrist curl|mancuerna|Apoya el antebrazo con la palma hacia abajo y eleva el dorso de la mano.
+#tríceps|deltoides anterior|weight_reps|arms|Estabiliza el brazo y extiende el codo sin impulso del tronco. Regresa con control al rango inicial.|Mover el hombro en lugar de extender el codo.
+Extensión en polea|Triceps pushdown|polea|Fija los brazos al costado y empuja la barra hacia abajo.
+Extensión con cuerda|Rope triceps pushdown|polea|Separa suavemente los extremos de la cuerda al final de la extensión.
+Extensión sobre cabeza|Overhead triceps extension|mancuerna|Sostén la carga sobre la cabeza con el abdomen estable.
+Extensión sobre cabeza en polea|Overhead cable extension|polea|Da un paso hacia delante para estabilizarte frente a la tensión del cable.
+Press francés|Lying triceps extension|barra Z|Acostado, controla la aproximación de la barra sin dejarla caer hacia el rostro.
+Patada de tríceps|Dumbbell kickback|mancuerna|Inclina y apoya el tronco, manteniendo el brazo junto al cuerpo.
+#tríceps|pecho|bodyweight_reps|press|Sostén el cuerpo entre las barras y flexiona ambos codos en un rango cómodo. Empuja sin oscilación de piernas.|Forzar una profundidad que produzca molestia en el hombro.
+Fondos en paralelas|Parallel bar dip|paralelas|Comprueba la estabilidad de ambas barras antes de comenzar.
+#tríceps|pecho|weighted_reps|press|Sujeta bien la carga añadida y realiza el fondo sin balanceo. Usa solo la masa del lastre en el registro.|Sumar el peso corporal al lastre.
+Fondos lastrados|Weighted dip|cinturón de lastre|Centra el lastre y evita el balanceo del disco.
+#tríceps|pecho|assisted_reps|press|Ajusta la máquina y mantén el apoyo bajo rodillas o pies durante todo el fondo. Registra la ayuda aplicada.|Comparar directamente kilos de asistencia con kilos levantados.
+Fondos asistidos|Assisted dip|máquina|Usa la misma referencia de asistencia para comparar sesiones.
+#cuádriceps|glúteos,aductores|weight_reps|squat|Apoya todo el pie. Flexiona caderas y rodillas en un recorrido controlado y extiéndelas sin perder la estabilidad del tronco.|Despegar los talones o dejar caer las rodillas hacia dentro.
+Sentadilla trasera|Back squat|barra|Coloca la barra sobre la espalda alta y usa soportes de seguridad ajustados.
+Sentadilla frontal|Front squat|barra|Sostén la barra sobre los hombros delanteros y conserva altos los codos.
+Sentadilla goblet|Goblet squat|mancuerna|Mantén la carga cerca del pecho sin separarla al descender.
+Sentadilla a cajón|Box squat|barra|Toca un cajón estable con control, sin dejarte caer ni perder tensión.
+Hack squat|Hack squat|máquina|Mantén la espalda y los hombros contra sus apoyos.
+Prensa de piernas|Leg press|máquina|Limita el descenso al rango en que la pelvis permanece apoyada.
+Sentadilla búlgara|Bulgarian split squat|mancuernas|Apoya el pie trasero y controla la bajada con el pie delantero firme.
+Zancada con mancuernas|Dumbbell lunge|mancuernas|Avanza con un paso cómodo y evita golpear el suelo con la rodilla.
+Zancada inversa|Reverse lunge|mancuernas|Lleva un pie atrás y regresa sin girar la pelvis.
+Step-up|Dumbbell step-up|mancuernas|Apoya todo el pie sobre el cajón y evita impulsarte con la pierna inferior.
+#cuádriceps|glúteos|bodyweight_reps|squat|Flexiona y extiende las piernas manteniendo el pie apoyado y el tronco estable.|Reducir progresivamente el recorrido para aumentar las repeticiones.
+Sentadilla sin carga|Bodyweight squat|peso corporal|Busca una postura cómoda y conserva la profundidad entre repeticiones.
+Zancada sin carga|Bodyweight lunge|peso corporal|Controla el paso y registra las repeticiones por pierna.
+#cuádriceps||weight_reps|squat|Alinea la rodilla con el eje de giro y extiéndela con control. Devuelve el rodillo sin soltar la carga.|Despegar la pelvis o lanzar la carga bruscamente.
+Extensión de rodilla|Leg extension|máquina|Ajusta el rodillo sobre la zona inferior de la pierna y fija el respaldo.
+#cadena posterior|glúteos,isquiotibiales,erectores|weight_reps|hinge|Estabiliza el tronco antes del despegue, mantén la carga cerca del cuerpo y extiende caderas y rodillas con control.|Separar la carga del cuerpo o hiperextender la espalda al terminar.
+Peso muerto convencional|Conventional deadlift|barra|Inicia con la barra cerca de las tibias y las manos por fuera de las piernas.
+Peso muerto sumo|Sumo deadlift|barra|Usa una postura abierta cómoda y coloca las manos entre las piernas.
+Peso muerto con trap bar|Trap bar deadlift|barra hexagonal|Ubícate centrado dentro de la barra y mantén ambas asas a igual altura.
+Peso muerto rumano|Romanian deadlift|barra|Desde arriba lleva la cadera atrás, con rodillas suavemente flexionadas.
+Peso muerto rumano con mancuernas|Dumbbell Romanian deadlift|mancuernas|Desliza las mancuernas cerca de los muslos sin buscar tocar el suelo.
+Buenos días|Good morning|barra|Con la barra estable sobre la espalda, realiza una bisagra de cadera controlada.
+#isquiotibiales||weight_reps|hinge|Alinea la rodilla con la máquina y flexiónala sin mover la pelvis. Controla el retorno del rodillo.|Impulsar la carga con la zona lumbar.
+Curl femoral tumbado|Lying leg curl|máquina|Mantén los muslos y la pelvis en contacto con el banco.
+Curl femoral sentado|Seated leg curl|máquina|Fija el apoyo sobre los muslos antes de flexionar las rodillas.
+Curl femoral de pie|Standing leg curl|máquina|Flexiona una rodilla sin elevar la cadera del mismo lado.
+#glúteos|isquiotibiales|weight_reps|hinge|Extiende la cadera manteniendo pelvis y caja torácica controladas. Detén el recorrido al alcanzar la posición final sin arquear la espalda.|Confundir extensión lumbar con extensión de cadera.
+Hip thrust con barra|Barbell hip thrust|barra|Apoya la espalda alta en un banco fijo y protege el contacto de la barra.
+Patada de glúteo en polea|Cable glute kickback|polea|Con tobillera bien fijada, mueve una pierna atrás sin girar la pelvis.
+Pull-through|Cable pull-through|polea|Pasa la cuerda entre las piernas y extiende la cadera desde una bisagra controlada.
+#glúteos|isquiotibiales|bodyweight_reps|hinge|Apoya los pies y eleva la pelvis con control. Termina al alinear el tronco con los muslos.|Elevar las costillas o arquear la zona lumbar.
+Puente de glúteos|Glute bridge|peso corporal|Parte del suelo y mantén los pies estables.
+Puente unilateral|Single-leg glute bridge|peso corporal|Eleva una pierna y conserva la pelvis nivelada durante cada repetición.
+#cadera|glúteos,aductores|weight_reps|squat|Ajusta el asiento y los apoyos al rango cómodo de cadera. Mueve los muslos sin balancear el tronco.|Rebotar contra los topes de la máquina.
+Abducción en máquina|Hip abduction machine|máquina|Separa las rodillas contra los apoyos externos.
+Aducción en máquina|Hip adduction machine|máquina|Aproxima los muslos contra los apoyos internos sin forzar la apertura.
+#pantorrillas|sóleo|weight_reps|calf|Mantén un apoyo seguro del antepié y eleva los talones moviendo los tobillos. Baja sin rebote.|Impulsarse flexionando las rodillas o dejar resbalar el pie.
+Gemelos de pie|Standing calf raise|máquina|Mantén piernas estables y hombros bien apoyados.
+Gemelos sentado|Seated calf raise|máquina|Ajusta la almohadilla sobre los muslos con las rodillas flexionadas.
+Gemelos en prensa|Leg press calf raise|máquina|Fija la posición del asiento y mueve solo los tobillos.
+#abdomen|estabilizadores|time|plank|Mantén una postura estable y respira durante el intervalo. Termina cuando ya no puedas sostener la alineación.|Prolongar el tiempo a costa de perder la posición.
+Plancha frontal|Forearm plank|peso corporal|Alinea hombros, pelvis y piernas sobre antebrazos y pies.
+Plancha lateral|Side plank|peso corporal|Apoya el codo bajo el hombro y evita rotar la pelvis.
+Hollow hold|Hollow body hold|peso corporal|Ajusta brazos y piernas para mantener contacto lumbar controlado con el suelo.
+#abdomen|estabilizadores|bodyweight_reps|plank|Controla la pelvis y realiza cada repetición sin impulso. Mantén un recorrido que puedas reproducir.|Usar inercia o perder la posición lumbar.
+Crunch|Crunch|peso corporal|Eleva la parte alta del tronco sin tirar del cuello.
+Elevación de rodillas colgado|Hanging knee raise|barra fija|Parte de una suspensión estable y eleva las rodillas sin balanceo.
+Elevación de piernas tumbado|Lying leg raise|peso corporal|Baja las piernas solo hasta donde controles la espalda.
+Dead bug|Dead bug|peso corporal|Alterna brazo y pierna opuestos sin despegar la espalda baja.
+Bird dog|Bird dog|peso corporal|Desde cuadrupedia extiende extremidades contrarias sin girar la pelvis.
+Rueda abdominal|Ab wheel rollout|rueda|Desde rodillas, avanza solo hasta el punto en que mantengas el control.
+#abdomen|oblicuos|weight_reps|plank|Ajusta la polea y estabiliza la posición inicial. Controla la tensión en ambas fases del movimiento.|Aumentar la carga hasta perder el control de la pelvis.
+Crunch en polea|Cable crunch|polea|Acerca las costillas a la pelvis flexionando el tronco sin tirar con los brazos.
+Pallof press|Pallof press|polea|De costado al cable, extiende los brazos evitando que el tronco rote.
+#cardio|piernas|distance_time|cardio|Registra distancia y tiempo del mismo intervalo. Mantén un ritmo que puedas controlar y utiliza la misma referencia de medición al comparar sesiones.|Combinar distancia de un intervalo con tiempo de otro.
+Caminata|Walking|ninguno|Camina con una zancada cómoda y registra la distancia recorrida.
+Carrera continua|Running|ninguno|Usa una superficie apropiada y controla los cambios de ritmo.
+Cinta de correr|Treadmill run|cinta|Coloca el clip de seguridad y cambia la velocidad gradualmente.
+Bicicleta estática|Stationary cycling|bicicleta|Ajusta el sillín y registra la distancia indicada por esa máquina.
+Remo ergómetro|Rowing ergometer|ergómetro|Secuencia el impulso con piernas, tronco y brazos y regresa en orden inverso.
+#cardio|piernas|time|cardio|Registra la duración efectiva y conserva una postura estable. Ajusta la intensidad de forma gradual.|Contar pausas prolongadas como tiempo de trabajo.
+Elíptica|Elliptical trainer|elíptica|Mantén los pies apoyados sin colgarte de los agarres.
+Escaladora|Stair climber|escaladora|Usa las barandas para equilibrio y evita descargar todo el peso en ellas.
+Salto de cuerda|Jump rope|cuerda|Realiza saltos bajos sobre una superficie adecuada y gira la cuerda con las muñecas.

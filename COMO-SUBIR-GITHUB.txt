@@ -1,0 +1,20 @@
+LIFTLOG · paquete para GitHub
+
+Contiene el codigo fuente, la APK de pruebas y el instalador para Windows.
+
+La APK esta en releases/LIFTLOG-1.0-pruebas.apk (44,558,075 bytes).
+SHA-256: 310910be4949c346884ee7018f5c97c4959d2f8f57265351e1ab7f3b54b908f5
+
+PARA SUBIR TODO:
+1. Extraer este ZIP en una carpeta del PC.
+2. Instalar Git y GitHub CLI si faltan:
+   winget install --id Git.Git -e
+   winget install --id GitHub.cli -e
+3. Cerrar y abrir PowerShell, entrar en la carpeta extraida.
+4. Ejecutar: powershell -ExecutionPolicy Bypass -File .\subir-github.ps1
+5. Autorizar el inicio de sesion con GitHub si se solicita.
+
+El script crea un repositorio PRIVADO llamado LIFTLOG. Puede hacerse publico luego en GitHub.
+Si el repositorio ya existe, el ultimo paso fallara y habra que enlazarlo.
+
+NOTA: el ZIP del proyecto no demuestra que la APK funcione en el telefono.

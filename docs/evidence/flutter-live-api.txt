@@ -1,0 +1,3 @@
+00:00 +0: loading /workspace/scratch/dc8cc3e1bc37/project/liftlog/mobile/test/sync_live_test.dart
+00:00 +0: SQLite offline → API real → reintento → segunda cuenta
+00:00 +1: All tests passed!

@@ -1,0 +1,8 @@
+[Unit]
+Description=Respaldo y comprobación de LIFTLOG
+After=docker.service
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/liftlog
+UMask=0077
+ExecStart=/bin/bash -ec 'backup=$(/opt/liftlog/scripts/backup.sh); /opt/liftlog/scripts/restore-check.sh "$backup"'

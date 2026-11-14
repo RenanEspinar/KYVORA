@@ -1,0 +1,11 @@
+{
+  "built_at": "2026-11-14T12:01:56.433768+00:00",
+  "filename": "LIFTLOG-1.0-pruebas.apk",
+  "bytes": 44558075,
+  "sha256": "310910be4949c346884ee7018f5c97c4959d2f8f57265351e1ab7f3b54b908f5",
+  "signature_verified": true,
+  "zip_alignment_16k_verified": true,
+  "signing": "Android debug certificate; test build only",
+  "installation_on_android": "Not tested in this delivery",
+  "api_base_url": "https://api.chuma.website/api/v1"
+}

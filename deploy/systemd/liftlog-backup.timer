@@ -1,0 +1,8 @@
+[Unit]
+Description=Respaldo diario de LIFTLOG
+[Timer]
+OnCalendar=*-*-* 03:20:00
+Persistent=true
+RandomizedDelaySec=10m
+[Install]
+WantedBy=timers.target

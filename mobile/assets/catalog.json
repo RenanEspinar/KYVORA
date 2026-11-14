@@ -1,0 +1,1862 @@
+[
+  {
+    "id": "d05644a2-ad75-509c-a75c-c2180c5ff85f",
+    "name": "Press de banca",
+    "name_en": "Barbell bench press",
+    "muscle": "pecho",
+    "secondary": [
+      "tríceps",
+      "deltoides anterior"
+    ],
+    "equipment": "barra",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Apoya la barra sobre el pecho sin rebote y usa seguros o un compañero cuando corresponda.",
+    "technique": "Estabiliza los pies y la espalda. Mantén las muñecas alineadas con los antebrazos, baja hacia el pecho con control y empuja sin perder el apoyo.",
+    "errors": "Rebotar abajo o despegar la pelvis para completar la repetición.",
+    "image": "assets/maps/press.svg"
+  },
+  {
+    "id": "7f0b1aa3-d319-562e-bfc8-5967f85937d5",
+    "name": "Press inclinado con barra",
+    "name_en": "Incline barbell bench press",
+    "muscle": "pecho",
+    "secondary": [
+      "tríceps",
+      "deltoides anterior"
+    ],
+    "equipment": "barra",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Ajusta la inclinación del banco y dirige el descenso hacia la zona superior del pecho.",
+    "technique": "Estabiliza los pies y la espalda. Mantén las muñecas alineadas con los antebrazos, baja hacia el pecho con control y empuja sin perder el apoyo.",
+    "errors": "Rebotar abajo o despegar la pelvis para completar la repetición.",
+    "image": "assets/maps/press.svg"
+  },
+  {
+    "id": "c8785d9b-6369-5240-8ce9-77f9b40f4986",
+    "name": "Press con mancuernas",
+    "name_en": "Dumbbell bench press",
+    "muscle": "pecho",
+    "secondary": [
+      "tríceps",
+      "deltoides anterior"
+    ],
+    "equipment": "mancuernas",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Mueve las dos mancuernas con trayectorias simétricas sin golpearlas arriba.",
+    "technique": "Estabiliza los pies y la espalda. Mantén las muñecas alineadas con los antebrazos, baja hacia el pecho con control y empuja sin perder el apoyo.",
+    "errors": "Rebotar abajo o despegar la pelvis para completar la repetición.",
+    "image": "assets/maps/press.svg"
+  },
+  {
+    "id": "21257be7-c60c-58e8-8b5a-324dd902ae13",
+    "name": "Press inclinado con mancuernas",
+    "name_en": "Incline dumbbell press",
+    "muscle": "pecho",
+    "secondary": [
+      "tríceps",
+      "deltoides anterior"
+    ],
+    "equipment": "mancuernas",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Apoya la espalda en el banco inclinado y conserva la misma inclinación entre sesiones.",
+    "technique": "Estabiliza los pies y la espalda. Mantén las muñecas alineadas con los antebrazos, baja hacia el pecho con control y empuja sin perder el apoyo.",
+    "errors": "Rebotar abajo o despegar la pelvis para completar la repetición.",
+    "image": "assets/maps/press.svg"
+  },
+  {
+    "id": "fc505978-acaf-55a0-a1b8-22cf81f829a7",
+    "name": "Press en el suelo",
+    "name_en": "Dumbbell floor press",
+    "muscle": "pecho",
+    "secondary": [
+      "tríceps",
+      "deltoides anterior"
+    ],
+    "equipment": "mancuernas",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Detén el descenso al contactar suavemente los brazos con el suelo.",
+    "technique": "Estabiliza los pies y la espalda. Mantén las muñecas alineadas con los antebrazos, baja hacia el pecho con control y empuja sin perder el apoyo.",
+    "errors": "Rebotar abajo o despegar la pelvis para completar la repetición.",
+    "image": "assets/maps/press.svg"
+  },
+  {
+    "id": "ce2a1d7d-afa6-5f04-a68c-034037ffa806",
+    "name": "Press de pecho en máquina",
+    "name_en": "Machine chest press",
+    "muscle": "pecho",
+    "secondary": [
+      "tríceps",
+      "deltoides anterior"
+    ],
+    "equipment": "máquina",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Ajusta el asiento para que las empuñaduras queden a la altura del pecho.",
+    "technique": "Estabiliza los pies y la espalda. Mantén las muñecas alineadas con los antebrazos, baja hacia el pecho con control y empuja sin perder el apoyo.",
+    "errors": "Rebotar abajo o despegar la pelvis para completar la repetición.",
+    "image": "assets/maps/press.svg"
+  },
+  {
+    "id": "3cb8f0cd-5512-57da-ba3c-946aa1f017f9",
+    "name": "Aperturas con mancuernas",
+    "name_en": "Dumbbell fly",
+    "muscle": "pecho",
+    "secondary": [
+      "deltoides anterior"
+    ],
+    "equipment": "mancuernas",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Apoya la espalda en un banco plano y controla la posición más abierta.",
+    "technique": "Con una flexión suave y constante de codos, abre los brazos dentro de un rango cómodo. Acerca las manos siguiendo un arco controlado.",
+    "errors": "Cambiar continuamente el ángulo del codo o forzar la extensión del hombro.",
+    "image": "assets/maps/press.svg"
+  },
+  {
+    "id": "4c4f7f33-13da-5b5a-afe7-e6c54f32f8dd",
+    "name": "Aperturas en poleas",
+    "name_en": "Cable fly",
+    "muscle": "pecho",
+    "secondary": [
+      "deltoides anterior"
+    ],
+    "equipment": "poleas",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Adopta una posición escalonada y mantén ambos cables a igual altura.",
+    "technique": "Con una flexión suave y constante de codos, abre los brazos dentro de un rango cómodo. Acerca las manos siguiendo un arco controlado.",
+    "errors": "Cambiar continuamente el ángulo del codo o forzar la extensión del hombro.",
+    "image": "assets/maps/press.svg"
+  },
+  {
+    "id": "62da7df8-d5a9-52c6-bbe3-3eb01242513b",
+    "name": "Cruce de poleas alto",
+    "name_en": "High cable crossover",
+    "muscle": "pecho",
+    "secondary": [
+      "deltoides anterior"
+    ],
+    "equipment": "poleas",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Con poleas altas, orienta el cierre hacia delante y abajo.",
+    "technique": "Con una flexión suave y constante de codos, abre los brazos dentro de un rango cómodo. Acerca las manos siguiendo un arco controlado.",
+    "errors": "Cambiar continuamente el ángulo del codo o forzar la extensión del hombro.",
+    "image": "assets/maps/press.svg"
+  },
+  {
+    "id": "3d09d855-be15-56f6-96cc-34298371af0c",
+    "name": "Pec deck",
+    "name_en": "Pec deck fly",
+    "muscle": "pecho",
+    "secondary": [
+      "deltoides anterior"
+    ],
+    "equipment": "máquina",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Alinea los hombros con los apoyos antes de comenzar la serie.",
+    "technique": "Con una flexión suave y constante de codos, abre los brazos dentro de un rango cómodo. Acerca las manos siguiendo un arco controlado.",
+    "errors": "Cambiar continuamente el ángulo del codo o forzar la extensión del hombro.",
+    "image": "assets/maps/press.svg"
+  },
+  {
+    "id": "d92808b9-2aa3-55d8-baff-b74c25499dc9",
+    "name": "Flexiones",
+    "name_en": "Push-up",
+    "muscle": "pecho",
+    "secondary": [
+      "tríceps",
+      "abdomen"
+    ],
+    "equipment": "peso corporal",
+    "recording": "bodyweight_reps",
+    "modality": "fuerza",
+    "description": "Coloca las manos en el suelo con una separación cómoda.",
+    "technique": "Mantén cabeza, tronco y pelvis alineados mientras flexionas los codos. Empuja la superficie hasta volver al inicio.",
+    "errors": "Hundir la pelvis o adelantar la cabeza para acortar el recorrido.",
+    "image": "assets/maps/plank.svg"
+  },
+  {
+    "id": "1343d859-746c-509b-b02d-4e6c84b573aa",
+    "name": "Flexiones inclinadas",
+    "name_en": "Incline push-up",
+    "muscle": "pecho",
+    "secondary": [
+      "tríceps",
+      "abdomen"
+    ],
+    "equipment": "banco",
+    "recording": "bodyweight_reps",
+    "modality": "fuerza",
+    "description": "Apoya las manos sobre una superficie elevada y estable.",
+    "technique": "Mantén cabeza, tronco y pelvis alineados mientras flexionas los codos. Empuja la superficie hasta volver al inicio.",
+    "errors": "Hundir la pelvis o adelantar la cabeza para acortar el recorrido.",
+    "image": "assets/maps/plank.svg"
+  },
+  {
+    "id": "4d9415ca-d22a-56ea-bf62-b397441bbb32",
+    "name": "Flexiones declinadas",
+    "name_en": "Decline push-up",
+    "muscle": "pecho",
+    "secondary": [
+      "tríceps",
+      "abdomen"
+    ],
+    "equipment": "banco",
+    "recording": "bodyweight_reps",
+    "modality": "fuerza",
+    "description": "Eleva los pies sobre un apoyo fijo y mantén el tronco firme.",
+    "technique": "Mantén cabeza, tronco y pelvis alineados mientras flexionas los codos. Empuja la superficie hasta volver al inicio.",
+    "errors": "Hundir la pelvis o adelantar la cabeza para acortar el recorrido.",
+    "image": "assets/maps/plank.svg"
+  },
+  {
+    "id": "1d90aaba-d8df-5de4-ab7b-d580fa4be3fd",
+    "name": "Flexiones cerradas",
+    "name_en": "Close-grip push-up",
+    "muscle": "pecho",
+    "secondary": [
+      "tríceps",
+      "abdomen"
+    ],
+    "equipment": "peso corporal",
+    "recording": "bodyweight_reps",
+    "modality": "fuerza",
+    "description": "Usa una separación menor que en tus flexiones habituales sin forzar las muñecas.",
+    "technique": "Mantén cabeza, tronco y pelvis alineados mientras flexionas los codos. Empuja la superficie hasta volver al inicio.",
+    "errors": "Hundir la pelvis o adelantar la cabeza para acortar el recorrido.",
+    "image": "assets/maps/plank.svg"
+  },
+  {
+    "id": "92fe6e47-1390-525e-9212-fe84f3038907",
+    "name": "Dominadas pronas",
+    "name_en": "Pull-up",
+    "muscle": "espalda",
+    "secondary": [
+      "bíceps",
+      "deltoides posterior"
+    ],
+    "equipment": "barra fija",
+    "recording": "bodyweight_reps",
+    "modality": "fuerza",
+    "description": "Orienta las palmas hacia delante y fija una referencia de recorrido reproducible.",
+    "technique": "Desde la suspensión, inicia una tracción controlada sin impulso de piernas. Desciende manteniendo el control escapular.",
+    "errors": "Balancearse o estirar el cuello para alcanzar la barra.",
+    "image": "assets/maps/pull.svg"
+  },
+  {
+    "id": "b087c1a6-abfe-5a0c-a97a-ac2d782163cf",
+    "name": "Dominadas supinas",
+    "name_en": "Chin-up",
+    "muscle": "espalda",
+    "secondary": [
+      "bíceps",
+      "deltoides posterior"
+    ],
+    "equipment": "barra fija",
+    "recording": "bodyweight_reps",
+    "modality": "fuerza",
+    "description": "Orienta las palmas hacia ti y elige un ancho cómodo para muñecas y codos.",
+    "technique": "Desde la suspensión, inicia una tracción controlada sin impulso de piernas. Desciende manteniendo el control escapular.",
+    "errors": "Balancearse o estirar el cuello para alcanzar la barra.",
+    "image": "assets/maps/pull.svg"
+  },
+  {
+    "id": "e4d385f1-c24c-5c76-b2c4-ffb65d7726ab",
+    "name": "Dominadas neutras",
+    "name_en": "Neutral grip pull-up",
+    "muscle": "espalda",
+    "secondary": [
+      "bíceps",
+      "deltoides posterior"
+    ],
+    "equipment": "agarres paralelos",
+    "recording": "bodyweight_reps",
+    "modality": "fuerza",
+    "description": "Usa dos agarres paralelos y conserva el tronco centrado.",
+    "technique": "Desde la suspensión, inicia una tracción controlada sin impulso de piernas. Desciende manteniendo el control escapular.",
+    "errors": "Balancearse o estirar el cuello para alcanzar la barra.",
+    "image": "assets/maps/pull.svg"
+  },
+  {
+    "id": "711aa956-8cf0-55d4-865c-3ff7a6de6690",
+    "name": "Dominadas lastradas",
+    "name_en": "Weighted pull-up",
+    "muscle": "espalda",
+    "secondary": [
+      "bíceps"
+    ],
+    "equipment": "cinturón de lastre",
+    "recording": "weighted_reps",
+    "modality": "fuerza",
+    "description": "Evita que el disco oscile entre repeticiones.",
+    "technique": "Asegura el lastre, estabiliza el tronco y realiza la tracción sin balanceo. Registra solamente la masa añadida.",
+    "errors": "Sumar la masa corporal al campo de lastre.",
+    "image": "assets/maps/pull.svg"
+  },
+  {
+    "id": "0ad5e46d-f58a-5ed7-bcab-9efa1fd50b78",
+    "name": "Dominadas asistidas",
+    "name_en": "Assisted pull-up",
+    "muscle": "espalda",
+    "secondary": [
+      "bíceps"
+    ],
+    "equipment": "máquina",
+    "recording": "assisted_reps",
+    "modality": "fuerza",
+    "description": "Registra la ayuda indicada por la misma máquina.",
+    "technique": "Ajusta la asistencia antes de subir al apoyo. Completa cada tracción sin impulso y controla la bajada.",
+    "errors": "Interpretar más kilos de asistencia como más fuerza levantada.",
+    "image": "assets/maps/pull.svg"
+  },
+  {
+    "id": "5da7a57c-1e98-5778-a46b-766bbf93a10c",
+    "name": "Jalón al pecho",
+    "name_en": "Lat pulldown",
+    "muscle": "espalda",
+    "secondary": [
+      "bíceps"
+    ],
+    "equipment": "polea",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Dirige la barra al pecho superior por delante de la cabeza.",
+    "technique": "Sujeta el agarre, fija los muslos y lleva los codos hacia abajo sin balancear el torso. Devuelve la carga con control.",
+    "errors": "Tirar detrás de la nuca o inclinarse demasiado hacia atrás.",
+    "image": "assets/maps/pull.svg"
+  },
+  {
+    "id": "b429c103-24f9-5f4a-8230-0130687d7d8c",
+    "name": "Jalón con agarre neutro",
+    "name_en": "Neutral grip pulldown",
+    "muscle": "espalda",
+    "secondary": [
+      "bíceps"
+    ],
+    "equipment": "polea",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Utiliza el accesorio paralelo y mantén las muñecas neutras.",
+    "technique": "Sujeta el agarre, fija los muslos y lleva los codos hacia abajo sin balancear el torso. Devuelve la carga con control.",
+    "errors": "Tirar detrás de la nuca o inclinarse demasiado hacia atrás.",
+    "image": "assets/maps/pull.svg"
+  },
+  {
+    "id": "2930f8e4-c5ee-54f1-8cfa-2f89a3542878",
+    "name": "Jalón unilateral",
+    "name_en": "Single-arm pulldown",
+    "muscle": "espalda",
+    "secondary": [
+      "bíceps"
+    ],
+    "equipment": "polea",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Usa un solo agarre y evita inclinar el tronco hacia ese lado.",
+    "technique": "Sujeta el agarre, fija los muslos y lleva los codos hacia abajo sin balancear el torso. Devuelve la carga con control.",
+    "errors": "Tirar detrás de la nuca o inclinarse demasiado hacia atrás.",
+    "image": "assets/maps/pull.svg"
+  },
+  {
+    "id": "28000493-b154-52e7-b3cf-8b533c2ed6d8",
+    "name": "Remo con barra",
+    "name_en": "Bent-over barbell row",
+    "muscle": "espalda",
+    "secondary": [
+      "bíceps",
+      "deltoides posterior"
+    ],
+    "equipment": "barra",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Inclina el tronco desde la cadera y conserva el ángulo durante la serie.",
+    "technique": "Estabiliza la pelvis y lleva los codos hacia atrás. Acerca la carga al tronco y controla la fase de retorno.",
+    "errors": "Usar extensión lumbar o impulso de hombros para iniciar cada repetición.",
+    "image": "assets/maps/row.svg"
+  },
+  {
+    "id": "a67e1c30-a5ad-5294-a6c4-a163deecc24c",
+    "name": "Remo con mancuerna",
+    "name_en": "One-arm dumbbell row",
+    "muscle": "espalda",
+    "secondary": [
+      "bíceps",
+      "deltoides posterior"
+    ],
+    "equipment": "mancuerna",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Apoya la mano contraria en el banco y evita rotar la pelvis.",
+    "technique": "Estabiliza la pelvis y lleva los codos hacia atrás. Acerca la carga al tronco y controla la fase de retorno.",
+    "errors": "Usar extensión lumbar o impulso de hombros para iniciar cada repetición.",
+    "image": "assets/maps/row.svg"
+  },
+  {
+    "id": "2f259ba1-0d1a-5c09-8e8b-6c686faa469b",
+    "name": "Remo sentado en polea",
+    "name_en": "Seated cable row",
+    "muscle": "espalda",
+    "secondary": [
+      "bíceps",
+      "deltoides posterior"
+    ],
+    "equipment": "polea",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Fija los pies y lleva el agarre hacia el abdomen.",
+    "technique": "Estabiliza la pelvis y lleva los codos hacia atrás. Acerca la carga al tronco y controla la fase de retorno.",
+    "errors": "Usar extensión lumbar o impulso de hombros para iniciar cada repetición.",
+    "image": "assets/maps/row.svg"
+  },
+  {
+    "id": "348f2e1c-4b4c-50d0-8f3d-907aa926cc55",
+    "name": "Remo con pecho apoyado",
+    "name_en": "Chest-supported row",
+    "muscle": "espalda",
+    "secondary": [
+      "bíceps",
+      "deltoides posterior"
+    ],
+    "equipment": "mancuernas",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Mantén el esternón en contacto con el banco inclinado.",
+    "technique": "Estabiliza la pelvis y lleva los codos hacia atrás. Acerca la carga al tronco y controla la fase de retorno.",
+    "errors": "Usar extensión lumbar o impulso de hombros para iniciar cada repetición.",
+    "image": "assets/maps/row.svg"
+  },
+  {
+    "id": "09fb8c01-142b-56d9-acd3-a2fc87cbb8a5",
+    "name": "Remo en máquina",
+    "name_en": "Machine row",
+    "muscle": "espalda",
+    "secondary": [
+      "bíceps",
+      "deltoides posterior"
+    ],
+    "equipment": "máquina",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Ajusta el asiento y el apoyo de pecho antes de tirar.",
+    "technique": "Estabiliza la pelvis y lleva los codos hacia atrás. Acerca la carga al tronco y controla la fase de retorno.",
+    "errors": "Usar extensión lumbar o impulso de hombros para iniciar cada repetición.",
+    "image": "assets/maps/row.svg"
+  },
+  {
+    "id": "cf502f23-c4b4-5a9b-ad99-4bcedfd24db9",
+    "name": "Remo en barra T",
+    "name_en": "T-bar row",
+    "muscle": "espalda",
+    "secondary": [
+      "bíceps",
+      "deltoides posterior"
+    ],
+    "equipment": "barra T",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Centra el cuerpo sobre la palanca y evita elevar el torso con cada tracción.",
+    "technique": "Estabiliza la pelvis y lleva los codos hacia atrás. Acerca la carga al tronco y controla la fase de retorno.",
+    "errors": "Usar extensión lumbar o impulso de hombros para iniciar cada repetición.",
+    "image": "assets/maps/row.svg"
+  },
+  {
+    "id": "96021f9a-a078-5fbc-9ad4-e5b4d951a4f9",
+    "name": "Remo invertido",
+    "name_en": "Inverted row",
+    "muscle": "espalda",
+    "secondary": [
+      "bíceps",
+      "abdomen"
+    ],
+    "equipment": "barra fija",
+    "recording": "bodyweight_reps",
+    "modality": "fuerza",
+    "description": "Ajusta la dificultad cambiando el ángulo del cuerpo.",
+    "technique": "Bajo una barra fija, lleva el pecho hacia la barra manteniendo alineadas cadera y rodillas. Baja sin dejar caer la pelvis.",
+    "errors": "Montar la barra sobre un soporte que pueda soltarse.",
+    "image": "assets/maps/row.svg"
+  },
+  {
+    "id": "b078c5f4-b217-5fc0-8676-5dfe071a8314",
+    "name": "Pullover en polea",
+    "name_en": "Straight-arm pulldown",
+    "muscle": "espalda",
+    "secondary": [
+      "tríceps"
+    ],
+    "equipment": "polea",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Lleva la barra desde la polea alta hacia los muslos.",
+    "technique": "Mantén el codo ligeramente flexionado. Desplaza los brazos desde el hombro sin compensar con la zona lumbar.",
+    "errors": "Convertir el gesto en una extensión de codo o arquear el tronco.",
+    "image": "assets/maps/pull.svg"
+  },
+  {
+    "id": "ebfdbe8f-9e04-5d2b-8a76-6d6d93cfc133",
+    "name": "Pullover con mancuerna",
+    "name_en": "Dumbbell pullover",
+    "muscle": "espalda",
+    "secondary": [
+      "tríceps"
+    ],
+    "equipment": "mancuerna",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Apoya el tronco en un banco y limita el recorrido detrás de la cabeza.",
+    "technique": "Mantén el codo ligeramente flexionado. Desplaza los brazos desde el hombro sin compensar con la zona lumbar.",
+    "errors": "Convertir el gesto en una extensión de codo o arquear el tronco.",
+    "image": "assets/maps/pull.svg"
+  },
+  {
+    "id": "c6f0dba1-80ab-594a-b493-892c7c26df13",
+    "name": "Press militar con barra",
+    "name_en": "Standing overhead press",
+    "muscle": "hombros",
+    "secondary": [
+      "tríceps"
+    ],
+    "equipment": "barra",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Sin impulso de piernas, eleva la barra cerca del rostro y termina sobre el cuerpo.",
+    "technique": "Estabiliza abdomen y pelvis, coloca las muñecas sobre los codos y eleva la carga con control. Regresa a una posición cómoda.",
+    "errors": "Extender excesivamente la zona lumbar para terminar el movimiento.",
+    "image": "assets/maps/press.svg"
+  },
+  {
+    "id": "6ed8926f-abe9-5500-8b15-bd68e9f8398b",
+    "name": "Press sentado con mancuernas",
+    "name_en": "Seated dumbbell shoulder press",
+    "muscle": "hombros",
+    "secondary": [
+      "tríceps"
+    ],
+    "equipment": "mancuernas",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Usa un respaldo estable y controla ambas mancuernas por separado.",
+    "technique": "Estabiliza abdomen y pelvis, coloca las muñecas sobre los codos y eleva la carga con control. Regresa a una posición cómoda.",
+    "errors": "Extender excesivamente la zona lumbar para terminar el movimiento.",
+    "image": "assets/maps/press.svg"
+  },
+  {
+    "id": "921123a8-01ff-5ef0-9068-3b6c1ab85631",
+    "name": "Press de hombros en máquina",
+    "name_en": "Machine shoulder press",
+    "muscle": "hombros",
+    "secondary": [
+      "tríceps"
+    ],
+    "equipment": "máquina",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Ajusta el asiento para iniciar en un rango cómodo del hombro.",
+    "technique": "Estabiliza abdomen y pelvis, coloca las muñecas sobre los codos y eleva la carga con control. Regresa a una posición cómoda.",
+    "errors": "Extender excesivamente la zona lumbar para terminar el movimiento.",
+    "image": "assets/maps/press.svg"
+  },
+  {
+    "id": "962d132a-43aa-5464-9391-2ce3c756df00",
+    "name": "Press de hombro unilateral",
+    "name_en": "Single-arm overhead press",
+    "muscle": "hombros",
+    "secondary": [
+      "tríceps"
+    ],
+    "equipment": "mancuerna",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Evita inclinar el torso hacia el lado opuesto al brazo que empuja.",
+    "technique": "Estabiliza abdomen y pelvis, coloca las muñecas sobre los codos y eleva la carga con control. Regresa a una posición cómoda.",
+    "errors": "Extender excesivamente la zona lumbar para terminar el movimiento.",
+    "image": "assets/maps/press.svg"
+  },
+  {
+    "id": "f587da24-c7bb-5fcb-b271-f5cac097ef42",
+    "name": "Elevaciones laterales",
+    "name_en": "Dumbbell lateral raise",
+    "muscle": "hombros",
+    "secondary": [
+      "trapecio"
+    ],
+    "equipment": "mancuernas",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Separa los brazos a los lados en un plano ligeramente adelantado.",
+    "technique": "Mantén los codos ligeramente flexionados y eleva los brazos sin impulso del tronco. Baja con control.",
+    "errors": "Elevar los hombros hacia las orejas o balancear la cadera.",
+    "image": "assets/maps/arms.svg"
+  },
+  {
+    "id": "c433a3b7-623f-5725-9515-0ebfb4e458c0",
+    "name": "Elevación lateral en polea",
+    "name_en": "Cable lateral raise",
+    "muscle": "hombros",
+    "secondary": [
+      "trapecio"
+    ],
+    "equipment": "polea",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Colócate de costado a una polea baja sin girar el torso.",
+    "technique": "Mantén los codos ligeramente flexionados y eleva los brazos sin impulso del tronco. Baja con control.",
+    "errors": "Elevar los hombros hacia las orejas o balancear la cadera.",
+    "image": "assets/maps/arms.svg"
+  },
+  {
+    "id": "d6e6258a-5e19-5239-9107-df60fdeb7132",
+    "name": "Elevaciones frontales",
+    "name_en": "Front raise",
+    "muscle": "hombros",
+    "secondary": [
+      "trapecio"
+    ],
+    "equipment": "mancuernas",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Eleva las manos por delante del cuerpo dentro de tu rango controlado.",
+    "technique": "Mantén los codos ligeramente flexionados y eleva los brazos sin impulso del tronco. Baja con control.",
+    "errors": "Elevar los hombros hacia las orejas o balancear la cadera.",
+    "image": "assets/maps/arms.svg"
+  },
+  {
+    "id": "27ee88c7-665d-5a69-b060-4f0ce537b809",
+    "name": "Pájaros con mancuernas",
+    "name_en": "Reverse dumbbell fly",
+    "muscle": "hombros",
+    "secondary": [
+      "trapecio"
+    ],
+    "equipment": "mancuernas",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Inclina el tronco y abre los brazos hacia los lados.",
+    "technique": "Mantén los codos ligeramente flexionados y eleva los brazos sin impulso del tronco. Baja con control.",
+    "errors": "Elevar los hombros hacia las orejas o balancear la cadera.",
+    "image": "assets/maps/arms.svg"
+  },
+  {
+    "id": "40837aa2-af1d-5f81-abfe-613d442971f9",
+    "name": "Pec deck inverso",
+    "name_en": "Reverse pec deck",
+    "muscle": "hombros",
+    "secondary": [
+      "trapecio"
+    ],
+    "equipment": "máquina",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Apoya el pecho y separa los agarres sin perder contacto con el respaldo.",
+    "technique": "Mantén los codos ligeramente flexionados y eleva los brazos sin impulso del tronco. Baja con control.",
+    "errors": "Elevar los hombros hacia las orejas o balancear la cadera.",
+    "image": "assets/maps/arms.svg"
+  },
+  {
+    "id": "16dd73dd-6a40-5510-90b8-278933e763f6",
+    "name": "Face pull",
+    "name_en": "Face pull",
+    "muscle": "hombros",
+    "secondary": [
+      "trapecio"
+    ],
+    "equipment": "polea",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Lleva los extremos de una cuerda hacia el rostro separando las manos al final.",
+    "technique": "Mantén los codos ligeramente flexionados y eleva los brazos sin impulso del tronco. Baja con control.",
+    "errors": "Elevar los hombros hacia las orejas o balancear la cadera.",
+    "image": "assets/maps/arms.svg"
+  },
+  {
+    "id": "65ea878d-fe1e-5020-9453-e5c4b2ed923b",
+    "name": "Encogimientos con barra",
+    "name_en": "Barbell shrug",
+    "muscle": "trapecio",
+    "secondary": [
+      "antebrazos"
+    ],
+    "equipment": "barra",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Sostén la barra delante de los muslos.",
+    "technique": "Deja los brazos extendidos y eleva los hombros verticalmente con la cabeza en posición neutra.",
+    "errors": "Rotar los hombros en círculos o flexionar el cuello.",
+    "image": "assets/maps/arms.svg"
+  },
+  {
+    "id": "53a9be7f-88ca-56d0-b13c-0a7901ded0fe",
+    "name": "Encogimientos con mancuernas",
+    "name_en": "Dumbbell shrug",
+    "muscle": "trapecio",
+    "secondary": [
+      "antebrazos"
+    ],
+    "equipment": "mancuernas",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Mantén cada mancuerna al costado del cuerpo.",
+    "technique": "Deja los brazos extendidos y eleva los hombros verticalmente con la cabeza en posición neutra.",
+    "errors": "Rotar los hombros en círculos o flexionar el cuello.",
+    "image": "assets/maps/arms.svg"
+  },
+  {
+    "id": "60224f2f-6046-561a-b662-e30517f0e9cf",
+    "name": "Curl con barra",
+    "name_en": "Barbell curl",
+    "muscle": "bíceps",
+    "secondary": [
+      "antebrazos"
+    ],
+    "equipment": "barra",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Usa un agarre supino cómodo para tus muñecas.",
+    "technique": "Flexiona el codo manteniendo el brazo estable. Controla el descenso de la carga y conserva la muñeca alineada.",
+    "errors": "Usar balanceo de cadera o adelantar el hombro para completar la repetición.",
+    "image": "assets/maps/arms.svg"
+  },
+  {
+    "id": "7633eb51-111e-5a06-977d-19370b1bcf12",
+    "name": "Curl con barra Z",
+    "name_en": "EZ-bar curl",
+    "muscle": "bíceps",
+    "secondary": [
+      "antebrazos"
+    ],
+    "equipment": "barra Z",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Agarra las zonas oblicuas sin forzar la supinación.",
+    "technique": "Flexiona el codo manteniendo el brazo estable. Controla el descenso de la carga y conserva la muñeca alineada.",
+    "errors": "Usar balanceo de cadera o adelantar el hombro para completar la repetición.",
+    "image": "assets/maps/arms.svg"
+  },
+  {
+    "id": "6ea92109-fc81-5193-a90b-91a1dedcd430",
+    "name": "Curl alternado",
+    "name_en": "Alternating dumbbell curl",
+    "muscle": "bíceps",
+    "secondary": [
+      "antebrazos"
+    ],
+    "equipment": "mancuernas",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Alterna los brazos y registra repeticiones por lado.",
+    "technique": "Flexiona el codo manteniendo el brazo estable. Controla el descenso de la carga y conserva la muñeca alineada.",
+    "errors": "Usar balanceo de cadera o adelantar el hombro para completar la repetición.",
+    "image": "assets/maps/arms.svg"
+  },
+  {
+    "id": "39aa14e4-6b42-5473-a3be-9c795071b3d4",
+    "name": "Curl martillo",
+    "name_en": "Hammer curl",
+    "muscle": "bíceps",
+    "secondary": [
+      "antebrazos"
+    ],
+    "equipment": "mancuernas",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Conserva las palmas enfrentadas durante todo el recorrido.",
+    "technique": "Flexiona el codo manteniendo el brazo estable. Controla el descenso de la carga y conserva la muñeca alineada.",
+    "errors": "Usar balanceo de cadera o adelantar el hombro para completar la repetición.",
+    "image": "assets/maps/arms.svg"
+  },
+  {
+    "id": "b7d0df84-f968-5ae6-abca-d7b91f5ad9ff",
+    "name": "Curl inclinado",
+    "name_en": "Incline dumbbell curl",
+    "muscle": "bíceps",
+    "secondary": [
+      "antebrazos"
+    ],
+    "equipment": "mancuernas",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Apoya la espalda en el banco inclinado y evita mover los hombros.",
+    "technique": "Flexiona el codo manteniendo el brazo estable. Controla el descenso de la carga y conserva la muñeca alineada.",
+    "errors": "Usar balanceo de cadera o adelantar el hombro para completar la repetición.",
+    "image": "assets/maps/arms.svg"
+  },
+  {
+    "id": "18808183-5300-5428-870e-2928d4ffb640",
+    "name": "Curl predicador",
+    "name_en": "Preacher curl",
+    "muscle": "bíceps",
+    "secondary": [
+      "antebrazos"
+    ],
+    "equipment": "barra Z",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Mantén la parte posterior del brazo en el apoyo y evita rebotes.",
+    "technique": "Flexiona el codo manteniendo el brazo estable. Controla el descenso de la carga y conserva la muñeca alineada.",
+    "errors": "Usar balanceo de cadera o adelantar el hombro para completar la repetición.",
+    "image": "assets/maps/arms.svg"
+  },
+  {
+    "id": "51c22ec1-1c7c-5512-b760-8cbe7c56f4b4",
+    "name": "Curl en polea",
+    "name_en": "Cable curl",
+    "muscle": "bíceps",
+    "secondary": [
+      "antebrazos"
+    ],
+    "equipment": "polea",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Mantén tensión continua desde la polea baja.",
+    "technique": "Flexiona el codo manteniendo el brazo estable. Controla el descenso de la carga y conserva la muñeca alineada.",
+    "errors": "Usar balanceo de cadera o adelantar el hombro para completar la repetición.",
+    "image": "assets/maps/arms.svg"
+  },
+  {
+    "id": "b9b1d386-c635-50e7-bf98-bf71e794ec52",
+    "name": "Curl concentrado",
+    "name_en": "Concentration curl",
+    "muscle": "bíceps",
+    "secondary": [
+      "antebrazos"
+    ],
+    "equipment": "mancuerna",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Apoya el brazo en la cara interna del muslo y flexiona el codo.",
+    "technique": "Flexiona el codo manteniendo el brazo estable. Controla el descenso de la carga y conserva la muñeca alineada.",
+    "errors": "Usar balanceo de cadera o adelantar el hombro para completar la repetición.",
+    "image": "assets/maps/arms.svg"
+  },
+  {
+    "id": "ac331c64-33c6-58bb-a2e1-8f8439d41682",
+    "name": "Curl inverso",
+    "name_en": "Reverse curl",
+    "muscle": "antebrazos",
+    "secondary": [
+      "braquial"
+    ],
+    "equipment": "barra",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Flexiona los codos con agarre prono y muñecas alineadas.",
+    "technique": "Apoya o estabiliza el segmento proximal y mueve únicamente la articulación indicada. Controla el retorno sin rebote.",
+    "errors": "Aumentar el recorrido desplazando todo el brazo.",
+    "image": "assets/maps/arms.svg"
+  },
+  {
+    "id": "ce328ef5-79a6-5b3e-90e3-eed0dc7a7038",
+    "name": "Flexión de muñeca",
+    "name_en": "Wrist curl",
+    "muscle": "antebrazos",
+    "secondary": [
+      "braquial"
+    ],
+    "equipment": "mancuerna",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Apoya el antebrazo con la palma hacia arriba y flexiona la muñeca.",
+    "technique": "Apoya o estabiliza el segmento proximal y mueve únicamente la articulación indicada. Controla el retorno sin rebote.",
+    "errors": "Aumentar el recorrido desplazando todo el brazo.",
+    "image": "assets/maps/arms.svg"
+  },
+  {
+    "id": "0bfc1be8-4446-5cf5-9321-23fb15345ffb",
+    "name": "Extensión de muñeca",
+    "name_en": "Reverse wrist curl",
+    "muscle": "antebrazos",
+    "secondary": [
+      "braquial"
+    ],
+    "equipment": "mancuerna",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Apoya el antebrazo con la palma hacia abajo y eleva el dorso de la mano.",
+    "technique": "Apoya o estabiliza el segmento proximal y mueve únicamente la articulación indicada. Controla el retorno sin rebote.",
+    "errors": "Aumentar el recorrido desplazando todo el brazo.",
+    "image": "assets/maps/arms.svg"
+  },
+  {
+    "id": "50f2ec16-1161-599d-916d-10209d529070",
+    "name": "Extensión en polea",
+    "name_en": "Triceps pushdown",
+    "muscle": "tríceps",
+    "secondary": [
+      "deltoides anterior"
+    ],
+    "equipment": "polea",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Fija los brazos al costado y empuja la barra hacia abajo.",
+    "technique": "Estabiliza el brazo y extiende el codo sin impulso del tronco. Regresa con control al rango inicial.",
+    "errors": "Mover el hombro en lugar de extender el codo.",
+    "image": "assets/maps/arms.svg"
+  },
+  {
+    "id": "5285b15b-0a17-50ad-af25-b5326310ba03",
+    "name": "Extensión con cuerda",
+    "name_en": "Rope triceps pushdown",
+    "muscle": "tríceps",
+    "secondary": [
+      "deltoides anterior"
+    ],
+    "equipment": "polea",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Separa suavemente los extremos de la cuerda al final de la extensión.",
+    "technique": "Estabiliza el brazo y extiende el codo sin impulso del tronco. Regresa con control al rango inicial.",
+    "errors": "Mover el hombro en lugar de extender el codo.",
+    "image": "assets/maps/arms.svg"
+  },
+  {
+    "id": "b5cb09c7-f86d-564f-a2d5-7827dcf01b96",
+    "name": "Extensión sobre cabeza",
+    "name_en": "Overhead triceps extension",
+    "muscle": "tríceps",
+    "secondary": [
+      "deltoides anterior"
+    ],
+    "equipment": "mancuerna",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Sostén la carga sobre la cabeza con el abdomen estable.",
+    "technique": "Estabiliza el brazo y extiende el codo sin impulso del tronco. Regresa con control al rango inicial.",
+    "errors": "Mover el hombro en lugar de extender el codo.",
+    "image": "assets/maps/arms.svg"
+  },
+  {
+    "id": "280a589c-8d2e-5303-9efb-4966bd9c493b",
+    "name": "Extensión sobre cabeza en polea",
+    "name_en": "Overhead cable extension",
+    "muscle": "tríceps",
+    "secondary": [
+      "deltoides anterior"
+    ],
+    "equipment": "polea",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Da un paso hacia delante para estabilizarte frente a la tensión del cable.",
+    "technique": "Estabiliza el brazo y extiende el codo sin impulso del tronco. Regresa con control al rango inicial.",
+    "errors": "Mover el hombro en lugar de extender el codo.",
+    "image": "assets/maps/arms.svg"
+  },
+  {
+    "id": "e72f0312-dec1-5ea9-be71-75196e00f0a0",
+    "name": "Press francés",
+    "name_en": "Lying triceps extension",
+    "muscle": "tríceps",
+    "secondary": [
+      "deltoides anterior"
+    ],
+    "equipment": "barra Z",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Acostado, controla la aproximación de la barra sin dejarla caer hacia el rostro.",
+    "technique": "Estabiliza el brazo y extiende el codo sin impulso del tronco. Regresa con control al rango inicial.",
+    "errors": "Mover el hombro en lugar de extender el codo.",
+    "image": "assets/maps/arms.svg"
+  },
+  {
+    "id": "c078d959-16dd-5aaa-8234-d34500f3af93",
+    "name": "Patada de tríceps",
+    "name_en": "Dumbbell kickback",
+    "muscle": "tríceps",
+    "secondary": [
+      "deltoides anterior"
+    ],
+    "equipment": "mancuerna",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Inclina y apoya el tronco, manteniendo el brazo junto al cuerpo.",
+    "technique": "Estabiliza el brazo y extiende el codo sin impulso del tronco. Regresa con control al rango inicial.",
+    "errors": "Mover el hombro en lugar de extender el codo.",
+    "image": "assets/maps/arms.svg"
+  },
+  {
+    "id": "219a93a1-fcba-5ada-94b9-0c06372d82ef",
+    "name": "Fondos en paralelas",
+    "name_en": "Parallel bar dip",
+    "muscle": "tríceps",
+    "secondary": [
+      "pecho"
+    ],
+    "equipment": "paralelas",
+    "recording": "bodyweight_reps",
+    "modality": "fuerza",
+    "description": "Comprueba la estabilidad de ambas barras antes de comenzar.",
+    "technique": "Sostén el cuerpo entre las barras y flexiona ambos codos en un rango cómodo. Empuja sin oscilación de piernas.",
+    "errors": "Forzar una profundidad que produzca molestia en el hombro.",
+    "image": "assets/maps/press.svg"
+  },
+  {
+    "id": "280c086f-ec80-5347-aacc-054b7a1e64f6",
+    "name": "Fondos lastrados",
+    "name_en": "Weighted dip",
+    "muscle": "tríceps",
+    "secondary": [
+      "pecho"
+    ],
+    "equipment": "cinturón de lastre",
+    "recording": "weighted_reps",
+    "modality": "fuerza",
+    "description": "Centra el lastre y evita el balanceo del disco.",
+    "technique": "Sujeta bien la carga añadida y realiza el fondo sin balanceo. Usa solo la masa del lastre en el registro.",
+    "errors": "Sumar el peso corporal al lastre.",
+    "image": "assets/maps/press.svg"
+  },
+  {
+    "id": "aa4e7b29-f0b0-5458-a8b9-84637638d5d8",
+    "name": "Fondos asistidos",
+    "name_en": "Assisted dip",
+    "muscle": "tríceps",
+    "secondary": [
+      "pecho"
+    ],
+    "equipment": "máquina",
+    "recording": "assisted_reps",
+    "modality": "fuerza",
+    "description": "Usa la misma referencia de asistencia para comparar sesiones.",
+    "technique": "Ajusta la máquina y mantén el apoyo bajo rodillas o pies durante todo el fondo. Registra la ayuda aplicada.",
+    "errors": "Comparar directamente kilos de asistencia con kilos levantados.",
+    "image": "assets/maps/press.svg"
+  },
+  {
+    "id": "a4af4bd2-1bdc-551b-84cf-dbbc9e91eb01",
+    "name": "Sentadilla trasera",
+    "name_en": "Back squat",
+    "muscle": "cuádriceps",
+    "secondary": [
+      "glúteos",
+      "aductores"
+    ],
+    "equipment": "barra",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Coloca la barra sobre la espalda alta y usa soportes de seguridad ajustados.",
+    "technique": "Apoya todo el pie. Flexiona caderas y rodillas en un recorrido controlado y extiéndelas sin perder la estabilidad del tronco.",
+    "errors": "Despegar los talones o dejar caer las rodillas hacia dentro.",
+    "image": "assets/maps/squat.svg"
+  },
+  {
+    "id": "88527f0d-c1ff-5b48-86ad-1dfc105d7ad9",
+    "name": "Sentadilla frontal",
+    "name_en": "Front squat",
+    "muscle": "cuádriceps",
+    "secondary": [
+      "glúteos",
+      "aductores"
+    ],
+    "equipment": "barra",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Sostén la barra sobre los hombros delanteros y conserva altos los codos.",
+    "technique": "Apoya todo el pie. Flexiona caderas y rodillas en un recorrido controlado y extiéndelas sin perder la estabilidad del tronco.",
+    "errors": "Despegar los talones o dejar caer las rodillas hacia dentro.",
+    "image": "assets/maps/squat.svg"
+  },
+  {
+    "id": "ccdbb012-53f8-56bb-99a3-83496ad21956",
+    "name": "Sentadilla goblet",
+    "name_en": "Goblet squat",
+    "muscle": "cuádriceps",
+    "secondary": [
+      "glúteos",
+      "aductores"
+    ],
+    "equipment": "mancuerna",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Mantén la carga cerca del pecho sin separarla al descender.",
+    "technique": "Apoya todo el pie. Flexiona caderas y rodillas en un recorrido controlado y extiéndelas sin perder la estabilidad del tronco.",
+    "errors": "Despegar los talones o dejar caer las rodillas hacia dentro.",
+    "image": "assets/maps/squat.svg"
+  },
+  {
+    "id": "33e627ba-d81c-5516-80ae-5af0b52d8cfb",
+    "name": "Sentadilla a cajón",
+    "name_en": "Box squat",
+    "muscle": "cuádriceps",
+    "secondary": [
+      "glúteos",
+      "aductores"
+    ],
+    "equipment": "barra",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Toca un cajón estable con control, sin dejarte caer ni perder tensión.",
+    "technique": "Apoya todo el pie. Flexiona caderas y rodillas en un recorrido controlado y extiéndelas sin perder la estabilidad del tronco.",
+    "errors": "Despegar los talones o dejar caer las rodillas hacia dentro.",
+    "image": "assets/maps/squat.svg"
+  },
+  {
+    "id": "8348585c-3381-567e-aeb4-d9b3f38cf732",
+    "name": "Hack squat",
+    "name_en": "Hack squat",
+    "muscle": "cuádriceps",
+    "secondary": [
+      "glúteos",
+      "aductores"
+    ],
+    "equipment": "máquina",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Mantén la espalda y los hombros contra sus apoyos.",
+    "technique": "Apoya todo el pie. Flexiona caderas y rodillas en un recorrido controlado y extiéndelas sin perder la estabilidad del tronco.",
+    "errors": "Despegar los talones o dejar caer las rodillas hacia dentro.",
+    "image": "assets/maps/squat.svg"
+  },
+  {
+    "id": "4a01b24f-602e-5ca7-9c07-045ddd05deb4",
+    "name": "Prensa de piernas",
+    "name_en": "Leg press",
+    "muscle": "cuádriceps",
+    "secondary": [
+      "glúteos",
+      "aductores"
+    ],
+    "equipment": "máquina",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Limita el descenso al rango en que la pelvis permanece apoyada.",
+    "technique": "Apoya todo el pie. Flexiona caderas y rodillas en un recorrido controlado y extiéndelas sin perder la estabilidad del tronco.",
+    "errors": "Despegar los talones o dejar caer las rodillas hacia dentro.",
+    "image": "assets/maps/squat.svg"
+  },
+  {
+    "id": "8e7bfe81-182c-54e9-b067-66777f72c7d4",
+    "name": "Sentadilla búlgara",
+    "name_en": "Bulgarian split squat",
+    "muscle": "cuádriceps",
+    "secondary": [
+      "glúteos",
+      "aductores"
+    ],
+    "equipment": "mancuernas",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Apoya el pie trasero y controla la bajada con el pie delantero firme.",
+    "technique": "Apoya todo el pie. Flexiona caderas y rodillas en un recorrido controlado y extiéndelas sin perder la estabilidad del tronco.",
+    "errors": "Despegar los talones o dejar caer las rodillas hacia dentro.",
+    "image": "assets/maps/squat.svg"
+  },
+  {
+    "id": "a8b4ca26-137e-5561-a09b-8bf3e8afeb5a",
+    "name": "Zancada con mancuernas",
+    "name_en": "Dumbbell lunge",
+    "muscle": "cuádriceps",
+    "secondary": [
+      "glúteos",
+      "aductores"
+    ],
+    "equipment": "mancuernas",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Avanza con un paso cómodo y evita golpear el suelo con la rodilla.",
+    "technique": "Apoya todo el pie. Flexiona caderas y rodillas en un recorrido controlado y extiéndelas sin perder la estabilidad del tronco.",
+    "errors": "Despegar los talones o dejar caer las rodillas hacia dentro.",
+    "image": "assets/maps/squat.svg"
+  },
+  {
+    "id": "f6cc3e99-a041-556f-b59e-e35acd0dfc03",
+    "name": "Zancada inversa",
+    "name_en": "Reverse lunge",
+    "muscle": "cuádriceps",
+    "secondary": [
+      "glúteos",
+      "aductores"
+    ],
+    "equipment": "mancuernas",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Lleva un pie atrás y regresa sin girar la pelvis.",
+    "technique": "Apoya todo el pie. Flexiona caderas y rodillas en un recorrido controlado y extiéndelas sin perder la estabilidad del tronco.",
+    "errors": "Despegar los talones o dejar caer las rodillas hacia dentro.",
+    "image": "assets/maps/squat.svg"
+  },
+  {
+    "id": "f1a2d164-28d3-5b5f-a5db-7a7c96e3dfd8",
+    "name": "Step-up",
+    "name_en": "Dumbbell step-up",
+    "muscle": "cuádriceps",
+    "secondary": [
+      "glúteos",
+      "aductores"
+    ],
+    "equipment": "mancuernas",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Apoya todo el pie sobre el cajón y evita impulsarte con la pierna inferior.",
+    "technique": "Apoya todo el pie. Flexiona caderas y rodillas en un recorrido controlado y extiéndelas sin perder la estabilidad del tronco.",
+    "errors": "Despegar los talones o dejar caer las rodillas hacia dentro.",
+    "image": "assets/maps/squat.svg"
+  },
+  {
+    "id": "eb9760c8-a42b-5150-a820-15364c5d0670",
+    "name": "Sentadilla sin carga",
+    "name_en": "Bodyweight squat",
+    "muscle": "cuádriceps",
+    "secondary": [
+      "glúteos"
+    ],
+    "equipment": "peso corporal",
+    "recording": "bodyweight_reps",
+    "modality": "fuerza",
+    "description": "Busca una postura cómoda y conserva la profundidad entre repeticiones.",
+    "technique": "Flexiona y extiende las piernas manteniendo el pie apoyado y el tronco estable.",
+    "errors": "Reducir progresivamente el recorrido para aumentar las repeticiones.",
+    "image": "assets/maps/squat.svg"
+  },
+  {
+    "id": "31bc54ad-8bbd-5768-8bcf-e29c2d8e307a",
+    "name": "Zancada sin carga",
+    "name_en": "Bodyweight lunge",
+    "muscle": "cuádriceps",
+    "secondary": [
+      "glúteos"
+    ],
+    "equipment": "peso corporal",
+    "recording": "bodyweight_reps",
+    "modality": "fuerza",
+    "description": "Controla el paso y registra las repeticiones por pierna.",
+    "technique": "Flexiona y extiende las piernas manteniendo el pie apoyado y el tronco estable.",
+    "errors": "Reducir progresivamente el recorrido para aumentar las repeticiones.",
+    "image": "assets/maps/squat.svg"
+  },
+  {
+    "id": "05b38ed1-ecdf-5a87-9308-32fc655a319e",
+    "name": "Extensión de rodilla",
+    "name_en": "Leg extension",
+    "muscle": "cuádriceps",
+    "secondary": [],
+    "equipment": "máquina",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Ajusta el rodillo sobre la zona inferior de la pierna y fija el respaldo.",
+    "technique": "Alinea la rodilla con el eje de giro y extiéndela con control. Devuelve el rodillo sin soltar la carga.",
+    "errors": "Despegar la pelvis o lanzar la carga bruscamente.",
+    "image": "assets/maps/squat.svg"
+  },
+  {
+    "id": "f18cd408-0ea8-573f-8fa2-54e889e74d65",
+    "name": "Peso muerto convencional",
+    "name_en": "Conventional deadlift",
+    "muscle": "cadena posterior",
+    "secondary": [
+      "glúteos",
+      "isquiotibiales",
+      "erectores"
+    ],
+    "equipment": "barra",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Inicia con la barra cerca de las tibias y las manos por fuera de las piernas.",
+    "technique": "Estabiliza el tronco antes del despegue, mantén la carga cerca del cuerpo y extiende caderas y rodillas con control.",
+    "errors": "Separar la carga del cuerpo o hiperextender la espalda al terminar.",
+    "image": "assets/maps/hinge.svg"
+  },
+  {
+    "id": "c4fbaf5d-b8a7-5a97-819c-6d8e5db2ab68",
+    "name": "Peso muerto sumo",
+    "name_en": "Sumo deadlift",
+    "muscle": "cadena posterior",
+    "secondary": [
+      "glúteos",
+      "isquiotibiales",
+      "erectores"
+    ],
+    "equipment": "barra",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Usa una postura abierta cómoda y coloca las manos entre las piernas.",
+    "technique": "Estabiliza el tronco antes del despegue, mantén la carga cerca del cuerpo y extiende caderas y rodillas con control.",
+    "errors": "Separar la carga del cuerpo o hiperextender la espalda al terminar.",
+    "image": "assets/maps/hinge.svg"
+  },
+  {
+    "id": "8dae05c9-7410-5910-b63b-5f09fa50c54b",
+    "name": "Peso muerto con trap bar",
+    "name_en": "Trap bar deadlift",
+    "muscle": "cadena posterior",
+    "secondary": [
+      "glúteos",
+      "isquiotibiales",
+      "erectores"
+    ],
+    "equipment": "barra hexagonal",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Ubícate centrado dentro de la barra y mantén ambas asas a igual altura.",
+    "technique": "Estabiliza el tronco antes del despegue, mantén la carga cerca del cuerpo y extiende caderas y rodillas con control.",
+    "errors": "Separar la carga del cuerpo o hiperextender la espalda al terminar.",
+    "image": "assets/maps/hinge.svg"
+  },
+  {
+    "id": "7194eb7a-4cae-5c6a-bd67-dff717bd74f8",
+    "name": "Peso muerto rumano",
+    "name_en": "Romanian deadlift",
+    "muscle": "cadena posterior",
+    "secondary": [
+      "glúteos",
+      "isquiotibiales",
+      "erectores"
+    ],
+    "equipment": "barra",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Desde arriba lleva la cadera atrás, con rodillas suavemente flexionadas.",
+    "technique": "Estabiliza el tronco antes del despegue, mantén la carga cerca del cuerpo y extiende caderas y rodillas con control.",
+    "errors": "Separar la carga del cuerpo o hiperextender la espalda al terminar.",
+    "image": "assets/maps/hinge.svg"
+  },
+  {
+    "id": "a6ee2c59-d500-5fcd-acee-cabd1dd71e7a",
+    "name": "Peso muerto rumano con mancuernas",
+    "name_en": "Dumbbell Romanian deadlift",
+    "muscle": "cadena posterior",
+    "secondary": [
+      "glúteos",
+      "isquiotibiales",
+      "erectores"
+    ],
+    "equipment": "mancuernas",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Desliza las mancuernas cerca de los muslos sin buscar tocar el suelo.",
+    "technique": "Estabiliza el tronco antes del despegue, mantén la carga cerca del cuerpo y extiende caderas y rodillas con control.",
+    "errors": "Separar la carga del cuerpo o hiperextender la espalda al terminar.",
+    "image": "assets/maps/hinge.svg"
+  },
+  {
+    "id": "b39702d9-b6ac-597c-95c1-cda76011d943",
+    "name": "Buenos días",
+    "name_en": "Good morning",
+    "muscle": "cadena posterior",
+    "secondary": [
+      "glúteos",
+      "isquiotibiales",
+      "erectores"
+    ],
+    "equipment": "barra",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Con la barra estable sobre la espalda, realiza una bisagra de cadera controlada.",
+    "technique": "Estabiliza el tronco antes del despegue, mantén la carga cerca del cuerpo y extiende caderas y rodillas con control.",
+    "errors": "Separar la carga del cuerpo o hiperextender la espalda al terminar.",
+    "image": "assets/maps/hinge.svg"
+  },
+  {
+    "id": "d49af20c-c8d4-58a2-852b-bfb1e2229a1a",
+    "name": "Curl femoral tumbado",
+    "name_en": "Lying leg curl",
+    "muscle": "isquiotibiales",
+    "secondary": [],
+    "equipment": "máquina",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Mantén los muslos y la pelvis en contacto con el banco.",
+    "technique": "Alinea la rodilla con la máquina y flexiónala sin mover la pelvis. Controla el retorno del rodillo.",
+    "errors": "Impulsar la carga con la zona lumbar.",
+    "image": "assets/maps/hinge.svg"
+  },
+  {
+    "id": "94dbaa71-2937-5ea6-929e-cc459ceb6161",
+    "name": "Curl femoral sentado",
+    "name_en": "Seated leg curl",
+    "muscle": "isquiotibiales",
+    "secondary": [],
+    "equipment": "máquina",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Fija el apoyo sobre los muslos antes de flexionar las rodillas.",
+    "technique": "Alinea la rodilla con la máquina y flexiónala sin mover la pelvis. Controla el retorno del rodillo.",
+    "errors": "Impulsar la carga con la zona lumbar.",
+    "image": "assets/maps/hinge.svg"
+  },
+  {
+    "id": "e14d510e-e7ce-5ae6-8068-9fef3f840ae2",
+    "name": "Curl femoral de pie",
+    "name_en": "Standing leg curl",
+    "muscle": "isquiotibiales",
+    "secondary": [],
+    "equipment": "máquina",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Flexiona una rodilla sin elevar la cadera del mismo lado.",
+    "technique": "Alinea la rodilla con la máquina y flexiónala sin mover la pelvis. Controla el retorno del rodillo.",
+    "errors": "Impulsar la carga con la zona lumbar.",
+    "image": "assets/maps/hinge.svg"
+  },
+  {
+    "id": "22ca3a7b-d08d-51e2-882a-cf3bbd91b54b",
+    "name": "Hip thrust con barra",
+    "name_en": "Barbell hip thrust",
+    "muscle": "glúteos",
+    "secondary": [
+      "isquiotibiales"
+    ],
+    "equipment": "barra",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Apoya la espalda alta en un banco fijo y protege el contacto de la barra.",
+    "technique": "Extiende la cadera manteniendo pelvis y caja torácica controladas. Detén el recorrido al alcanzar la posición final sin arquear la espalda.",
+    "errors": "Confundir extensión lumbar con extensión de cadera.",
+    "image": "assets/maps/hinge.svg"
+  },
+  {
+    "id": "f98e54a3-44d8-531e-b5f1-0c42fad33a60",
+    "name": "Patada de glúteo en polea",
+    "name_en": "Cable glute kickback",
+    "muscle": "glúteos",
+    "secondary": [
+      "isquiotibiales"
+    ],
+    "equipment": "polea",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Con tobillera bien fijada, mueve una pierna atrás sin girar la pelvis.",
+    "technique": "Extiende la cadera manteniendo pelvis y caja torácica controladas. Detén el recorrido al alcanzar la posición final sin arquear la espalda.",
+    "errors": "Confundir extensión lumbar con extensión de cadera.",
+    "image": "assets/maps/hinge.svg"
+  },
+  {
+    "id": "5911eeba-c209-5b18-a066-18f2e9a2ee06",
+    "name": "Pull-through",
+    "name_en": "Cable pull-through",
+    "muscle": "glúteos",
+    "secondary": [
+      "isquiotibiales"
+    ],
+    "equipment": "polea",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Pasa la cuerda entre las piernas y extiende la cadera desde una bisagra controlada.",
+    "technique": "Extiende la cadera manteniendo pelvis y caja torácica controladas. Detén el recorrido al alcanzar la posición final sin arquear la espalda.",
+    "errors": "Confundir extensión lumbar con extensión de cadera.",
+    "image": "assets/maps/hinge.svg"
+  },
+  {
+    "id": "04d11c36-433c-525c-abff-5dfddb09d4f8",
+    "name": "Puente de glúteos",
+    "name_en": "Glute bridge",
+    "muscle": "glúteos",
+    "secondary": [
+      "isquiotibiales"
+    ],
+    "equipment": "peso corporal",
+    "recording": "bodyweight_reps",
+    "modality": "fuerza",
+    "description": "Parte del suelo y mantén los pies estables.",
+    "technique": "Apoya los pies y eleva la pelvis con control. Termina al alinear el tronco con los muslos.",
+    "errors": "Elevar las costillas o arquear la zona lumbar.",
+    "image": "assets/maps/hinge.svg"
+  },
+  {
+    "id": "f4b59483-1a23-52fd-a971-81a12d382c11",
+    "name": "Puente unilateral",
+    "name_en": "Single-leg glute bridge",
+    "muscle": "glúteos",
+    "secondary": [
+      "isquiotibiales"
+    ],
+    "equipment": "peso corporal",
+    "recording": "bodyweight_reps",
+    "modality": "fuerza",
+    "description": "Eleva una pierna y conserva la pelvis nivelada durante cada repetición.",
+    "technique": "Apoya los pies y eleva la pelvis con control. Termina al alinear el tronco con los muslos.",
+    "errors": "Elevar las costillas o arquear la zona lumbar.",
+    "image": "assets/maps/hinge.svg"
+  },
+  {
+    "id": "b8856c8c-552a-5b33-ab31-75fd1dcb56cc",
+    "name": "Abducción en máquina",
+    "name_en": "Hip abduction machine",
+    "muscle": "cadera",
+    "secondary": [
+      "glúteos",
+      "aductores"
+    ],
+    "equipment": "máquina",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Separa las rodillas contra los apoyos externos.",
+    "technique": "Ajusta el asiento y los apoyos al rango cómodo de cadera. Mueve los muslos sin balancear el tronco.",
+    "errors": "Rebotar contra los topes de la máquina.",
+    "image": "assets/maps/squat.svg"
+  },
+  {
+    "id": "32738f86-c3c0-5fa9-a811-9a432e6e826a",
+    "name": "Aducción en máquina",
+    "name_en": "Hip adduction machine",
+    "muscle": "cadera",
+    "secondary": [
+      "glúteos",
+      "aductores"
+    ],
+    "equipment": "máquina",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Aproxima los muslos contra los apoyos internos sin forzar la apertura.",
+    "technique": "Ajusta el asiento y los apoyos al rango cómodo de cadera. Mueve los muslos sin balancear el tronco.",
+    "errors": "Rebotar contra los topes de la máquina.",
+    "image": "assets/maps/squat.svg"
+  },
+  {
+    "id": "cee83511-894c-5d1e-b3cd-4963ff9a6b93",
+    "name": "Gemelos de pie",
+    "name_en": "Standing calf raise",
+    "muscle": "pantorrillas",
+    "secondary": [
+      "sóleo"
+    ],
+    "equipment": "máquina",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Mantén piernas estables y hombros bien apoyados.",
+    "technique": "Mantén un apoyo seguro del antepié y eleva los talones moviendo los tobillos. Baja sin rebote.",
+    "errors": "Impulsarse flexionando las rodillas o dejar resbalar el pie.",
+    "image": "assets/maps/calf.svg"
+  },
+  {
+    "id": "cb0b5845-cf28-508c-87fc-fb1b449c7b01",
+    "name": "Gemelos sentado",
+    "name_en": "Seated calf raise",
+    "muscle": "pantorrillas",
+    "secondary": [
+      "sóleo"
+    ],
+    "equipment": "máquina",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Ajusta la almohadilla sobre los muslos con las rodillas flexionadas.",
+    "technique": "Mantén un apoyo seguro del antepié y eleva los talones moviendo los tobillos. Baja sin rebote.",
+    "errors": "Impulsarse flexionando las rodillas o dejar resbalar el pie.",
+    "image": "assets/maps/calf.svg"
+  },
+  {
+    "id": "845ab427-5b2c-5728-969a-c078d9789e6a",
+    "name": "Gemelos en prensa",
+    "name_en": "Leg press calf raise",
+    "muscle": "pantorrillas",
+    "secondary": [
+      "sóleo"
+    ],
+    "equipment": "máquina",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Fija la posición del asiento y mueve solo los tobillos.",
+    "technique": "Mantén un apoyo seguro del antepié y eleva los talones moviendo los tobillos. Baja sin rebote.",
+    "errors": "Impulsarse flexionando las rodillas o dejar resbalar el pie.",
+    "image": "assets/maps/calf.svg"
+  },
+  {
+    "id": "343104bb-ce32-5684-bc3c-e65c1cbe89c6",
+    "name": "Plancha frontal",
+    "name_en": "Forearm plank",
+    "muscle": "abdomen",
+    "secondary": [
+      "estabilizadores"
+    ],
+    "equipment": "peso corporal",
+    "recording": "time",
+    "modality": "fuerza",
+    "description": "Alinea hombros, pelvis y piernas sobre antebrazos y pies.",
+    "technique": "Mantén una postura estable y respira durante el intervalo. Termina cuando ya no puedas sostener la alineación.",
+    "errors": "Prolongar el tiempo a costa de perder la posición.",
+    "image": "assets/maps/plank.svg"
+  },
+  {
+    "id": "bd07a389-5bc9-5962-9f71-e9efebd23025",
+    "name": "Plancha lateral",
+    "name_en": "Side plank",
+    "muscle": "abdomen",
+    "secondary": [
+      "estabilizadores"
+    ],
+    "equipment": "peso corporal",
+    "recording": "time",
+    "modality": "fuerza",
+    "description": "Apoya el codo bajo el hombro y evita rotar la pelvis.",
+    "technique": "Mantén una postura estable y respira durante el intervalo. Termina cuando ya no puedas sostener la alineación.",
+    "errors": "Prolongar el tiempo a costa de perder la posición.",
+    "image": "assets/maps/plank.svg"
+  },
+  {
+    "id": "14651af9-abd2-550b-b1b5-460ffbf8efda",
+    "name": "Hollow hold",
+    "name_en": "Hollow body hold",
+    "muscle": "abdomen",
+    "secondary": [
+      "estabilizadores"
+    ],
+    "equipment": "peso corporal",
+    "recording": "time",
+    "modality": "fuerza",
+    "description": "Ajusta brazos y piernas para mantener contacto lumbar controlado con el suelo.",
+    "technique": "Mantén una postura estable y respira durante el intervalo. Termina cuando ya no puedas sostener la alineación.",
+    "errors": "Prolongar el tiempo a costa de perder la posición.",
+    "image": "assets/maps/plank.svg"
+  },
+  {
+    "id": "ff275e6c-079e-5ebf-9116-9b27662aa8f1",
+    "name": "Crunch",
+    "name_en": "Crunch",
+    "muscle": "abdomen",
+    "secondary": [
+      "estabilizadores"
+    ],
+    "equipment": "peso corporal",
+    "recording": "bodyweight_reps",
+    "modality": "fuerza",
+    "description": "Eleva la parte alta del tronco sin tirar del cuello.",
+    "technique": "Controla la pelvis y realiza cada repetición sin impulso. Mantén un recorrido que puedas reproducir.",
+    "errors": "Usar inercia o perder la posición lumbar.",
+    "image": "assets/maps/plank.svg"
+  },
+  {
+    "id": "e0d3298c-94ab-571a-8f8a-3758942c4fee",
+    "name": "Elevación de rodillas colgado",
+    "name_en": "Hanging knee raise",
+    "muscle": "abdomen",
+    "secondary": [
+      "estabilizadores"
+    ],
+    "equipment": "barra fija",
+    "recording": "bodyweight_reps",
+    "modality": "fuerza",
+    "description": "Parte de una suspensión estable y eleva las rodillas sin balanceo.",
+    "technique": "Controla la pelvis y realiza cada repetición sin impulso. Mantén un recorrido que puedas reproducir.",
+    "errors": "Usar inercia o perder la posición lumbar.",
+    "image": "assets/maps/plank.svg"
+  },
+  {
+    "id": "f5dfe00b-f9d1-5e13-9670-0f9d9e24b39b",
+    "name": "Elevación de piernas tumbado",
+    "name_en": "Lying leg raise",
+    "muscle": "abdomen",
+    "secondary": [
+      "estabilizadores"
+    ],
+    "equipment": "peso corporal",
+    "recording": "bodyweight_reps",
+    "modality": "fuerza",
+    "description": "Baja las piernas solo hasta donde controles la espalda.",
+    "technique": "Controla la pelvis y realiza cada repetición sin impulso. Mantén un recorrido que puedas reproducir.",
+    "errors": "Usar inercia o perder la posición lumbar.",
+    "image": "assets/maps/plank.svg"
+  },
+  {
+    "id": "62796442-e013-56d1-a624-7eb9f485d192",
+    "name": "Dead bug",
+    "name_en": "Dead bug",
+    "muscle": "abdomen",
+    "secondary": [
+      "estabilizadores"
+    ],
+    "equipment": "peso corporal",
+    "recording": "bodyweight_reps",
+    "modality": "fuerza",
+    "description": "Alterna brazo y pierna opuestos sin despegar la espalda baja.",
+    "technique": "Controla la pelvis y realiza cada repetición sin impulso. Mantén un recorrido que puedas reproducir.",
+    "errors": "Usar inercia o perder la posición lumbar.",
+    "image": "assets/maps/plank.svg"
+  },
+  {
+    "id": "d1dec280-eaeb-501c-aca7-3f9227c682e6",
+    "name": "Bird dog",
+    "name_en": "Bird dog",
+    "muscle": "abdomen",
+    "secondary": [
+      "estabilizadores"
+    ],
+    "equipment": "peso corporal",
+    "recording": "bodyweight_reps",
+    "modality": "fuerza",
+    "description": "Desde cuadrupedia extiende extremidades contrarias sin girar la pelvis.",
+    "technique": "Controla la pelvis y realiza cada repetición sin impulso. Mantén un recorrido que puedas reproducir.",
+    "errors": "Usar inercia o perder la posición lumbar.",
+    "image": "assets/maps/plank.svg"
+  },
+  {
+    "id": "41b451cb-8572-525e-9eed-672361fe46c0",
+    "name": "Rueda abdominal",
+    "name_en": "Ab wheel rollout",
+    "muscle": "abdomen",
+    "secondary": [
+      "estabilizadores"
+    ],
+    "equipment": "rueda",
+    "recording": "bodyweight_reps",
+    "modality": "fuerza",
+    "description": "Desde rodillas, avanza solo hasta el punto en que mantengas el control.",
+    "technique": "Controla la pelvis y realiza cada repetición sin impulso. Mantén un recorrido que puedas reproducir.",
+    "errors": "Usar inercia o perder la posición lumbar.",
+    "image": "assets/maps/plank.svg"
+  },
+  {
+    "id": "e54adc84-f85b-5cbd-bb6f-de22dbd2f39c",
+    "name": "Crunch en polea",
+    "name_en": "Cable crunch",
+    "muscle": "abdomen",
+    "secondary": [
+      "oblicuos"
+    ],
+    "equipment": "polea",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "Acerca las costillas a la pelvis flexionando el tronco sin tirar con los brazos.",
+    "technique": "Ajusta la polea y estabiliza la posición inicial. Controla la tensión en ambas fases del movimiento.",
+    "errors": "Aumentar la carga hasta perder el control de la pelvis.",
+    "image": "assets/maps/plank.svg"
+  },
+  {
+    "id": "c44bc1f7-f840-5899-a70f-d0954c4962fb",
+    "name": "Pallof press",
+    "name_en": "Pallof press",
+    "muscle": "abdomen",
+    "secondary": [
+      "oblicuos"
+    ],
+    "equipment": "polea",
+    "recording": "weight_reps",
+    "modality": "fuerza",
+    "description": "De costado al cable, extiende los brazos evitando que el tronco rote.",
+    "technique": "Ajusta la polea y estabiliza la posición inicial. Controla la tensión en ambas fases del movimiento.",
+    "errors": "Aumentar la carga hasta perder el control de la pelvis.",
+    "image": "assets/maps/plank.svg"
+  },
+  {
+    "id": "401edd6b-1900-5fb1-9bca-e094a4a6b0b9",
+    "name": "Caminata",
+    "name_en": "Walking",
+    "muscle": "cardio",
+    "secondary": [
+      "piernas"
+    ],
+    "equipment": "ninguno",
+    "recording": "distance_time",
+    "modality": "cardio",
+    "description": "Camina con una zancada cómoda y registra la distancia recorrida.",
+    "technique": "Registra distancia y tiempo del mismo intervalo. Mantén un ritmo que puedas controlar y utiliza la misma referencia de medición al comparar sesiones.",
+    "errors": "Combinar distancia de un intervalo con tiempo de otro.",
+    "image": "assets/maps/cardio.svg"
+  },
+  {
+    "id": "b14b66b2-e1c7-5080-807a-7c332d19befd",
+    "name": "Carrera continua",
+    "name_en": "Running",
+    "muscle": "cardio",
+    "secondary": [
+      "piernas"
+    ],
+    "equipment": "ninguno",
+    "recording": "distance_time",
+    "modality": "cardio",
+    "description": "Usa una superficie apropiada y controla los cambios de ritmo.",
+    "technique": "Registra distancia y tiempo del mismo intervalo. Mantén un ritmo que puedas controlar y utiliza la misma referencia de medición al comparar sesiones.",
+    "errors": "Combinar distancia de un intervalo con tiempo de otro.",
+    "image": "assets/maps/cardio.svg"
+  },
+  {
+    "id": "5d5b2980-5840-5ce9-b470-dca79695b027",
+    "name": "Cinta de correr",
+    "name_en": "Treadmill run",
+    "muscle": "cardio",
+    "secondary": [
+      "piernas"
+    ],
+    "equipment": "cinta",
+    "recording": "distance_time",
+    "modality": "cardio",
+    "description": "Coloca el clip de seguridad y cambia la velocidad gradualmente.",
+    "technique": "Registra distancia y tiempo del mismo intervalo. Mantén un ritmo que puedas controlar y utiliza la misma referencia de medición al comparar sesiones.",
+    "errors": "Combinar distancia de un intervalo con tiempo de otro.",
+    "image": "assets/maps/cardio.svg"
+  },
+  {
+    "id": "67783f3d-bcbb-5b5c-9516-32d003931ac9",
+    "name": "Bicicleta estática",
+    "name_en": "Stationary cycling",
+    "muscle": "cardio",
+    "secondary": [
+      "piernas"
+    ],
+    "equipment": "bicicleta",
+    "recording": "distance_time",
+    "modality": "cardio",
+    "description": "Ajusta el sillín y registra la distancia indicada por esa máquina.",
+    "technique": "Registra distancia y tiempo del mismo intervalo. Mantén un ritmo que puedas controlar y utiliza la misma referencia de medición al comparar sesiones.",
+    "errors": "Combinar distancia de un intervalo con tiempo de otro.",
+    "image": "assets/maps/cardio.svg"
+  },
+  {
+    "id": "7e5ba6df-c793-5c52-86b9-83863e5ae774",
+    "name": "Remo ergómetro",
+    "name_en": "Rowing ergometer",
+    "muscle": "cardio",
+    "secondary": [
+      "piernas"
+    ],
+    "equipment": "ergómetro",
+    "recording": "distance_time",
+    "modality": "cardio",
+    "description": "Secuencia el impulso con piernas, tronco y brazos y regresa en orden inverso.",
+    "technique": "Registra distancia y tiempo del mismo intervalo. Mantén un ritmo que puedas controlar y utiliza la misma referencia de medición al comparar sesiones.",
+    "errors": "Combinar distancia de un intervalo con tiempo de otro.",
+    "image": "assets/maps/cardio.svg"
+  },
+  {
+    "id": "5f6ab1b4-2478-57e1-979a-c77e856376ea",
+    "name": "Elíptica",
+    "name_en": "Elliptical trainer",
+    "muscle": "cardio",
+    "secondary": [
+      "piernas"
+    ],
+    "equipment": "elíptica",
+    "recording": "time",
+    "modality": "cardio",
+    "description": "Mantén los pies apoyados sin colgarte de los agarres.",
+    "technique": "Registra la duración efectiva y conserva una postura estable. Ajusta la intensidad de forma gradual.",
+    "errors": "Contar pausas prolongadas como tiempo de trabajo.",
+    "image": "assets/maps/cardio.svg"
+  },
+  {
+    "id": "ff7083e6-1808-5b60-a319-fd3a335ee373",
+    "name": "Escaladora",
+    "name_en": "Stair climber",
+    "muscle": "cardio",
+    "secondary": [
+      "piernas"
+    ],
+    "equipment": "escaladora",
+    "recording": "time",
+    "modality": "cardio",
+    "description": "Usa las barandas para equilibrio y evita descargar todo el peso en ellas.",
+    "technique": "Registra la duración efectiva y conserva una postura estable. Ajusta la intensidad de forma gradual.",
+    "errors": "Contar pausas prolongadas como tiempo de trabajo.",
+    "image": "assets/maps/cardio.svg"
+  },
+  {
+    "id": "e1e1a977-9b87-5a87-84d3-0a840c1631eb",
+    "name": "Salto de cuerda",
+    "name_en": "Jump rope",
+    "muscle": "cardio",
+    "secondary": [
+      "piernas"
+    ],
+    "equipment": "cuerda",
+    "recording": "time",
+    "modality": "cardio",
+    "description": "Realiza saltos bajos sobre una superficie adecuada y gira la cuerda con las muñecas.",
+    "technique": "Registra la duración efectiva y conserva una postura estable. Ajusta la intensidad de forma gradual.",
+    "errors": "Contar pausas prolongadas como tiempo de trabajo.",
+    "image": "assets/maps/cardio.svg"
+  }
+]

@@ -1,0 +1,4 @@
+# Fragmento para añadir antes del catch-all del túnel local existente.
+# Revisar primero la configuración y conservar sus otras entradas.
+- hostname: api.chuma.website
+  service: http://liftlog-gateway:8080

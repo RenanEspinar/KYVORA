@@ -1,0 +1,9 @@
+00:00 +0: loading /workspace/scratch/dc8cc3e1bc37/project/liftlog/mobile/test/sync_live_test.dart
+00:00 +0: /workspace/scratch/dc8cc3e1bc37/project/liftlog/mobile/test/sync_live_test.dart: SQLite offline → API real → reintento → segunda cuenta
+00:00 +0 ~1: /workspace/scratch/dc8cc3e1bc37/project/liftlog/mobile/test/widget_test.dart: Reapertura de SQLite, doce series y cola idempotente
+00:00 +1 ~1: /workspace/scratch/dc8cc3e1bc37/project/liftlog/mobile/test/widget_test.dart: Resolver conflicto conserva servidor y copia local
+00:00 +2 ~1: /workspace/scratch/dc8cc3e1bc37/project/liftlog/mobile/test/widget_test.dart: Importación voluntaria por cuenta evita duplicaciones
+00:00 +3 ~1: /workspace/scratch/dc8cc3e1bc37/project/liftlog/mobile/test/widget_test.dart: Pull nunca sobrescribe un borrador pendiente
+00:00 +4 ~1: /workspace/scratch/dc8cc3e1bc37/project/liftlog/mobile/test/widget_test.dart: Epley, unidades y modalidades de asistencia
+00:00 +5 ~1: /workspace/scratch/dc8cc3e1bc37/project/liftlog/mobile/test/widget_test.dart: Navegación y apertura de sesión sin conexión
+00:02 +6 ~1: All tests passed!

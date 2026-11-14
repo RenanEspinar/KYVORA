@@ -1,0 +1,49 @@
+{
+  "executed_at": "2026-11-12T18:09:13.309039+00:00",
+  "engine": "postgres (PostgreSQL) 16.15",
+  "scope": "Disposable native processes on development host; not Docker or homeserverv2",
+  "backend_tests": "passed",
+  "http_two_accounts": {
+    "workouts": 1,
+    "exercises": 4,
+    "sets": 12,
+    "posts": 1,
+    "comments": 1,
+    "reactions": 1,
+    "confirmed_ranking_rows": 1,
+    "private_data_hidden": true,
+    "retry_duplicated_workout": false
+  },
+  "flutter_sqlite_to_real_api": "passed",
+  "native_api_and_database_restart": "passed",
+  "backup_restore": {
+    "passed": true,
+    "tables_compared": {
+      "alembic_version": 1,
+      "audit_events": 4,
+      "auth_sessions": 4,
+      "blocks": 0,
+      "body_measurements": 0,
+      "comments": 2,
+      "exercises": 114,
+      "follows": 0,
+      "media": 1,
+      "notifications": 9,
+      "personal_records": 24,
+      "posts": 2,
+      "profiles": 4,
+      "rate_limits": 11,
+      "reactions": 2,
+      "refresh_tokens": 4,
+      "reports": 0,
+      "sync_operations": 2,
+      "users": 4,
+      "verification_requests": 2,
+      "workout_exercises": 8,
+      "workout_sessions": 2,
+      "workout_sets": 24,
+      "workout_templates": 0
+    },
+    "photos_and_thumbnails_checked": 1
+  }
+}

@@ -1,0 +1,17 @@
+LIFTLOG - Instalador de pruebas para Windows
+
+1. Extraiga todos los archivos del ZIP en una misma carpeta.
+2. Conecte un solo telefono Android por USB y autorice la depuracion USB.
+3. Abra CMD y ejecute instalar.cmd desde esa carpeta.
+
+El instalador comprueba el SHA-256 de la APK antes de instalar. Si el archivo no coincide, se detiene. Usa adb install --no-streaming -r para copiar el paquete antes de instalarlo y conservar los datos de una instalacion compatible existente. No desinstala ni borra datos de aplicaciones.
+
+APK: LIFTLOG-1.0-pruebas.apk
+Tamano exacto: 44558075 bytes
+SHA-256: 310910be4949c346884ee7018f5c97c4959d2f8f57265351e1ab7f3b54b908f5
+
+La APK original se volvio a descargar y mantuvo los mismos bytes, hash y firma. No se ha confirmado aun su instalacion o apertura en un telefono. El archivo instalar.cmd fue revisado, pero no ejecutado en Windows desde este entorno.
+
+Si falla la instalacion, copie al chat el contenido de instalacion.log.
+
+Modo local: disponible sin cuenta. Cuentas y comunidad: requieren desplegar la API en homeserverv2. Version inicial de pruebas, con firma Android Debug.

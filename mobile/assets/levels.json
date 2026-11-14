@@ -1,0 +1,46 @@
+{
+  "version": "LL-2026.1",
+  "labels": [
+    "Bronce",
+    "Plata",
+    "Oro",
+    "Platino",
+    "Diamante",
+    "Élite"
+  ],
+  "exercises": {
+    "d05644a2-ad75-509c-a75c-c2180c5ff85f": {
+      "name": "Press de banca",
+      "thresholds": [
+        0,
+        0.5,
+        0.8,
+        1.1,
+        1.4,
+        1.7
+      ]
+    },
+    "a4af4bd2-1bdc-551b-84cf-dbbc9e91eb01": {
+      "name": "Sentadilla trasera",
+      "thresholds": [
+        0,
+        0.75,
+        1.1,
+        1.5,
+        1.9,
+        2.3
+      ]
+    },
+    "f18cd408-0ea8-573f-8fa2-54e889e74d65": {
+      "name": "Peso muerto convencional",
+      "thresholds": [
+        0,
+        1,
+        1.4,
+        1.8,
+        2.2,
+        2.6
+      ]
+    }
+  }
+}
