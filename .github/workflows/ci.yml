@@ -65,6 +65,10 @@ jobs:
           assert index and all((Path('mobile') / p).exists() for p in index.values())
           print('Verified generated guide cards:',len(index))
           PYGUIDE
+      - name: Audit real visual coverage for every exercise
+        run: |
+          python -m unittest discover -s scripts -p 'test_visual_audit.py'
+          python scripts/audit_visual_assets.py --source --report reports/kyvora_visuals_source.json
       - name: Verify motion coverage audit
         run: |
           python - <<'PY2'
@@ -100,6 +104,14 @@ jobs:
         run: python scripts/configure_mobile_auth.py
       - run: flutter build apk --release --no-pub --target-platform android-arm64,android-x64 --dart-define-from-file=client-auth-defines.json
         working-directory: mobile
+      - name: Verify every exercise image packaged in the APK
+        run: python scripts/audit_visual_assets.py --apk mobile/build/app/outputs/flutter-apk/app-release.apk --report reports/kyvora_visuals_apk.json
+      - name: Publish verified visual coverage reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: kyvora-visual-coverage-verified
+          path: reports/kyvora_visuals_*.json
+          if-no-files-found: error
       - uses: actions/upload-artifact@v4
         with:
           name: kyvora-preview-apk

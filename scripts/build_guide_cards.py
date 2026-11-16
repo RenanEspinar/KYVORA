@@ -9,6 +9,7 @@ Run AFTER motion reconciliation; reuses motion index as coverage source.
 from pathlib import Path
 import json, re, unicodedata, textwrap
 from PIL import Image, ImageDraw, ImageFont, ImageOps
+from kyvora_visual_types_extra import visual_type_extra
 
 ROOT=Path(__file__).resolve().parents[1]
 CATALOG=ROOT/'mobile/assets/catalog.json'
@@ -40,7 +41,7 @@ def visual_type(ex):
     if ('remo sentado en polea' in n or 'seated cable row' in n):return 'cable_row'
     if 'band pull apart' in n:return 'band_pullapart'
     if ('sentadilla sin peso' in n or 'bodyweight squat' in n):return 'squat'
-    return None
+    return visual_type_extra(ex)
 
 def equipment_diagram(im,ex):
     """Neutral icon for unknown movements; never portray a different exercise."""
