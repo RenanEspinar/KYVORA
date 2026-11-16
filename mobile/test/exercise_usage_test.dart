@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import '../lib/exercise_usage.dart';
+import 'package:liftlog/exercise_usage.dart';
 
 void main() {
   test('counts finished sessions, not number of sets', () {
