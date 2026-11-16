@@ -15,6 +15,8 @@ def ref(name,target='users',**kwargs):
 def entity(name,*cols):
     return Table(name,meta,*identity(),*cols)
 users=entity('users',C('username',S(24),unique=True,nullable=False),C('password_hash',S(255),nullable=False),C('recovery_hash',S(64),nullable=False))
+email_challenges=Table('email_challenges',meta,C('email',S(254),primary_key=True),C('code_hash',S(64),nullable=False),C('expires_at',s.BigInteger,nullable=False),C('attempts',I,nullable=False,default=0))
+auth_identities=Table('auth_identities',meta,C('provider',S(16),primary_key=True),C('subject',S(255),primary_key=True),ref('user_id',nullable=False,index=True),C('created_at',s.DateTime(timezone=True),default=now,nullable=False))
 profiles=Table('profiles',meta,ref('user_id',primary_key=True),C('display_name',S(60),nullable=False),C('bio',S(300),nullable=False,default=''),C('private',B,default=True,nullable=False),C('rankings_opt_in',B,default=False,nullable=False),C('personal',J,nullable=False,default=dict))
 sessions=entity('auth_sessions',ref('user_id',nullable=False,index=True),C('access_hash',S(64),unique=True,nullable=False),C('access_until',s.BigInteger,nullable=False),C('expires',s.BigInteger,nullable=False),C('revoked',B,default=False,nullable=False))
 refreshes=Table('refresh_tokens',meta,C('digest',S(64),primary_key=True),ref('session_id','auth_sessions',nullable=False,index=True),C('used',B,nullable=False,default=False))

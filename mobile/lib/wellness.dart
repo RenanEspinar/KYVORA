@@ -7,6 +7,7 @@ const _warmupGuides = <Map<String, Object>>[
     'title': 'Tren superior',
     'subtitle': 'Antes de pecho, espalda y hombros',
     'icon': Icons.fitness_center,
+    'image': 'assets/guides/warmup_upper.png',
     'steps': <String>[
       '3–5 min de movimiento cómodo para elevar gradualmente la frecuencia cardiaca.',
       'Movilidad activa de hombros y escápulas, sin buscar dolor ni rangos forzados.',
@@ -17,6 +18,7 @@ const _warmupGuides = <Map<String, Object>>[
     'title': 'Tren inferior',
     'subtitle': 'Antes de sentadillas, zancadas y peso muerto',
     'icon': Icons.directions_run,
+    'image': 'assets/guides/warmup_lower.png',
     'steps': <String>[
       '3–5 min de caminata o bicicleta a intensidad cómoda.',
       'Practica bisagra de cadera y sentadilla sin carga, dentro de tu rango cómodo.',
@@ -27,6 +29,7 @@ const _warmupGuides = <Map<String, Object>>[
     'title': 'Sesión de cardio',
     'subtitle': 'Antes de correr, remar o pedalear',
     'icon': Icons.favorite_outline,
+    'image': 'assets/guides/warmup_cardio.png',
     'steps': <String>[
       'Empieza con 5 min a intensidad baja.',
       'Aumenta gradualmente la intensidad según cómo te sientas.',
@@ -73,6 +76,13 @@ class WarmupAndTips extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Image.asset(guide['image'] as String,
+                            width: double.infinity, height: 160, fit: BoxFit.cover,
+                            cacheWidth: 900),
+                        ),
+                        const SizedBox(height: 12),
                         Text(guide['title'] as String,
                             style: Theme.of(c).textTheme.headlineSmall),
                         const SizedBox(height: 8),

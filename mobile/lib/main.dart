@@ -14,8 +14,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'core.dart';
 import 'exercise_search.dart';
+import 'exercise_usage.dart';
 part 'training.dart';
 part 'advanced_sets.dart';
 part 'load_entry.dart';
@@ -25,6 +28,7 @@ part 'account.dart';
 part 'wellness.dart';
 
 Map<String, Map<String, dynamic>> exerciseMotions = {};
+Map<String, String> exerciseGuideImages = {};
 
 // Color token kept as `lime` temporarily to avoid changing legacy widgets.
 const lime = Color(0xFF3B82F6),
@@ -66,6 +70,12 @@ Future<void> main() async {
     exerciseMotions = data.map((key, value) => MapEntry(key.toString(), Map<String, dynamic>.from(value as Map)));
   } catch (_) {
     exerciseMotions = {};
+  }
+  try {
+    final guides = jsonDecode(await rootBundle.loadString('assets/guide_index.json')) as Map;
+    exerciseGuideImages = guides.map((k,v) => MapEntry(k.toString(), v.toString()));
+  } catch (_) {
+    exerciseGuideImages = {};
   }
   await restAlerts.init();
   final a = LogState(await Store.open(), Api());

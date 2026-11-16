@@ -22,3 +22,6 @@ build/
 local.properties
 *.iml
 .idea/
+
+# Generated public build parameters (never commit private provider credentials)
+/mobile/client-auth-defines.json

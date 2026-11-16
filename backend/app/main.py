@@ -5,7 +5,7 @@ from uuid import UUID
 import sqlalchemy as s
 from fastapi import FastAPI,Depends,HTTPException,APIRouter
 from fastapi.encoders import jsonable_encoder
-from . import auth,training,social
+from . import auth,training,social,social_login
 from .db import *
 from .types import Profile,Login
 from .auth import me
@@ -67,5 +67,5 @@ def erase(body:Login,owner=Depends(me),c=Depends(db)):
     c.commit()
     for id in files:
         for suffix in ('.jpg','-thumb.jpg'):(social.media_root/(id+suffix)).unlink(missing_ok=True)
-for module in (auth,training,social):api.include_router(module.router)
+for module in (auth,training,social,social_login):api.include_router(module.router)
 app.include_router(api)

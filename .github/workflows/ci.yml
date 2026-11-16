@@ -1,4 +1,4 @@
-name: LIFTLOG checks
+name: KYVORA build & tests
 on: [push, pull_request, workflow_dispatch]
 permissions:
   contents: read
@@ -54,6 +54,17 @@ jobs:
         run: python scripts/complete_gif_coverage.py
       - name: Reconcile original exercises with existing Flow animations
         run: python scripts/reconcile_original_motions.py
+      - name: Generate original quick guide cards for unmatched exercises
+        run: |
+          python -m pip install --disable-pip-version-check Pillow==13.0.0
+          python scripts/build_guide_cards.py
+          python - <<'PYGUIDE'
+          import json
+          from pathlib import Path
+          index=json.loads(Path('mobile/assets/guide_index.json').read_text())
+          assert index and all((Path('mobile') / p).exists() for p in index.values())
+          print('Verified generated guide cards:',len(index))
+          PYGUIDE
       - name: Verify motion coverage audit
         run: |
           python - <<'PY2'
@@ -67,7 +78,7 @@ jobs:
       - name: Upload animation coverage report
         uses: actions/upload-artifact@v4
         with:
-          name: liftlog-motion-coverage
+          name: kyvora-motion-coverage
           path: |
             reports/motion_coverage.*
             reports/load_profiles.*
@@ -81,9 +92,15 @@ jobs:
         working-directory: mobile
       - run: flutter test --no-pub
         working-directory: mobile
-      - run: flutter build apk --release --no-pub --target-platform android-arm64,android-x64
+      - name: Configure public Google / Facebook mobile IDs (if supplied)
+        env:
+          GOOGLE_WEB_CLIENT_ID: ${{ vars.KYVORA_GOOGLE_WEB_CLIENT_ID }}
+          FACEBOOK_APP_ID: ${{ vars.KYVORA_FACEBOOK_APP_ID }}
+          FACEBOOK_CLIENT_TOKEN: ${{ vars.KYVORA_FACEBOOK_CLIENT_TOKEN }}
+        run: python scripts/configure_mobile_auth.py
+      - run: flutter build apk --release --no-pub --target-platform android-arm64,android-x64 --dart-define-from-file=client-auth-defines.json
         working-directory: mobile
       - uses: actions/upload-artifact@v4
         with:
-          name: liftlog-preview-apk
+          name: kyvora-preview-apk
           path: mobile/build/app/outputs/flutter-apk/app-release.apk

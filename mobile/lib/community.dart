@@ -21,6 +21,74 @@ String recordLabel(LogState a, Map r) {
   return '${a.catalog[r['exercise_id']]?['name'] ?? 'Ejercicio'} · $mark';
 }
 
+/// Static on-device examples; never written as community posts or given fake likes.
+const _communityExamples = <Map<String, String>>[
+  {
+    'topic': 'Rutina',
+    'title': 'Día de pecho · fuerza',
+    'caption': 'Press de banca: 3 × 6 · Press inclinado con mancuernas: 3 × 10 · Aperturas en polea: 3 × 12. Adapta las cargas a tu nivel.',
+    'icon': 'fitness_center',
+  },
+  {
+    'topic': 'Progreso',
+    'title': 'Más repeticiones, misma técnica',
+    'caption': 'Ejemplo: pasar de 8 a 10 repeticiones con la misma carga. No todo progreso exige subir kilos.',
+    'icon': 'trending_up',
+  },
+  {
+    'topic': 'Recuperación',
+    'title': 'Descansa según el esfuerzo',
+    'caption': 'En series pesadas, utiliza un descanso suficiente para mantener la ejecución. Regístralo en KYVORA.',
+    'icon': 'timer',
+  },
+];
+
+Widget communityInspiration() => Column(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+    const Padding(
+      padding: EdgeInsets.only(top: 12, bottom: 5),
+      child: Text('IDEAS PARA COMPARTIR', style: TextStyle(color: muted, fontSize: 11, letterSpacing: 1.2)),
+    ),
+    SizedBox(
+      height: 220,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemCount: _communityExamples.length,
+        separatorBuilder: (_, _) => const SizedBox(width: 10),
+        itemBuilder: (c, index) {
+          final example = _communityExamples[index];
+          final icons = [Icons.fitness_center, Icons.trending_up, Icons.timer_outlined];
+          return SizedBox(
+            width: 250,
+            child: Card(
+              color: const Color(0xFF152E53),
+              child: Padding(
+                padding: const EdgeInsets.all(14),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(children: [
+                      Icon(icons[index], color: lime),
+                      const Spacer(),
+                      const Text('EJEMPLO',style: TextStyle(color: muted,fontSize: 10)),
+                    ]),
+                    const SizedBox(height: 9),
+                    Text(example['topic']!, style: const TextStyle(color: Color(0xFF60A5FA), fontSize: 12)),
+                    Text(example['title']!, maxLines: 2, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                    const SizedBox(height: 7),
+                    Expanded(child: Text(example['caption']!, maxLines: 5, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 12))),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    ),
+  ],
+);
+
 class Feed extends ConsumerStatefulWidget {
   const Feed({super.key});
   @override
@@ -79,7 +147,7 @@ class _Feed extends ConsumerState<Feed> {
         children: [
           TitleBlock(
             'Comunidad',
-            'Actividad',
+            'Tu comunidad',
             action: IconButton(
               tooltip: 'Buscar atleta',
               icon: const Icon(Icons.person_search_outlined),
@@ -116,6 +184,8 @@ class _Feed extends ConsumerState<Feed> {
             icon: const Icon(Icons.add),
             label: const Text('Nueva publicación'),
           ),
+          communityInspiration(),
+          const SizedBox(height: 12),
           if (busy) const LinearProgressIndicator(),
           if (error != null)
             ListTile(
@@ -127,7 +197,7 @@ class _Feed extends ConsumerState<Feed> {
             ),
           if (!busy && error == null && items.isEmpty)
             const Note(
-              'Aún no hay publicaciones visibles. Comparte tu entrenamiento o busca a un atleta.',
+              'Todavía no hay publicaciones reales. Comparte una sesión o empieza siguiendo a un atleta.',
             ),
           for (final p in items)
             Card(
@@ -138,6 +208,17 @@ class _Feed extends ConsumerState<Feed> {
                   children: [
                     Row(
                       children: [
+                        CircleAvatar(
+                          radius: 19,
+                          backgroundColor: lime.withValues(alpha: .14),
+                          child: Text(
+                            (p['author']['display_name'] as String).isNotEmpty
+                                ? (p['author']['display_name'] as String).substring(0, 1).toUpperCase()
+                                : 'K',
+                            style: const TextStyle(color: lime, fontWeight: FontWeight.w800),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
                         Expanded(
                           child: InkWell(
                             onTap: () => athlete(c, a, Json.from(p['author'])),
@@ -290,6 +371,17 @@ class _Feed extends ConsumerState<Feed> {
                           icon: const Icon(Icons.chat_bubble_outline),
                           label: Text('${p['comments']}'),
                         ),
+                        if (p['visibility'] == 'public')
+                          IconButton(
+                            tooltip: 'Compartir texto público',
+                            onPressed: () async {
+                              await SharePlus.instance.share(
+                                ShareParams(text:
+                                  '${p['author']['display_name']} en KYVORA:\n${p['text']}'),
+                              );
+                            },
+                            icon: const Icon(Icons.ios_share_outlined),
+                          ),
                       ],
                     ),
                   ],
@@ -403,9 +495,11 @@ class _SecurePhoto extends State<SecurePhoto> {
             borderRadius: BorderRadius.circular(12),
             child: Image.memory(
               Uint8List.fromList(snap.data!),
-              height: 180,
+              height: 340,
               width: double.infinity,
-              fit: BoxFit.contain,
+              fit: BoxFit.cover,
+              filterQuality: FilterQuality.low,
+              cacheWidth: 900,
             ),
           )
         : Note(snap.hasError ? 'Foto no disponible' : 'Cargando foto…'),

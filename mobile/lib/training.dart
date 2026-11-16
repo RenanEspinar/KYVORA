@@ -135,6 +135,11 @@ class _ExerciseMotionState extends State<ExerciseMotion> {
       visual = SvgPicture.asset(frames[index] as String,
         width: widget.width, height: widget.height, fit: BoxFit.contain,
         semanticsLabel: 'Secuencia ilustrativa: ${widget.exercise['name']}');
+    } else if (exerciseGuideImages.containsKey(widget.exercise['id']?.toString())) {
+      visual = Image.asset(exerciseGuideImages[widget.exercise['id']?.toString()]!,
+        width: widget.width, height: widget.height, fit: BoxFit.contain,
+        cacheWidth: 900,
+        semanticLabel: 'Ficha visual conceptual: ${widget.exercise['name']}');
     } else {
       visual = SvgPicture.asset((widget.exercise['image'] ?? 'assets/maps/arms.svg').toString(),
         width: widget.width, height: widget.height, fit: BoxFit.contain,
@@ -159,7 +164,9 @@ Future<void> technique(BuildContext c, Json e) => showModalBottomSheet(
         const SizedBox(height: 5),
         Text(exerciseMotions.containsKey(e['id']?.toString())
             ? 'Animación ilustrativa · consulta la técnica específica'
-            : 'Sin animación verificada · esquema muscular estático',
+            : exerciseGuideImages.containsKey(e['id']?.toString())
+                ? 'Ficha visual original orientativa; no reemplaza una demostración técnica'
+                : 'Sin animación verificada · esquema muscular estático',
             style: const TextStyle(color: muted, fontSize: 11)),
         Text(e['name'], style: Theme.of(d).textTheme.headlineMedium),
         Note('${e['name_en']} · ${e['muscle']} · ${e['equipment']}'),
@@ -208,13 +215,21 @@ class Picker extends StatefulWidget {
   final List<Json> exercises;
   final Store? store;
   final String? owner;
-  const Picker(this.exercises, {super.key, this.store, this.owner});
+  /// Real usage: one count per completed workout containing a logged set.
+  final Map<String, int> usageCounts;
+  const Picker(this.exercises, {
+    super.key,
+    this.store,
+    this.owner,
+    this.usageCounts = const {},
+  });
   @override
   State<Picker> createState() => _Picker();
 }
 
 class _Picker extends State<Picker> {
   final _search = TextEditingController();
+  Timer? _searchDebounce;
   String query = '';
   String? muscleFilter;
   String? equipmentFilter;
@@ -222,7 +237,9 @@ class _Picker extends State<Picker> {
   String? typeFilter;
   bool animatedOnly = false;
   bool secondaryMuscles = false;
+  bool filtersOpen = false;
   bool advancedOpen = false;
+  String sortMode = 'used';
   Json? savedPreset;
 
   @override
@@ -285,6 +302,7 @@ class _Picker extends State<Picker> {
 
   @override
   void dispose() {
+    _searchDebounce?.cancel();
     _search.dispose();
     super.dispose();
   }
@@ -314,9 +332,19 @@ class _Picker extends State<Picker> {
       if(_accept(e) && score>=0) ranked.add((score,e));
     }
     ranked.sort((a,b) {
-      final diff=b.$1.compareTo(a.$1);
-      if(diff!=0) return diff;
-      return (a.$2['name']??'').toString().compareTo((b.$2['name']??'').toString());
+      // A typed query always prioritizes an exact/relevant match.
+      if (query.trim().isNotEmpty) {
+        final match = b.$1.compareTo(a.$1);
+        if (match != 0) return match;
+      }
+      if (sortMode == 'used') {
+        final left = widget.usageCounts[a.$2['id']?.toString()] ?? 0;
+        final right = widget.usageCounts[b.$2['id']?.toString()] ?? 0;
+        final frequency = right.compareTo(left);
+        if (frequency != 0) return frequency;
+      }
+      return (a.$2['name'] ?? '').toString()
+          .compareTo((b.$2['name'] ?? '').toString());
     });
 
     // Counts update with the search. Selecting a group never requires scrolling
@@ -389,7 +417,12 @@ class _Picker extends State<Picker> {
                 onPressed:()=>setState(() {query='';_search.clear();}),
               ),
             ),
-            onChanged:(value)=>setState(()=>query=value),
+            onChanged:(value) {
+              _searchDebounce?.cancel();
+              _searchDebounce=Timer(const Duration(milliseconds: 130), () {
+                if (mounted) { setState(() => query=value); }
+              });
+            },
           ),
           const SizedBox(height:6),
           Expanded(child:CustomScrollView(slivers:[
@@ -398,59 +431,116 @@ class _Picker extends State<Picker> {
                 Expanded(child:Text('${ranked.length} resultados · ${widget.exercises.length} ejercicios',
                   style:const TextStyle(color:muted,fontSize:12))),
                 TextButton.icon(
-                  icon:Icon(advancedOpen?Icons.tune:Icons.filter_list,size:18),
+                  icon:Icon(filtersOpen ? Icons.expand_less : Icons.expand_more, size:18),
                   label:Text('Filtros${activeFilters>0?' ($activeFilters)':''}'),
-                  onPressed:()=>setState(()=>advancedOpen=!advancedOpen),
+                  onPressed:()=>setState(()=>filtersOpen=!filtersOpen),
                 ),
-                if(activeFilters>0) TextButton(onPressed:reset,child:const Text('Limpiar')),
+                if(activeFilters>0) IconButton(
+                  tooltip:'Limpiar filtros',
+                  icon:const Icon(Icons.filter_alt_off_outlined,size:20),
+                  onPressed:reset,
+                ),
               ]),
-              const SizedBox(height:3),
-              const Text('GRUPO MUSCULAR',style:TextStyle(color:muted,fontSize:11,fontWeight:FontWeight.bold)),
-              const SizedBox(height:6),
-              Wrap(children:visibleGroups.map(groupChip).toList()),
-              const SizedBox(height:4),
-              const Text('EQUIPAMIENTO',style:TextStyle(color:muted,fontSize:11,fontWeight:FontWeight.bold)),
-              const SizedBox(height:6),
-              Wrap(children:visibleGears.map(equipmentChip).toList()),
-              if(advancedOpen) ...[
-                const Divider(),
-                Wrap(spacing:6,runSpacing:5,children:[
-                  OutlinedButton.icon(
-                    icon:const Icon(Icons.bookmark_add_outlined,size:18),
-                    label:const Text('Guardar favoritos'),
-                    onPressed:widget.store==null?null:_savePreset,
-                  ),
-                  OutlinedButton.icon(
-                    icon:const Icon(Icons.bookmarks_outlined,size:18),
-                    label:const Text('Mis filtros'),
-                    onPressed:savedPreset==null?null:_restorePreset,
-                  ),
-                ]),
-                const Text('VARIANTE',style:TextStyle(color:muted,fontSize:11,fontWeight:FontWeight.bold)),
-                Wrap(spacing:6,children:[
-                  for(final t in <String>['unilateral','bilateral','alternado'])
-                    FilterChip(label:Text(t=='unilateral'?'Unilateral':t=='bilateral'?'Bilateral':'Alternado'),
-                      selected:lateralityFilter==t,
-                      onSelected:(_)=>setState(()=>lateralityFilter=lateralityFilter==t?null:t)),
-                ]),
-                const Text('TIPO',style:TextStyle(color:muted,fontSize:11,fontWeight:FontWeight.bold)),
-                Wrap(spacing:6,children:[
-                  for(final t in <String>['aislamiento','compuesto'])
-                    FilterChip(label:Text(t=='aislamiento'?'Aislamiento':'Compuesto'),
-                      selected:typeFilter==t,
-                      onSelected:(_)=>setState(()=>typeFilter=typeFilter==t?null:t)),
-                ]),
-                SwitchListTile.adaptive(
-                  title:const Text('Solo con animación'),
-                  value:animatedOnly,onChanged:(v)=>setState(()=>animatedOnly=v),
-                  contentPadding:EdgeInsets.zero,
-                ),
-                SwitchListTile.adaptive(
-                  title:const Text('Incluir músculos secundarios'),
-                  value:secondaryMuscles,onChanged:(v)=>setState(()=>secondaryMuscles=v),
-                  contentPadding:EdgeInsets.zero,
+              if(!filtersOpen && activeFilters>0) ...[
+                Text(
+                  'Activos: ${[
+                    if (muscleFilter!=null) muscleFilter!,
+                    if (equipmentFilter!=null) equipmentFilter!,
+                    if (lateralityFilter!=null) lateralityFilter!,
+                    if (typeFilter!=null) typeFilter!,
+                    if (animatedOnly) 'Con animación',
+                    if (secondaryMuscles) 'Músculos secundarios',
+                  ].join(' · ')}',
+                  style:const TextStyle(color:muted,fontSize:12),
+                  maxLines:2,overflow:TextOverflow.ellipsis,
                 ),
               ],
+              if(filtersOpen) ...[
+                const SizedBox(height:8),
+                const Text('GRUPO MUSCULAR',style:TextStyle(color:muted,fontSize:11,fontWeight:FontWeight.bold)),
+                const SizedBox(height:6),
+                Wrap(children:visibleGroups.map(groupChip).toList()),
+                const SizedBox(height:4),
+                const Text('EQUIPAMIENTO',style:TextStyle(color:muted,fontSize:11,fontWeight:FontWeight.bold)),
+                const SizedBox(height:6),
+                Wrap(children:visibleGears.map(equipmentChip).toList()),
+                Align(
+                  alignment:Alignment.centerLeft,
+                  child:TextButton.icon(
+                    icon:Icon(advancedOpen ? Icons.expand_less : Icons.tune,size:18),
+                    label:Text(advancedOpen?'Menos opciones':'Más opciones'),
+                    onPressed:()=>setState(()=>advancedOpen=!advancedOpen),
+                  ),
+                ),
+                if(advancedOpen) ...[
+                  const Divider(),
+                  Wrap(spacing:6,runSpacing:5,children:[
+                    OutlinedButton.icon(
+                      icon:const Icon(Icons.bookmark_add_outlined,size:18),
+                      label:const Text('Guardar filtros'),
+                      onPressed:widget.store==null?null:_savePreset,
+                    ),
+                    OutlinedButton.icon(
+                      icon:const Icon(Icons.bookmarks_outlined,size:18),
+                      label:const Text('Mis filtros'),
+                      onPressed:savedPreset==null?null:_restorePreset,
+                    ),
+                  ]),
+                  const Text('VARIANTE',style:TextStyle(color:muted,fontSize:11,fontWeight:FontWeight.bold)),
+                  Wrap(spacing:6,children:[
+                    for(final t in <String>['unilateral','bilateral','alternado'])
+                      FilterChip(label:Text(t=='unilateral'?'Unilateral':t=='bilateral'?'Bilateral':'Alternado'),
+                        selected:lateralityFilter==t,
+                        onSelected:(_)=>setState(()=>lateralityFilter=lateralityFilter==t?null:t)),
+                  ]),
+                  const Text('TIPO',style:TextStyle(color:muted,fontSize:11,fontWeight:FontWeight.bold)),
+                  Wrap(spacing:6,children:[
+                    for(final t in <String>['aislamiento','compuesto'])
+                      FilterChip(label:Text(t=='aislamiento'?'Aislamiento':'Compuesto'),
+                        selected:typeFilter==t,
+                        onSelected:(_)=>setState(()=>typeFilter=typeFilter==t?null:t)),
+                  ]),
+                  SwitchListTile.adaptive(
+                    title:const Text('Solo con animación'),
+                    value:animatedOnly,onChanged:(v)=>setState(()=>animatedOnly=v),
+                    contentPadding:EdgeInsets.zero,
+                  ),
+                  SwitchListTile.adaptive(
+                    title:const Text('Incluir músculos secundarios'),
+                    value:secondaryMuscles,onChanged:(v)=>setState(()=>secondaryMuscles=v),
+                    contentPadding:EdgeInsets.zero,
+                  ),
+                ],
+              ],
+              const SizedBox(height:4),
+              Row(children:[
+                const Icon(Icons.sort,size:18,color:muted),
+                const SizedBox(width:8),
+                const Text('Ordenar:',style:TextStyle(color:muted,fontSize:12)),
+                const SizedBox(width:12),
+                Expanded(child:DropdownButtonHideUnderline(child:DropdownButton<String>(
+                  isExpanded:true,
+                  value:sortMode,
+                  items:const [
+                    DropdownMenuItem(value:'used',child:Text('Más usados por ti')),
+                    DropdownMenuItem(value:'alpha',child:Text('Nombre (A–Z)')),
+                  ],
+                  onChanged:(value){
+                    if (value!=null) setState(()=>sortMode=value);
+                  },
+                ))),
+              ]),
+              if(sortMode=='used' &&
+                  !widget.usageCounts.values.any((count)=>count>0))
+                const Text(
+                  'Sin sesiones finalizadas: el ranking aparecerá cuando registres entrenamientos.',
+                  style:TextStyle(color:muted,fontSize:11),
+                ),
+              if(sortMode=='used' && widget.usageCounts.values.any((count)=>count>0))
+                const Text(
+                  'Posición por sesiones completadas, no por peso levantado ni series. Datos privados.',
+                  style:TextStyle(color:muted,fontSize:11),
+                ),
               if(query.trim().isNotEmpty && ranked.isNotEmpty) ...[
                 const SizedBox(height:4),
                 Text('Coincidencias sugeridas',style:Theme.of(c).textTheme.labelMedium),
@@ -473,10 +563,19 @@ class _Picker extends State<Picker> {
             SliverList(delegate:SliverChildBuilderDelegate((context,i) {
               final e=ranked[i].$2;
               final variant=lateralityOf(e);
-              final subtitle='${muscleGroupOf(e)} · ${equipmentGroupOf(e)}${variant=='unilateral'?' · Unilateral':''}';
+              final count = widget.usageCounts[e['id']?.toString()] ?? 0;
+              final isRanking = sortMode=='used' && query.trim().isEmpty && count>0;
+              final subtitle='${muscleGroupOf(e)} · ${equipmentGroupOf(e)}${variant=='unilateral'?' · Unilateral':''}${count>0?' · $count ${count==1?'sesión':'sesiones'}':''}';
               return ListTile(
                 contentPadding:const EdgeInsets.symmetric(horizontal:3,vertical:3),
-                leading:SizedBox(width:68,child:ExerciseMotion(e,width:64,height:58)),
+                leading:SizedBox(width:isRanking?96:68,child:Row(children:[
+                  if(isRanking) ...[
+                    SizedBox(width:26,child:Text('${i+1}.',
+                      style:const TextStyle(color:lime,fontWeight:FontWeight.bold))),
+                    const SizedBox(width:2),
+                  ],
+                  ExerciseMotion(e,width:64,height:58),
+                ])),
                 title:Text('${e['name']}',maxLines:2,overflow:TextOverflow.ellipsis),
                 subtitle:Text(subtitle,maxLines:2,overflow:TextOverflow.ellipsis),
                 trailing:IconButton(
@@ -945,7 +1044,12 @@ class _Session extends ConsumerState<SessionPage> {
                           context: c,
                           isScrollControlled: true,
                           useSafeArea: true,
-                          builder: (_) => Picker(a.catalog.values.toList(),store:a.db,owner:a.owner),
+                          builder: (_) => Picker(
+                            a.catalog.values.toList(),
+                            store:a.db,
+                            owner:a.owner,
+                            usageCounts: countExerciseSessions(a.workouts),
+                          ),
                         );
                         if (e != null) {
                           await change(() async {

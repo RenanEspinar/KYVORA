@@ -28,6 +28,8 @@ Future<void> recoveryDialog(BuildContext c, String value) => showDialog<void>(
   ),
 );
 
+Future<void>? kyvoraGoogleInitialization;
+
 class Access extends ConsumerStatefulWidget {
   const Access({super.key});
   @override
@@ -35,9 +37,65 @@ class Access extends ConsumerStatefulWidget {
 }
 
 class _Access extends ConsumerState<Access> {
-  String mode = 'login', username = '', password = '', name = '', code = '';
+  String mode = 'login', username = '', password = '', name = '', code = '', email = '', emailCode = '';
+  bool emailRequested = false;
   bool busy = false;
   String? error;
+  Map<String, dynamic> providers = {};
+  static const googleClientId = String.fromEnvironment('GOOGLE_WEB_CLIENT_ID');
+  static const facebookAppId = String.fromEnvironment('FACEBOOK_APP_ID');
+
+  @override
+  void initState() {
+    super.initState();
+    loadProviders();
+  }
+
+  Future<void> loadProviders() async {
+    try {
+      final data = await ref.read(stateProvider).api.get('/auth/providers');
+      if (mounted) {
+        setState(() => providers = Json.from(data as Map));
+      }
+    } catch (_) {
+      // Older API: password-based access remains available.
+    }
+  }
+
+  Future<void> signWith(String provider) async {
+    if (busy) { return; }
+    setState(() { busy = true; error = null; });
+    try {
+      String token;
+      if (provider == 'google') {
+        if (googleClientId.isEmpty) {
+          throw StateError('Falta configurar Google Web Client ID en la compilación.');
+        }
+        await (kyvoraGoogleInitialization ??= GoogleSignIn.instance.initialize(serverClientId: googleClientId));
+        final user = await GoogleSignIn.instance.authenticate();
+        token = user.authentication.idToken ?? '';
+      } else {
+        final result = await FacebookAuth.instance.login(permissions: ['public_profile']);
+        if (result.status == LoginStatus.cancelled) { return; }
+        if (result.status != LoginStatus.success || result.accessToken == null) {
+          throw StateError(result.message ?? 'Error en Facebook');
+        }
+        token = result.accessToken!.tokenString;
+      }
+      if (token.isEmpty) {
+        throw StateError('No se recibió un token de identidad.');
+      }
+      await ref.read(stateProvider).socialLogin(provider, token);
+      if (mounted) { context.go('/perfil'); }
+    } catch (e) {
+      if (mounted) {
+        setState(() => error = ref.read(stateProvider).api.explain(e));
+      }
+    } finally {
+      if (mounted) { setState(() => busy = false); }
+    }
+  }
+
   Future<void> submit() async {
     final a = ref.read(stateProvider);
     setState(() {
@@ -45,7 +103,15 @@ class _Access extends ConsumerState<Access> {
       error = null;
     });
     try {
-      if (mode == 'recover') {
+      if (mode == 'email') {
+        if (!emailRequested) {
+          await a.api.post('/auth/email/request', {'email': email.trim()});
+          if (mounted) { setState(() => emailRequested = true); }
+        } else {
+          await a.loginWithEmail(email.trim(), emailCode.trim());
+          if (mounted) { context.go('/perfil'); }
+        }
+      } else if (mode == 'recover') {
         final r = await a.api.post('/auth/recover', {
           'username': username.trim().toLowerCase(),
           'recovery_code': code.trim(),
@@ -64,12 +130,12 @@ class _Access extends ConsumerState<Access> {
         if (r['recovery_code'] != null) {
           await recoveryDialog(context, r['recovery_code']);
         }
-        if (mounted) context.go('/perfil');
+        if (mounted) { context.go('/perfil'); }
       }
     } catch (e) {
       if (mounted) setState(() => error = a.api.explain(e));
     } finally {
-      if (mounted) setState(() => busy = false);
+      if (mounted) { setState(() => busy = false); }
     }
   }
 
@@ -85,8 +151,62 @@ class _Access extends ConsumerState<Access> {
               ? 'Bienvenido'
               : mode == 'register'
               ? 'Crea tu cuenta'
+              : mode == 'email'
+              ? 'Acceso con correo'
               : 'Recupera tu cuenta',
         ),
+        const SizedBox(height: 10),
+        const Note('Tu cuenta KYVORA conserva los entrenamientos en nuestro servidor. Nunca publicamos en tus redes.'),
+        const SizedBox(height: 12),
+        OutlinedButton.icon(
+          onPressed: busy || providers['google'] != true || googleClientId.isEmpty
+              ? null : () => signWith('google'),
+          icon: const Icon(Icons.account_circle_outlined),
+          label: Text(providers['google'] == true && googleClientId.isNotEmpty
+              ? 'Continuar con Google' : 'Google · pendiente de configurar'),
+        ),
+        const SizedBox(height: 6),
+        OutlinedButton.icon(
+          onPressed: busy || providers['facebook'] != true || facebookAppId.isEmpty
+              ? null : () => signWith('facebook'),
+          icon: const Icon(Icons.people_outline),
+          label: Text(providers['facebook'] == true && facebookAppId.isNotEmpty
+              ? 'Continuar con Facebook' : 'Facebook · pendiente de configurar'),
+        ),
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 18),
+          child: Center(child: Text('O ACCEDE CON TU USUARIO', style: TextStyle(color: muted, fontSize: 11))),
+        ),
+        if (providers['email'] == true) ...[
+          const SizedBox(height: 6),
+          OutlinedButton.icon(
+            onPressed: busy ? null : () => setState(() {mode = 'email'; error = null;}),
+            icon: const Icon(Icons.mail_outline),
+            label: const Text('Acceder con correo y código'),
+          ),
+        ],
+        if (mode == 'email') ...[
+          const SizedBox(height: 15),
+          TextField(
+            keyboardType: TextInputType.emailAddress,
+            onChanged: (v) => email = v,
+            decoration: const InputDecoration(labelText: 'Correo electrónico'),
+          ),
+          if (emailRequested) TextField(
+            keyboardType: TextInputType.number,
+            maxLength: 8,
+            onChanged: (v) => emailCode = v,
+            decoration: const InputDecoration(labelText: 'Código de 8 dígitos'),
+          ),
+          if (error != null) Note(error!),
+          const SizedBox(height: 10),
+          FilledButton(
+            onPressed: busy ? null : submit,
+            child: Text(busy ? 'Procesando…' : emailRequested ? 'Verificar código' : 'Enviar código'),
+          ),
+          TextButton(onPressed: () => setState(() {mode = 'login'; emailRequested = false;}),
+              child: const Text('Volver a usuario y contraseña')),
+        ] else ...[
         TextField(
           autocorrect: false,
           enableSuggestions: false,
@@ -162,6 +282,7 @@ class _Access extends ConsumerState<Access> {
                   }),
             child: const Text('Recuperar acceso'),
           ),
+        ],
       ],
     ),
   );

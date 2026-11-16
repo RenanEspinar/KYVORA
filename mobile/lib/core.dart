@@ -524,6 +524,25 @@ class LogState extends ChangeNotifier {
     return data;
   }
 
+  Future<Json> socialLogin(String provider, String token) async {
+    await flight;
+    final data = Json.from(await api.post('/auth/social/$provider', {'token': token}) as Map);
+    await api.remember(data);
+    await reload();
+    unawaited(sync(force: true));
+    return data;
+  }
+
+  Future<Json> loginWithEmail(String email, String code) async {
+    await flight;
+    final data = Json.from(await api.post('/auth/email/verify',
+        {'email': email, 'code': code}) as Map);
+    await api.remember(data);
+    await reload();
+    unawaited(sync(force: true));
+    return data;
+  }
+
   Future<void> logout() async {
     await flight;
     await api.post('/auth/logout');
