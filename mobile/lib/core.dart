@@ -164,7 +164,7 @@ void removeExerciseFromDraft(Json workout, String moveId) {
   if (superset != null) {
     final remaining = raw.where((e) => e is Map && e['superset'] == superset).toList();
     if (remaining.length == 1) {
-      remaining.single['superset'] = null;
+      remaining.single.remove('superset');
     }
   }
 }
