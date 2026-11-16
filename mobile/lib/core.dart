@@ -145,6 +145,30 @@ List<Json> localRecords(List<Json> history, Map<String, Json> catalog) {
   return result.reversed.toList();
 }
 
+/// Remove a complete exercise from an unfinished workout, including its sets.
+/// If a superset has only one member left, remove the dangling grouping.
+void removeExerciseFromDraft(Json workout, String moveId) {
+  if (workout['ended_at'] != null || workout['state'] != 'draft') {
+    throw StateError('Solo puedes quitar ejercicios de una sesión en curso.');
+  }
+  final raw = workout['exercises'];
+  if (raw is! List) {
+    throw StateError('La sesión no contiene una lista válida de ejercicios.');
+  }
+  final targets = raw.where((e) => e is Map && e['id'] == moveId).toList();
+  if (targets.length != 1) {
+    throw StateError('No se encontró el ejercicio en la sesión.');
+  }
+  final superset = targets.single['superset'];
+  raw.removeWhere((e) => e is Map && e['id'] == moveId);
+  if (superset != null) {
+    final remaining = raw.where((e) => e is Map && e['superset'] == superset).toList();
+    if (remaining.length == 1) {
+      remaining.single['superset'] = null;
+    }
+  }
+}
+
 class Store extends GeneratedDatabase {
   Store(super.executor);
   static Future<Store> open() async {
@@ -205,6 +229,29 @@ class Store extends GeneratedDatabase {
       throw StateError('Sesión finalizada');
     }
     await put(owner, 'workout', w['id'], {...w, 'state': 'draft'});
+  });
+  /// Delete an unfinished local-only workout. Never delete completed,
+  /// synced, or queued sessions using this operation.
+  Future<void> discardDraft(String owner, String id) => transaction(() async {
+    final workout = await read(owner, 'workout', id);
+    if (workout == null || workout['state'] != 'draft' || workout['ended_at'] != null) {
+      throw StateError('Solo puedes descartar una sesión en curso.');
+    }
+    final queued = await customSelect(
+      'SELECT id FROM queue WHERE owner=? AND workout=? LIMIT 1',
+      variables: [Variable(owner), Variable(id)],
+    ).getSingleOrNull();
+    if (queued != null) {
+      throw StateError('Esta sesión tiene operaciones pendientes; no se eliminará.');
+    }
+    await customStatement(
+      "DELETE FROM docs WHERE owner=? AND kind='workout' AND id=?",
+      [owner, id],
+    );
+    await customStatement(
+      "DELETE FROM docs WHERE owner=? AND kind='timer' AND id=?",
+      [owner, id],
+    );
   });
   Future<void> finish(String owner, Json input) => transaction(() async {
     final w = clone(input);
@@ -562,6 +609,11 @@ class LogState extends ChangeNotifier {
 
   Future<void> save(Json w) async {
     await db.draft(owner, w);
+    await reload();
+  }
+
+  Future<void> discardDraft(String id) async {
+    await db.discardDraft(owner, id);
     await reload();
   }
 

@@ -135,15 +135,23 @@ class _ExerciseMotionState extends State<ExerciseMotion> {
       visual = SvgPicture.asset(frames[index] as String,
         width: widget.width, height: widget.height, fit: BoxFit.contain,
         semanticsLabel: 'Secuencia ilustrativa: ${widget.exercise['name']}');
-    } else if (exerciseGuideImages.containsKey(widget.exercise['id']?.toString())) {
-      visual = Image.asset(exerciseGuideImages[widget.exercise['id']?.toString()]!,
-        width: widget.width, height: widget.height, fit: BoxFit.contain,
-        cacheWidth: 900,
-        semanticLabel: 'Ficha visual conceptual: ${widget.exercise['name']}');
     } else {
-      visual = SvgPicture.asset((widget.exercise['image'] ?? 'assets/maps/arms.svg').toString(),
+      // Keep the original stylized mannequin visual language for movements
+      // without a licensed, exercise-specific GIF or Flow SVG animation.
+      // An anatomical silhouette is not a demonstration of the movement.
+      final suppliedMap = widget.exercise['image']?.toString();
+      const acceptedMaps = {
+        'assets/maps/arms.svg', 'assets/maps/calf.svg',
+        'assets/maps/cardio.svg', 'assets/maps/hinge.svg',
+        'assets/maps/plank.svg', 'assets/maps/press.svg',
+        'assets/maps/pull.svg', 'assets/maps/row.svg',
+        'assets/maps/squat.svg',
+      };
+      final map = suppliedMap != null && acceptedMaps.contains(suppliedMap)
+          ? suppliedMap : 'assets/maps/arms.svg';
+      visual = SvgPicture.asset(map,
         width: widget.width, height: widget.height, fit: BoxFit.contain,
-        semanticsLabel: 'Esquema estático del ejercicio');
+        semanticsLabel: 'Esquema muscular ilustrativo, no técnica de ejecución: ${widget.exercise['name']}');
     }
     return ClipRRect(borderRadius: BorderRadius.circular(12), child: visual);
   }
@@ -164,9 +172,7 @@ Future<void> technique(BuildContext c, Json e) => showModalBottomSheet(
         const SizedBox(height: 5),
         Text(exerciseMotions.containsKey(e['id']?.toString())
             ? 'Animación ilustrativa · consulta la técnica específica'
-            : exerciseGuideImages.containsKey(e['id']?.toString())
-                ? 'Ficha visual original orientativa; no reemplaza una demostración técnica'
-                : 'Sin animación verificada · esquema muscular estático',
+            : 'Muñeco esquemático · indica la región muscular, no el movimiento exacto',
             style: const TextStyle(color: muted, fontSize: 11)),
         Text(e['name'], style: Theme.of(d).textTheme.headlineMedium),
         Note('${e['name_en']} · ${e['muscle']} · ${e['equipment']}'),
@@ -789,6 +795,62 @@ class _Session extends ConsumerState<SessionPage> {
     });
   }
 
+  Future<void> removeExercise(Json move) async {
+    if (busy || w['ended_at'] != null) return;
+    final a = ref.read(stateProvider);
+    final exercise = a.catalog[move['exercise_id']];
+    final title = exercise?['name']?.toString() ?? 'este ejercicio';
+    final count = (move['sets'] as List).length;
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialog) => AlertDialog(
+        title: const Text('¿Quitar ejercicio?'),
+        content: Text('Se quitará "$title" y sus $count serie(s) de este entrenamiento. Los otros ejercicios se conservarán.'),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(dialog, false),
+              child: const Text('Conservar')),
+          FilledButton(onPressed: () => Navigator.pop(dialog, true),
+              child: const Text('Quitar ejercicio')),
+        ],
+      ),
+    );
+    if (confirmed != true || !mounted) return;
+    await change(() async {
+      removeExerciseFromDraft(w, move['id'].toString());
+      await a.save(w);
+      if (!(w['exercises'] as List).any((e) => (e['sets'] as List).isNotEmpty)) {
+        rest = null;
+        await a.db.put(a.owner, 'timer', widget.id, null);
+        await restAlerts.cancel(widget.id);
+      }
+    });
+  }
+
+  Future<void> discardWorkout() async {
+    if (busy || w['ended_at'] != null) return;
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialog) => AlertDialog(
+        title: const Text('¿Descartar entrenamiento?'),
+        content: const Text(
+          'Se eliminará esta sesión en curso, incluidos todos sus ejercicios y series. No se guardará en tu historial. Esta acción no se puede deshacer.'),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(dialog, false),
+              child: const Text('Seguir entrenando')),
+          FilledButton(onPressed: () => Navigator.pop(dialog, true),
+              child: const Text('Descartar entrenamiento')),
+        ],
+      ),
+    );
+    if (confirmed != true || !mounted) return;
+    final a = ref.read(stateProvider);
+    await change(() async {
+      await a.discardDraft(widget.id);
+      await restAlerts.cancel(widget.id);
+      if (mounted) context.go('/entrenar');
+    });
+  }
+
   @override
   Widget build(BuildContext c) {
     final a = ref.watch(stateProvider);
@@ -807,6 +869,12 @@ class _Session extends ConsumerState<SessionPage> {
       appBar: AppBar(
         title: Text(w['name']),
         actions: [
+          if (!finished)
+            IconButton(
+              tooltip: 'Descartar entrenamiento',
+              icon: const Icon(Icons.delete_outline, color: Colors.redAccent),
+              onPressed: busy ? null : discardWorkout,
+            ),
           PopupMenuButton<String>(
             onSelected: (v) async {
               if (v == 'routine') {
@@ -936,6 +1004,12 @@ class _Session extends ConsumerState<SessionPage> {
                             onPressed: () => technique(c, ex),
                             icon: const Icon(Icons.info_outline),
                           ),
+                          if (!finished)
+                            IconButton(
+                              tooltip: 'Quitar ejercicio completo',
+                              icon: const Icon(Icons.delete_outline, color: Colors.redAccent),
+                              onPressed: busy ? null : () => removeExercise(m),
+                            ),
                         ],
                       ),
                       Align(
@@ -1083,6 +1157,13 @@ class _Session extends ConsumerState<SessionPage> {
                       }),
                 icon: const Icon(Icons.check),
                 label: const Text('Finalizar entrenamiento'),
+              ),
+              const SizedBox(height: 6),
+              TextButton.icon(
+                onPressed: busy ? null : discardWorkout,
+                icon: const Icon(Icons.delete_outline, color: Colors.redAccent),
+                label: const Text('Descartar entrenamiento',
+                    style: TextStyle(color: Colors.redAccent)),
               ),
             ],
             const SizedBox(height: 20),

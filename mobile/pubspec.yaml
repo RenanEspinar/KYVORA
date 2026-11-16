@@ -1,7 +1,7 @@
 name: liftlog
 description: KYVORA — entrenamiento, progreso y comunidad autoalojada.
 publish_to: none
-version: 2.5.0+13
+version: 2.7.0+14
 environment:
   sdk: '>=3.9.0 <4.0.0'
 dependencies:
