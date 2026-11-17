@@ -29,6 +29,7 @@ part 'wellness.dart';
 
 Map<String, Map<String, dynamic>> exerciseMotions = {};
 Map<String, String> exerciseGuideImages = {};
+Map<String, String> exerciseIllustrations = {};
 
 // Color token kept as `lime` temporarily to avoid changing legacy widgets.
 const lime = Color(0xFF3B82F6),
@@ -76,6 +77,12 @@ Future<void> main() async {
     exerciseGuideImages = guides.map((k,v) => MapEntry(k.toString(), v.toString()));
   } catch (_) {
     exerciseGuideImages = {};
+  }
+  try {
+    final originals = jsonDecode(await rootBundle.loadString('assets/illustration_index.json')) as Map;
+    exerciseIllustrations = originals.map((k, v) => MapEntry(k.toString(), v.toString()));
+  } catch (_) {
+    exerciseIllustrations = {};
   }
   await restAlerts.init();
   final a = LogState(await Store.open(), Api());

@@ -1,7 +1,7 @@
 name: liftlog
 description: KYVORA — entrenamiento, progreso y comunidad autoalojada.
 publish_to: none
-version: 2.7.0+14
+version: 2.8.0+15
 environment:
   sdk: '>=3.9.0 <4.0.0'
 dependencies:
@@ -35,6 +35,8 @@ flutter:
   assets:
     - assets/guides/
     - assets/guide_index.json
+    - assets/illustrations/
+    - assets/illustration_index.json
     - assets/catalog.json
     - assets/levels.json
     - assets/maps/

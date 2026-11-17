@@ -65,6 +65,10 @@ jobs:
           assert index and all((Path('mobile') / p).exists() for p in index.values())
           print('Verified generated guide cards:',len(index))
           PYGUIDE
+      - name: Bind original illustrations to exact exercises
+        run: |
+          python scripts/build_illustration_index.py
+          python -m unittest discover -s scripts -p 'test_illustration_index.py'
       - name: Audit real visual coverage for every exercise
         run: |
           python -m unittest discover -s scripts -p 'test_visual_audit.py'
@@ -106,6 +110,8 @@ jobs:
         working-directory: mobile
       - name: Verify every exercise image packaged in the APK
         run: python scripts/audit_visual_assets.py --apk mobile/build/app/outputs/flutter-apk/app-release.apk --report reports/kyvora_visuals_apk.json
+      - name: Verify original illustrations packaged in APK
+        run: python scripts/build_illustration_index.py --apk mobile/build/app/outputs/flutter-apk/app-release.apk
       - name: Publish verified visual coverage reports
         uses: actions/upload-artifact@v4
         with:

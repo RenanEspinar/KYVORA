@@ -135,6 +135,20 @@ class _ExerciseMotionState extends State<ExerciseMotion> {
       visual = SvgPicture.asset(frames[index] as String,
         width: widget.width, height: widget.height, fit: BoxFit.contain,
         semanticsLabel: 'Secuencia ilustrativa: ${widget.exercise['name']}');
+    } else if (exerciseIllustrations.containsKey(widget.exercise['id']?.toString())) {
+      visual = Image.asset(exerciseIllustrations[widget.exercise['id']?.toString()]!,
+        width: widget.width, height: widget.height, fit: BoxFit.contain,
+        gaplessPlayback: true,
+        semanticLabel: 'Ilustración original de ${widget.exercise['name']}',
+        errorBuilder: (context, error, stackTrace) => SvgPicture.asset('assets/maps/arms.svg',
+          width: widget.width, height: widget.height, fit: BoxFit.contain));
+    } else if (exerciseGuideImages.containsKey(widget.exercise['id']?.toString())) {
+      visual = Image.asset(exerciseGuideImages[widget.exercise['id']?.toString()]!,
+        width: widget.width, height: widget.height, fit: BoxFit.contain,
+        gaplessPlayback: true,
+        semanticLabel: 'Ficha visual orientativa: ${widget.exercise['name']}',
+        errorBuilder: (context, error, stackTrace) => SvgPicture.asset('assets/maps/arms.svg',
+          width: widget.width, height: widget.height, fit: BoxFit.contain));
     } else {
       // Keep the original stylized mannequin visual language for movements
       // without a licensed, exercise-specific GIF or Flow SVG animation.
@@ -172,6 +186,10 @@ Future<void> technique(BuildContext c, Json e) => showModalBottomSheet(
         const SizedBox(height: 5),
         Text(exerciseMotions.containsKey(e['id']?.toString())
             ? 'Animación ilustrativa · consulta la técnica específica'
+            : exerciseIllustrations.containsKey(e['id']?.toString())
+            ? 'Ilustración original orientativa · verifica la ejecución'
+            : exerciseGuideImages.containsKey(e['id']?.toString())
+            ? 'Ficha visual orientativa · no sustituye la técnica específica'
             : 'Muñeco esquemático · indica la región muscular, no el movimiento exacto',
             style: const TextStyle(color: muted, fontSize: 11)),
         Text(e['name'], style: Theme.of(d).textTheme.headlineMedium),
